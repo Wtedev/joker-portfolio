@@ -345,9 +345,13 @@ h2{font-size:clamp(34px,4.6vw,60px);line-height:1.08;font-weight:700}
 .ph span{font-weight:700;font-size:clamp(18px,2.4vw,28px);color:rgba(255,255,255,.9);padding:20px;text-align:center;text-shadow:0 2px 14px rgba(0,0,0,.45)}
 
 /* ---------- work ---------- */
-.tabs{display:inline-flex;padding:5px;border-radius:999px;background:var(--glass-2);border:1px solid var(--line)}
-.tabs button{padding:10px 20px;border-radius:999px;color:var(--muted);font-weight:500;transition:background .4s,color .4s}
+.tabs{display:inline-flex;flex-wrap:wrap;gap:4px;padding:5px;border-radius:22px;background:var(--glass-2);border:1px solid var(--line);max-width:100%;justify-content:flex-end}
+.tabs button{padding:10px 16px;border-radius:999px;color:var(--muted);font-weight:500;font-size:14px;line-height:1.35;text-align:center;transition:background .4s,color .4s}
 .tabs button[aria-selected=true]{background:var(--ink);color:#08070C}
+@media (max-width:900px){
+  .tabs{width:100%;flex-direction:column;align-items:stretch;border-radius:18px}
+  .tabs button{width:100%;font-size:13.5px;padding:11px 14px;border-radius:14px}
+}
 .pgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
 .pcard{position:relative;display:block;text-align:start;border-radius:var(--r-xl);padding:10px;background:var(--glass-2);border:1px solid var(--line);transition:border-color .5s,transform .7s cubic-bezier(.2,.8,.2,1)}
 /* زر شفاف يغطي البطاقة: يحفظ HTML صالح مع بقاء العنوان h3 */
@@ -602,11 +606,12 @@ footer{padding:40px 0 calc(30px + env(safe-area-inset-bottom,0px));color:var(--f
       <div class="sec-head">
         <h2 data-t="workH"></h2>
         <div class="tabs" role="tablist">
-          <button type="button" role="tab" id="tab-projects" aria-controls="work-body" data-tab="projects" data-t="projects"></button>
-          <button type="button" role="tab" id="tab-shots" aria-controls="work-body" data-tab="shots" data-t="shots"></button>
+          <button type="button" role="tab" id="tab-identity" aria-controls="work-body" data-tab="identity" data-t="tabIdentity"></button>
+          <button type="button" role="tab" id="tab-marketing" aria-controls="work-body" data-tab="marketing" data-t="tabMarketing"></button>
+          <button type="button" role="tab" id="tab-content" aria-controls="work-body" data-tab="content" data-t="tabContent"></button>
         </div>
       </div>
-      <div id="work-body" role="tabpanel" aria-labelledby="tab-projects"></div>
+      <div id="work-body" role="tabpanel" aria-labelledby="tab-identity"></div>
     </div>
   </section>
 
@@ -692,11 +697,19 @@ try{S=JSON.parse(DATA_EL.textContent);}catch(e){S={};}
   ['projects','works','services','contacts'].forEach(k=>{if(!Array.isArray(S[k]))S[k]=[];});
   S.projects.forEach(p=>{if(!Array.isArray(p.images))p.images=[];});
   ['projects','works','services','contacts'].forEach(k=>S[k].forEach(x=>{if(!x.id)x.id=uid();}));
+  const inferGroup=x=>{
+    const c=String(x.category||x.title||'');
+    if(/محتوى|نص|كتابة|مقال|منشور|سوشال/.test(c)) return 'content';
+    if(/حمل|إعلان|تسويق|استراتيج/.test(c)) return 'marketing';
+    return 'identity';
+  };
+  S.projects.forEach(p=>{if(!p.group) p.group=inferGroup(p);});
+  S.works.forEach(w=>{if(!w.group) w.group=inferGroup(w);});
 })();
 
 const T={
- ar:{about:'عنّي',work:'أعمالي',services:'خدماتي',contact:'تواصل',seeWork:'شوف أعمالي',talk:'تواصل معي',aboutH:'عنّي',featured:'أحدث مشروع',workH:'أعمالي',projects:'مشاريع',shots:'أعمال منفصلة',servicesH:'وش أقدر أسوي لك',viewing:'يعرض الآن',client:'العميل',browse:'استعرض',next:'التالي',count:'مشاريع منشورة',dash:'لوحة التحكم',empty:'ما فيه شي هنا بعد',rights:'جميع الحقوق محفوظة',ping:'دق عليّ',moreStory:'تبي اشرح لك وشلون يعني؟',moreShort:'اشرح لك',moreSure:'متأكد ما تبي اشرح لك؟',lessStory:'زبط، فهمت'},
- en:{about:'About',work:'Work',services:'Services',contact:'Contact',seeWork:'See my work',talk:'Get in touch',aboutH:'About',featured:'Latest project',workH:'Selected work',projects:'Projects',shots:'Single works',servicesH:'What I can do for you',viewing:'Now showing',client:'Client',browse:'Browse',next:'Next',count:'published projects',dash:'Dashboard',empty:'Nothing here yet',rights:'All rights reserved',ping:'Ping me',moreStory:'Want me to unpack that?',moreShort:'Let me explain',moreSure:'Sure you don’t want the story?',lessStory:'Got it, fold it'}
+ ar:{about:'عنّي',work:'أعمالي',services:'خدماتي',contact:'تواصل',seeWork:'شوف أعمالي',talk:'تواصل معي',aboutH:'عنّي',featured:'أحدث مشروع',workH:'أعمالي',projects:'مشاريع',shots:'أعمال منفصلة',tabIdentity:'هويات وتصاميم وإتجاهات بصرية',tabMarketing:'خطط وحملات واستراتيجيات تسويقية',tabContent:'محتوى ونصوص إبداعية',servicesH:'وش أقدر أسوي لك',viewing:'يعرض الآن',client:'العميل',browse:'استعرض',next:'التالي',count:'مشاريع منشورة',dash:'لوحة التحكم',empty:'ما فيه شي هنا بعد',rights:'جميع الحقوق محفوظة',ping:'دق عليّ',moreStory:'تبي اشرح لك وشلون يعني؟',moreShort:'اشرح لك',moreSure:'متأكد ما تبي اشرح لك؟',lessStory:'زبط، فهمت'},
+ en:{about:'About',work:'Work',services:'Services',contact:'Contact',seeWork:'See my work',talk:'Get in touch',aboutH:'About',featured:'Latest project',workH:'Selected work',projects:'Projects',shots:'Single works',tabIdentity:'Identities, design & visual direction',tabMarketing:'Plans, campaigns & marketing strategy',tabContent:'Creative content & copy',servicesH:'What I can do for you',viewing:'Now showing',client:'Client',browse:'Browse',next:'Next',count:'published projects',dash:'Dashboard',empty:'Nothing here yet',rights:'All rights reserved',ping:'Ping me',moreStory:'Want me to unpack that?',moreShort:'Let me explain',moreSure:'Sure you don’t want the story?',lessStory:'Got it, fold it'}
 };
 const t=k=>(T[S.site.dir==='ltr'?'en':'ar'])[k]||k;
 
@@ -1101,22 +1114,24 @@ function renderShowcase(){
   $('#fc3').onclick=()=>openProject(nx.id);
 }
 
-let workTab='projects';
+let workTab='identity';
+const GROUP_OPTS=[['identity','هويات وتصاميم وإتجاهات بصرية'],['marketing','خطط وحملات واستراتيجيات تسويقية'],['content','محتوى ونصوص إبداعية']];
 function renderWork(){
   $$('.tabs [data-tab]').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===workTab));
   const body=$('#work-body');
-  body.setAttribute('aria-labelledby',workTab==='projects'?'tab-projects':'tab-shots');
-  if(workTab==='projects'){
-    setHTML(body,S.projects.length?`<div class="pgrid">${S.projects.map(p=>`
+  body.setAttribute('aria-labelledby','tab-'+workTab);
+  const ps=S.projects.filter(p=>(p.group||'identity')===workTab);
+  const ws=S.works.filter(w=>(w.group||'identity')===workTab);
+  let html='';
+  if(ps.length) html+=`<div class="pgrid">${ps.map(p=>`
       <article class="pcard">
         <div class="pmedia">${media(p)}</div>
         <div class="pinfo"><div><h3 id="pt-${esc(p.id)}">${esc(p.title)}</h3><p><span>${esc(p.client)}</span><span>${esc(p.year)}</span></p></div>${p.category?`<span class="tag">${esc(p.category)}</span>`:''}</div>
         <button class="hit" type="button" data-open="${esc(p.id)}" aria-labelledby="pt-${esc(p.id)}"></button>
-      </article>`).join('')}</div>`:`<div class="empty">${t('empty')}</div>`);
-  }else{
-    setHTML(body,S.works.length?`<div class="shots">${S.works.map(w=>`
-      <figure class="shot">${media(w,'image')}<figcaption><b id="wt-${esc(w.id)}">${esc(w.title)}</b><span>${esc(w.category)}</span></figcaption><button class="hit" type="button" data-shot="${esc(w.id)}" aria-labelledby="wt-${esc(w.id)}"></button></figure>`).join('')}</div>`:`<div class="empty">${t('empty')}</div>`);
-  }
+      </article>`).join('')}</div>`;
+  if(ws.length) html+=`<div class="shots"${ps.length?' style="margin-top:28px"':''}>${ws.map(w=>`
+      <figure class="shot">${media(w,'image')}<figcaption><b id="wt-${esc(w.id)}">${esc(w.title)}</b><span>${esc(w.category)}</span></figcaption><button class="hit" type="button" data-shot="${esc(w.id)}" aria-labelledby="wt-${esc(w.id)}"></button></figure>`).join('')}</div>`;
+  setHTML(body,html||`<div class="empty">${t('empty')}</div>`);
 }
 
 function renderServices(){
@@ -1342,7 +1357,7 @@ function renderDash(){
   else if(dtab==='projects'){
     h=`<h3>المشاريع</h3><p class="hint">المشروع المميز يظهر داخل الجوال ثلاثي الأبعاد، وأول مشروع بالترتيب ياخذ العرض الكامل.</p>`+
     S.projects.map((p,i)=>`<details class="item" data-id="${p.id}" ${openItems.has(p.id)?'open':''}><summary><span class="thumb">${media(p)}</span><span class="grow">${esc(p.title||'مشروع بدون اسم')}</span>${p.featured?'<span class="tag">مميز</span>':''}${ctrl('projects.'+i)}</summary>
-      <div class="inner fgrid">${F.text('اسم المشروع',`projects.${i}.title`)}${F.text('العميل',`projects.${i}.client`)}${F.text('السنة',`projects.${i}.year`)}${F.text('التصنيف',`projects.${i}.category`)}
+      <div class="inner fgrid">${F.text('اسم المشروع',`projects.${i}.title`)}${F.text('العميل',`projects.${i}.client`)}${F.text('السنة',`projects.${i}.year`)}${F.sel('التبويب',`projects.${i}.group`,GROUP_OPTS)}${F.text('التصنيف',`projects.${i}.category`)}
       ${F.area('الوصف',`projects.${i}.description`,4)}
       ${F.chk('اعرضه كمشروع مميز داخل الجوال',`projects.${i}.featured`,'full')}
       <div class="f full"><span>صورة الغلاف</span><div class="imgs">${p.cover?imgBox(p.cover,`projects.${i}.cover`):''}${upl(`projects.${i}.cover`,'set',p.cover?'تغيير':'ارفع غلاف')}</div></div>
@@ -1351,7 +1366,7 @@ function renderDash(){
   }
   else if(dtab==='works'){
     h=`<h3>الأعمال المنفصلة</h3><p class="hint">تقدر ترفع أكثر من صورة مرة وحدة، كل صورة تصير عمل مستقل.</p><div class="wgrid">`+
-    S.works.map((w,i)=>`<div class="wcard">${imgBox(w.image,w.image?`works.${i}.image`:'')}<div class="imgs" style="margin:0">${upl(`works.${i}.image`,'set',w.image?'تغيير الصورة':'ارفع صورة')}</div>${F.text('العنوان',`works.${i}.title`)}${F.text('التصنيف',`works.${i}.category`)}${ctrl('works.'+i)}</div>`).join('')+
+    S.works.map((w,i)=>`<div class="wcard">${imgBox(w.image,w.image?`works.${i}.image`:'')}<div class="imgs" style="margin:0">${upl(`works.${i}.image`,'set',w.image?'تغيير الصورة':'ارفع صورة')}</div>${F.text('العنوان',`works.${i}.title`)}${F.sel('التبويب',`works.${i}.group`,GROUP_OPTS)}${F.text('التصنيف',`works.${i}.category`)}${ctrl('works.'+i)}</div>`).join('')+
     `</div><div style="margin-top:14px">${upl('works','new-works','+ ارفع أعمال جديدة','image/*',true).replace('class="upl"','class="add-btn"')}</div>`;
   }
   else if(dtab==='services'){
@@ -1393,7 +1408,7 @@ dashBody.addEventListener('click',async e=>{
   e.preventDefault(); e.stopPropagation();
   const a=b.dataset.act, p=b.dataset.path;
   if(a==='upload'){pending={p,mode:b.dataset.mode};fileIn.accept=b.dataset.accept;fileIn.multiple=b.hasAttribute('data-multi');fileIn.value='';fileIn.click();return;}
-  if(a==='add-project'){const id=uid();S.projects.push({id,title:'مشروع جديد',client:'',year:String(new Date().getFullYear()),category:'',description:'',cover:'',images:[],hue:Math.floor(Math.random()*360),featured:!S.projects.length});openItems.add(id);}
+  if(a==='add-project'){const id=uid();S.projects.push({id,title:'مشروع جديد',client:'',year:String(new Date().getFullYear()),category:'',group:'identity',description:'',cover:'',images:[],hue:Math.floor(Math.random()*360),featured:!S.projects.length});openItems.add(id);}
   if(a==='add-service') S.services.push({id:uid(),title:'خدمة جديدة',desc:'',icon:'spark'});
   if(a==='add-contact') S.contacts.push({id:uid(),type:'website',label:'موقعي',url:''});
   if(a==='del'||a==='up'||a==='down'){
@@ -1416,7 +1431,7 @@ fileIn.addEventListener('change',async()=>{
       if(mode==='memoji'){
         const r=await prep(f,900,true); S.site.memoji=r.url; S.site.memojiType=r.type;
       }else if(mode==='new-works'){
-        const r=await prep(f,1600); S.works.push({id:uid(),title:f.name.replace(/\.[^.]+$/,''),category:'',image:r.url,hue:260});
+        const r=await prep(f,1600); S.works.push({id:uid(),title:f.name.replace(/\.[^.]+$/,''),category:'',group:'identity',image:r.url,hue:260});
       }else if(mode==='push'){
         const r=await prep(f,1800); const arr=getP(p); if(Array.isArray(arr)) arr.push(r.url);
       }else{
