@@ -347,25 +347,36 @@ h2{font-size:clamp(34px,4.6vw,60px);line-height:1.08;font-weight:700}
 /* ---------- work ---------- */
 .tabs{display:inline-flex;flex-wrap:wrap;gap:4px;padding:5px;border-radius:22px;background:var(--glass-2);border:1px solid var(--line);max-width:100%;justify-content:flex-end}
 .tabs button{padding:10px 16px;border-radius:999px;color:var(--muted);font-weight:500;font-size:14px;line-height:1.35;text-align:center;transition:background .4s,color .4s}
+.tabs button.tab-main{color:var(--ink);font-weight:650}
 .tabs button[aria-selected=true]{background:var(--ink);color:#08070C}
 @media (max-width:900px){
   .tabs{width:100%;flex-direction:column;align-items:stretch;border-radius:18px}
   .tabs button{width:100%;font-size:13.5px;padding:11px 14px;border-radius:14px}
 }
 .pgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
-.pcard{position:relative;display:block;text-align:start;border-radius:var(--r-xl);padding:10px;background:var(--glass-2);border:1px solid var(--line);transition:border-color .5s,transform .7s cubic-bezier(.2,.8,.2,1)}
-/* زر شفاف يغطي البطاقة: يحفظ HTML صالح مع بقاء العنوان h3 */
-.hit{position:absolute;inset:0;z-index:3;border-radius:inherit}
+.pcard{position:relative;display:block;text-align:start;border-radius:var(--r-xl);padding:12px;background:var(--glass-2);border:1px solid var(--line);transition:border-color .5s,transform .7s cubic-bezier(.2,.8,.2,1)}
+/* زر شفاف يغطي البطاقة كاملة عشان أي ضغطة تفتح المشروع */
+.hit{position:absolute;inset:0;z-index:3;border-radius:inherit;cursor:pointer}
 .pcard:hover{border-color:rgba(185,166,255,.3);transform:translateY(-4px)}
 .pcard:first-child{grid-column:1/-1}
-.pmedia{aspect-ratio:16/10;border-radius:28px;overflow:hidden}
+.pmedia{position:relative;aspect-ratio:16/10;border-radius:28px;overflow:hidden}
 .pcard:first-child .pmedia{aspect-ratio:21/9}
 .pmedia img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
+.pmedia::after{content:"";position:absolute;inset:auto 0 0;height:46%;background:linear-gradient(to top,rgba(8,7,12,.62),transparent);pointer-events:none;opacity:.9;transition:opacity .45s}
 .pcard:hover .pmedia img{transform:scale(1.04)}
-.pinfo{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:18px 14px 10px}
+.pcard:hover .pmedia::after{opacity:1}
+.pinfo{display:flex;flex-direction:column;align-items:flex-start;gap:0;padding:16px 10px 12px}
 .pinfo h3{font-size:22px;font-weight:600;line-height:1.3}
-.pinfo p{color:var(--muted);font-size:15px;display:flex;gap:14px}
-.tag{font-size:13px;padding:7px 14px;border-radius:99px;border:1px solid var(--line);color:#CFCAE0;white-space:nowrap}
+.mpills{display:flex;flex-wrap:wrap;align-items:center;margin-top:8px;color:var(--muted);font-size:14.5px;line-height:1.5}
+.mpills span+span::before{content:"";display:inline-block;width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.45;margin:0 10px;vertical-align:middle}
+.pgo{position:absolute;z-index:4;right:12px;bottom:12px;display:inline-flex;align-items:center;gap:8px;padding:4px 14px 4px 4px;padding-inline:4px 14px;border-radius:16px;background:rgba(14,12,20,.78);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);color:#F4F2FA;font-size:13px;font-weight:650;letter-spacing:.01em;white-space:nowrap;cursor:pointer;transition:background .3s,color .3s,border-color .3s,transform .4s cubic-bezier(.2,.8,.2,1),box-shadow .4s}
+.pgo-ic{width:28px;height:28px;border-radius:11px;display:grid;place-items:center;background:rgba(255,255,255,.14);flex:none;transition:background .3s,color .3s}
+.pgo:hover,.pgo:focus-visible{background:#F4F2FA;color:#08070C;border-color:#F4F2FA;transform:scale(1.05);box-shadow:0 10px 28px rgba(0,0,0,.28)}
+.pgo:hover .pgo-ic,.pgo:focus-visible .pgo-ic{background:rgba(8,7,12,.1)}
+.pgo .ic{flex-shrink:0}
+.tag{font-size:12.5px;padding:6px 12px;border-radius:99px;border:1px solid var(--line);color:#CFCAE0;white-space:nowrap}
+.tags{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-start;margin-top:10px;max-width:100%}
+.tag-accent{border-color:rgba(185,166,255,.35);color:#E4D9FF;background:rgba(185,166,255,.08)}
 .shots{columns:3 280px;column-gap:18px}
 .shot{display:block;width:100%;margin-bottom:18px;break-inside:avoid;border-radius:var(--r-lg);overflow:hidden;position:relative;border:1px solid var(--line);text-align:start}
 .shot img{width:100%}
@@ -374,7 +385,81 @@ h2{font-size:clamp(34px,4.6vw,60px);line-height:1.08;font-weight:700}
 .shot:hover figcaption,.shot:has(.hit:focus-visible) figcaption{opacity:1;transform:none}
 .shot figcaption span{color:var(--muted)}
 .empty{padding:60px 20px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:var(--r-lg)}
+@media (max-width:900px){
+  .pcard{border-radius:16px;padding:8px}
+  .pmedia{border-radius:12px}
+  .shot{border-radius:16px}
+  .pgo{right:8px;bottom:8px;padding:3px 12px 3px 3px;padding-inline:3px 12px;font-size:12px;gap:6px;border-radius:14px}
+  .pgo-ic{width:24px;height:24px;border-radius:9px}
+  .pinfo{padding:12px 6px 8px}
+  .pinfo h3{font-size:17px}
+  .mpills{margin-top:6px;font-size:13px}
+  .pgrid{gap:14px}
+  .modal{padding:8px}
+  .modal-card{border-radius:16px;padding:6px;max-height:92vh}
+  .modal-card .pmedia{border-radius:12px;aspect-ratio:16/10}
+  .m-body{padding:10px 4px 8px}
+  .m-body h3{font-size:20px;line-height:1.3}
+  .m-facts{grid-template-columns:1fr;border-radius:14px;margin:10px 0 12px}
+  .m-fact{display:grid;grid-template-columns:auto auto 1fr;align-items:center;gap:8px 10px;border-inline-start:0;border-top:1px solid var(--line);padding:11px 12px}
+  .m-fact:first-child{border-top:0}
+  .m-fact>div{display:contents}
+  .m-fact small{font-size:12px}
+  .m-fact b{font-size:13.5px;text-align:end;justify-self:end}
+  .m-body p{font-size:13.5px;line-height:1.65}
+  .gallery{gap:10px;margin-top:10px}
+  .g-item{gap:4px}
+  .g-item img,.gallery img{border-radius:12px}
+  .g-cap{gap:8px;padding:0}
+  .g-num{font-size:10px}
+  .g-lab b{font-size:13px}
+  .g-lab span{font-size:11px}
+  .x-btn{width:34px;height:34px}
+  .lb img{border-radius:14px}
+}
 @media (max-width:760px){.pgrid{grid-template-columns:1fr}.pcard:first-child .pmedia{aspect-ratio:16/10}.shot figcaption{opacity:1;transform:none}}
+
+/* ---------- sticker space ---------- */
+.stk-sec{padding-bottom:clamp(70px,8vw,110px)}
+.stk-head{display:grid;gap:12px;margin-bottom:26px;justify-items:start}
+.stk-head .lead{margin:0;max-width:46ch}
+.stk-kicker{display:inline-flex;align-items:center;gap:8px;color:var(--lilac);font-size:13px;font-weight:700;letter-spacing:.04em}
+.stk-kicker i{width:7px;height:7px;border-radius:50%;background:var(--lilac);box-shadow:0 0 0 4px rgba(185,166,255,.16)}
+.stk-head h2{position:relative;font-size:clamp(40px,6.2vw,76px);font-weight:800;line-height:1.12;letter-spacing:-.03em;padding-bottom:.28em;color:transparent;-webkit-text-fill-color:transparent;-webkit-background-clip:text;background-clip:text;background-image:linear-gradient(270deg,#FFFFFF 0%,#F4F0FF 28%,#D8CAFF 58%,#FFC2D6 100%);filter:drop-shadow(0 10px 28px rgba(109,74,255,.28));transform:rotate(-1.1deg);transform-origin:right center}
+[dir=ltr] .stk-head h2{background-image:linear-gradient(90deg,#FFFFFF 0%,#F4F0FF 28%,#D8CAFF 58%,#FFC2D6 100%);transform-origin:left center}
+.stk-head h2::after{content:"";position:absolute;inset-inline-start:0;bottom:.08em;width:4.6em;height:9px;border-radius:99px;background:linear-gradient(90deg,var(--lilac),#C07BFF 55%,var(--rose));transform:rotate(-2.4deg);box-shadow:0 8px 22px -8px rgba(109,74,255,.8);opacity:.95}
+.stk-space{position:relative;border-radius:28px;border:1px solid var(--line);background:rgba(18,16,28,.72);overflow:hidden;min-height:min(760px,78vh);height:min(760px,78vh);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 30px 80px -40px rgba(109,74,255,.4)}
+.stk-chrome{position:absolute;inset:14px 14px auto;z-index:6;display:flex;align-items:center;gap:10px;pointer-events:none}
+.stk-chrome b{font-size:13px;font-weight:750;letter-spacing:.02em}
+.stk-chrome small{margin-inline-start:auto;color:var(--muted);font-size:12px;font-weight:550}
+.stk-dots{display:flex;gap:6px}
+.stk-dots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.16)}
+.stk-dots i:first-child{background:#FF6B8A}
+.stk-dots i:nth-child(2){background:#F4C9B5}
+.stk-dots i:nth-child(3){background:#7DFFD2}
+.stk-grid{position:absolute;inset:0;direction:ltr;touch-action:none;cursor:default;
+  background-color:#0C0A14;
+  background-image:
+    linear-gradient(rgba(185,166,255,.07) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(185,166,255,.07) 1px,transparent 1px),
+    radial-gradient(120% 80% at 80% -10%,rgba(109,74,255,.18),transparent 55%),
+    radial-gradient(90% 70% at -10% 110%,rgba(255,92,147,.1),transparent 50%);
+  background-size:48px 48px,48px 48px,auto,auto;
+}
+.stk-bit{position:absolute;left:0;top:0;width:var(--s,96px);z-index:1;padding:0;border:0;background:none;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
+.stk-face{display:block;transform:rotate(var(--r,0deg));transform-origin:center;filter:drop-shadow(3px 10px 0 rgba(0,0,0,.22)) drop-shadow(0 16px 18px rgba(0,0,0,.4));animation:stk-breathe 9s ease-in-out infinite;will-change:transform}
+.stk-bit img{width:100%;height:auto;display:block;pointer-events:none;-webkit-user-drag:none}
+.stk-bit.hold{z-index:24;cursor:grabbing}
+.stk-bit.hold .stk-face{animation:none;transform:rotate(var(--r,0deg)) scale(1.08);filter:drop-shadow(8px 22px 0 rgba(0,0,0,.16)) drop-shadow(0 28px 28px rgba(109,74,255,.32))}
+.anim-off .stk-face{animation-play-state:paused}
+@keyframes stk-breathe{0%,100%{transform:rotate(var(--r,0deg)) scale(1)}50%{transform:rotate(var(--r,0deg)) scale(1.045)}}
+@media (max-width:900px){
+  .stk-space{border-radius:20px;min-height:min(620px,74vh);height:min(620px,74vh)}
+  .stk-grid{background-size:36px 36px,36px 36px,auto,auto}
+  .stk-chrome{inset:10px 10px auto}
+  .stk-chrome small{display:none}
+}
+.lb.stk-lb .modal-card img{max-height:78vh;max-width:min(92vw,720px);width:auto;height:auto;border-radius:0;background:none;filter:drop-shadow(0 24px 40px rgba(0,0,0,.45))}
 
 /* ---------- services bento ---------- */
 .bento{display:grid;grid-template-columns:1.15fr 1fr 1fr;grid-auto-rows:minmax(230px,auto);gap:16px}
@@ -420,17 +505,31 @@ footer{padding:40px 0 calc(30px + env(safe-area-inset-bottom,0px));color:var(--f
 /* ---------- modal / lightbox ---------- */
 /* visibility:hidden يمنع المتصفح من الاحتفاظ بطبقة backdrop-filter بحجم الشاشة وهي مخفية */
 /* visibility بدون انتقال عند الفتح (وإلا يفضل مخفياً أول إطار فما يقبل التركيز)، وبتأخير عند الإغلاق حتى يكتمل التلاشي */
-.modal{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:20px;background:rgba(0,0,0,.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .4s,visibility 0s .4s}
+.modal{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:12px;background:rgba(0,0,0,.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .4s,visibility 0s .4s}
 .modal.open{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .4s,visibility 0s}
-.modal-card{width:min(980px,100%);max-height:88vh;overflow:auto;border-radius:var(--r-xl);background:rgba(18,17,24,.92);border:1px solid var(--line);padding:14px;transform:translateY(30px) scale(.98);transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.modal-card{width:min(980px,100%);max-height:88vh;overflow:auto;border-radius:var(--r-xl);background:rgba(18,17,24,.92);border:1px solid var(--line);padding:8px;transform:translateY(30px) scale(.98);transition:transform .6s cubic-bezier(.2,.8,.2,1)}
 .modal.open .modal-card{transform:none}
 .modal-card .pmedia{aspect-ratio:16/9}
-.m-body{padding:24px 16px 10px}
+.m-body{padding:14px 8px 8px}
 .m-body h3{font-size:clamp(26px,3vw,38px);line-height:1.2;font-weight:700}
-.m-meta{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 18px}
+.m-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:16px 0 18px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:rgba(255,255,255,.03)}
+.m-fact{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;border-inline-start:1px solid var(--line);min-width:0}
+.m-fact:first-child{border-inline-start:0}
+.m-fact .ic{color:var(--lilac);flex:none;margin-top:2px}
+.m-fact>div{display:grid;gap:4px;min-width:0}
+.m-fact small{font-size:11px;color:var(--muted);font-weight:550}
+.m-fact b{font-size:15px;font-weight:650;line-height:1.4;color:var(--ink)}
 .m-body p{color:#CFCAE0;max-width:68ch;white-space:pre-line}
-.gallery{display:grid;gap:12px;margin-top:22px}
+.gallery{display:grid;gap:14px;margin-top:14px}
 .gallery img{border-radius:22px;width:100%}
+.g-item{display:grid;gap:6px}
+.g-item img{border-radius:22px;width:100%;border:1px solid var(--line)}
+.g-cap{display:flex;align-items:baseline;gap:10px;padding:0 2px;order:-1}
+.g-num{font-size:12px;letter-spacing:.14em;color:var(--lilac);font-weight:650;min-width:2.2em}
+.g-lab{display:grid;gap:1px}
+.g-lab b{font-size:15px;font-weight:650;color:var(--ink)}
+.g-lab span{font-size:12.5px;color:var(--muted)}
+.m-kicker{font-size:12px;letter-spacing:.16em;color:var(--lilac);margin-bottom:4px;font-weight:650}
 .x-btn{position:sticky;top:0;float:inline-end;z-index:2;width:42px;height:42px;border-radius:50%;background:rgba(40,38,48,.85);border:1px solid var(--line);display:grid;place-items:center}
 .lb img{max-height:84vh;border-radius:24px;width:auto;margin:auto}
 .lb .modal-card{background:none;border:0;padding:0;width:auto;overflow:visible}
@@ -512,6 +611,7 @@ footer{padding:40px 0 calc(30px + env(safe-area-inset-bottom,0px));color:var(--f
     <nav class="nav-links" aria-label="الأقسام">
       <a href="#about" data-t="about"></a>
       <a href="#work" data-t="work"></a>
+      <a href="#stickers" data-t="stickers"></a>
       <a href="#services" data-t="services"></a>
     </nav>
     <a href="#contact" class="nav-cta" data-t="contact"></a>
@@ -606,12 +706,31 @@ footer{padding:40px 0 calc(30px + env(safe-area-inset-bottom,0px));color:var(--f
       <div class="sec-head">
         <h2 data-t="workH"></h2>
         <div class="tabs" role="tablist">
+          <button type="button" role="tab" class="tab-main" id="tab-featured" aria-controls="work-body" data-tab="featured" data-t="tabFeatured"></button>
           <button type="button" role="tab" id="tab-identity" aria-controls="work-body" data-tab="identity" data-t="tabIdentity"></button>
           <button type="button" role="tab" id="tab-marketing" aria-controls="work-body" data-tab="marketing" data-t="tabMarketing"></button>
           <button type="button" role="tab" id="tab-content" aria-controls="work-body" data-tab="content" data-t="tabContent"></button>
         </div>
       </div>
-      <div id="work-body" role="tabpanel" aria-labelledby="tab-identity"></div>
+      <div id="work-body" role="tabpanel" aria-labelledby="tab-featured"></div>
+    </div>
+  </section>
+
+  <section class="sec stk-sec" id="stickers">
+    <div class="wrap">
+      <div class="stk-head">
+        <p class="stk-kicker"><i></i><span data-t="stickersFrom"></span></p>
+        <h2 data-t="stickersH"></h2>
+        <p class="lead" data-t="stickersLead"></p>
+      </div>
+      <div class="stk-space" id="stk-space">
+        <div class="stk-chrome">
+          <span class="stk-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <b data-t="stickersSpace"></b>
+          <small data-t="stickersHint"></small>
+        </div>
+        <div class="stk-grid" id="stk-grid" role="application" aria-label="فضاء الستيكرز"></div>
+      </div>
     </div>
   </section>
 
@@ -672,7 +791,7 @@ footer{padding:40px 0 calc(30px + env(safe-area-inset-bottom,0px));color:var(--f
 <input type="file" id="file-in" hidden data-own>
 <div class="toast" id="toast" data-own></div>
 
-<script type="application/json" id="pf-data" data-own>{"site":{"dir":"rtl","name":"جوكر","role":"جوكر إبداعي","hello":"متاح لمشاريع جديدة","headline":"جوكر\nومصمم إبداعي","intro":"مصمم إبداعي، أحوّل أفكار العلامات التجارية لتجارب بصرية واضحة وجريئة، من الهوية إلى الحملة إلى الشاشة.","bio":"مبدعة .. أبني اتجاهات واستراتيجيات بصرية تجذبك وتعجبك، وتوافق توجهاتك وأهم شي .. توصل أفكارك.\n+++\nأحب أبني هويات للحملات والبراندات وأشتغل على منشورات، أعرف للمطبوعات بس نتهاوش شوي، و**أموووووووت** بالإلستريشنز والواجهات والستيكرز.\n\nومو بس أصمم أنا **جوكر** ..\n\nلي بالتسويق خصوصاً متاجر **سلة** — ذولي اشتغلت عليهم سنين. أربط البكسلز وأطلق حملات وأحسّن الظهور بمحركات البحث. أشتغل على أدوات قوقل وأدوات الترويج وسيرش بعد.\n\nوابني خطط تسويقية وأحط كي بي آيز بس أتهاوش مع العملاء .. أحياناً **يعصبوني**.\n\nوما يحتاج أقول .. إني أكتب محتوى وأدقق نصوص. خلاص شكلي **أفتح شركة**.\n\nدقيقة ترا تخصصي حاسب و**أبرمج**   و ....... ولا أقولك دق عليّ أعلمك","facts":["أصمم إتجاهات بصرية للبراندات والحملات وأصمم منشورات ومطبوعات والستريشنز من الصفر","أبني حملات واستراتيجيات تسويقية رهيبة بعد ما أسوي دراسات للسوق وأروج وأربط أدوات التتبع وأحسن الظهور بمحركات البحث.","أكتب محتوى ونصوص إبداعية تلامس المستخدم وتفهم احتياجاته","أبرمج وأبني مواقع وأنظمة"],"location":"القصيم، بريدة","available":true,"memoji":"memoji.webp","memojiType":"image","ctaBold":"ودك نسوي","ctaScript":"شي كرييتف","ctaLine":"عندك فكرة، علامة جديدة، أو حملة قريبة؟ أرسل لي وأرجع لك خلال يوم.","ctaButton":"ابدأ مشروعك","ctaEmail":"hello@example.com","givenName":"لمى المشيقح"},"projects":[{"id":"p1","title":"هوية مقهى نَوى","client":"نَوى","year":"2026","category":"هوية بصرية","summary":"هوية كاملة لمقهى مختص","description":"بناء هوية بصرية كاملة: الشعار، الألوان، التغليف، ولافتات الفرع.\nالتحدي كان هوية دافية تشتغل على كوب صغير وعلى واجهة كبيرة.","cover":"","images":[],"hue":265,"featured":true},{"id":"p2","title":"حملة رمضان","client":"علامة عطور","year":"2026","category":"حملة إعلانية","summary":"","description":"حملة موسمية متكاملة للسوشال والمتاجر.","cover":"","images":[],"hue":18,"featured":false},{"id":"p3","title":"تطبيق فعاليات","client":"منصة حجوزات","year":"2025","category":"واجهات","summary":"","description":"تصميم تجربة حجز الفعاليات من البحث حتى الدفع.","cover":"","images":[],"hue":195,"featured":false}],"works":[{"id":"w1","title":"بوستر معرض","category":"بوستر","image":"","hue":280},{"id":"w2","title":"منشورات اليوم الوطني","category":"سوشال","image":"","hue":150},{"id":"w3","title":"غلاف كتاب","category":"طباعة","image":"","hue":30},{"id":"w4","title":"إعلان منتج","category":"إعلان","image":"","hue":220},{"id":"w5","title":"تغليف","category":"تغليف","image":"","hue":330},{"id":"w6","title":"شعار","category":"شعار","image":"","hue":250}],"services":[{"id":"s1","title":"بناء الهويات البصرية","desc":"شعار ونظام بصري متكامل يشتغل بثبات على كل نقطة تواصل.","icon":"layers"},{"id":"s2","title":"بناء الخطط والاستراتيجيات التسويقية","desc":"أبني خطط تسويقية ودراسات سوق وكي بي آيز تربط الفكرة بالنتيجة.","icon":"spark"},{"id":"s3","title":"إطلاق الحملات الترويجية","desc":"من الفكرة للإطلاق: حملات ترويج وتتبع وتحسين ظهور.","icon":"megaphone"},{"id":"s4","title":"كتابة المحتوى والنصوص الإبداعية","desc":"أكتب محتوى ونصوص إبداعية تلامس المستخدم وتفهم احتياجاته","icon":"type"},{"id":"s5","title":"بناء الواجهات وتطوير وتهيئة الأنظمة","desc":"مواقع وأنظمة سهلة، أبرمجها وأهيئها عشان تشتغل بسلاسة.","icon":"phone"}],"contacts":[{"id":"c2","type":"whatsapp","label":"واتساب","url":"https://wa.me/966580892260"},{"id":"c1","type":"email","label":"hello@example.com","url":"hello@example.com"},{"id":"c3","type":"instagram","label":"انستقرام","url":"https://instagram.com/"},{"id":"c4","type":"behance","label":"بيهانس","url":"https://behance.net/"},{"id":"c5","type":"linkedin","label":"لينكدإن","url":"https://linkedin.com/"}]}</script>
+<script type="application/json" id="pf-data" data-own>{"site":{"dir":"rtl","name":"جوكر","role":"جوكر إبداعي","hello":"متاح لمشاريع جديدة","headline":"جوكر\nومصمم إبداعي","intro":"مصمم إبداعي، أحوّل أفكار العلامات التجارية لتجارب بصرية واضحة وجريئة، من الهوية إلى الحملة إلى الشاشة.","bio":"مبدعة .. أبني اتجاهات واستراتيجيات بصرية تجذبك وتعجبك، وتوافق توجهاتك وأهم شي .. توصل أفكارك.\n+++\nأحب أبني هويات للحملات والبراندات وأشتغل على منشورات، أعرف للمطبوعات بس نتهاوش شوي، و**أموووووووت** بالإلستريشنز والواجهات والستيكرز.\n\nومو بس أصمم أنا **جوكر** ..\n\nلي بالتسويق خصوصاً متاجر **سلة** — ذولي اشتغلت عليهم سنين. أربط البكسلز وأطلق حملات وأحسّن الظهور بمحركات البحث. أشتغل على أدوات قوقل وأدوات الترويج وسيرش بعد.\n\nوابني خطط تسويقية وأحط كي بي آيز بس أتهاوش مع العملاء .. أحياناً **يعصبوني**.\n\nوما يحتاج أقول .. إني أكتب محتوى وأدقق نصوص. خلاص شكلي **أفتح شركة**.\n\nدقيقة ترا تخصصي حاسب و**أبرمج**   و ....... ولا أقولك دق عليّ أعلمك","facts":["أصمم إتجاهات بصرية للبراندات والحملات وأصمم منشورات ومطبوعات والستريشنز من الصفر","أبني حملات واستراتيجيات تسويقية رهيبة بعد ما أسوي دراسات للسوق وأروج وأربط أدوات التتبع وأحسن الظهور بمحركات البحث.","أكتب محتوى ونصوص إبداعية تلامس المستخدم وتفهم احتياجاته","أبرمج وأبني مواقع وأنظمة"],"location":"القصيم، بريدة","available":true,"memoji":"memoji.webp","memojiType":"image","ctaBold":"ودك نسوي","ctaScript":"شي كرييتف","ctaLine":"عندك فكرة، علامة جديدة، أو حملة قريبة؟ أرسل لي وأرجع لك خلال يوم.","ctaButton":"ابدأ مشروعك","ctaEmail":"hello@example.com","givenName":"لمى المشيقح"},"projects":[{"id":"p-rawabet","title":"حملة الإنطلاق - يلا نسولف سوا","client":"مركز روابط التواصل التخصصي","year":"2026","category":"اتجاه بصري","kicker":"اتجاه براند + حملة يلا نسولف سوا","tags":["اتجاه بصري","براند","حملة إطلاق","سوشال","مطبوعات","أوتدور"],"summary":"اتجاه بصري كامل لحملة إطلاق المركز.","description":"اتجاه بصري لبراند مركز روابط التواصل التخصصي، واتجاه بصري لحملة الانطلاق «يلا نسولف سوا».\nللبراند: الألوان، سلوقن «معًا نتواصل»، الاتجاه الصوري والجرافيكي، السوشال، الهايلايت، والمطبوعات.\nللحملة: لوك أب يلا نسولف سوا، ظهور الإطلاق، وإعلانات الشوارع.","cover":"work/rawabet/00-cover.jpg","images":[{"src":"work/rawabet/03-colors.jpg","label":"البراند — ألوان الهوية","sub":"Brand Colors"},{"src":"work/rawabet/04-slogan.jpg","label":"البراند — سلوقن معًا نتواصل","sub":"Brand Slogan"},{"src":"work/rawabet/05-photo.jpg","label":"البراند — الاتجاه الصوري","sub":"Photography Direction"},{"src":"work/rawabet/06-graphic.jpg","label":"البراند — الاتجاه الجرافيكي","sub":"Graphic Direction"},{"src":"work/rawabet/07-social.jpg","label":"البراند — ظهور السوشال","sub":"Social Media Direction"},{"src":"work/rawabet/08-highlights.jpg","label":"البراند — نظام الهايلايت","sub":"Highlight System"},{"src":"work/rawabet/09-badges.jpg","label":"البراند — كروت المطبوعات","sub":"Print — ID Badges"},{"src":"work/rawabet/10-print.jpg","label":"البراند — الفولدر والورق","sub":"Print — Folder & Letterhead"},{"src":"work/rawabet/11-campaign.jpg","label":"الحملة — لوك أب يلا نسولف سوا","sub":"Launch Lockup"},{"src":"work/rawabet/12-presence.jpg","label":"الحملة — ظهور الإطلاق","sub":"Launch Presence"},{"src":"work/rawabet/13-outdoor.jpg","label":"الحملة — إعلان الشارع العمودي","sub":"Outdoor Vertical"},{"src":"work/rawabet/14-billboard.jpg","label":"الحملة — إعلان الشارع العريض","sub":"Outdoor Billboard"}],"hue":168,"group":"marketing","featured":true,"spotlight":true},{"id":"p-active","title":"حملة اليوم الوطني","client":"مركز آكتف موفمنت","year":"2026","category":"حملة سوشال","kicker":"حملة وطنية · سبتمبر 2026","tags":["حملة سوشال","اليوم الوطني","ستوري","تفاعلي"],"summary":"حملة اليوم الوطني 96 لمركز آكتف موفمنت.","description":"حملة اليوم الوطني 96 لمركز آكتف موفمنت.\nمن إعلان تشويقي لتواريخ 23 و24 سبتمبر، لستوري العرض، لسؤال تفاعلي، لمنشورات «عزنا بطبعنا» بخصم يصل 35٪ على الخدمات.","cover":"work/active/00-cover.jpg","images":[{"src":"work/active/01-teaser.jpg","label":"الإعلان التشويقي","sub":"Teaser Ad"},{"src":"work/active/02-story.jpg","label":"ستوري اليوم الوطني","sub":"National Day Story"},{"src":"work/active/03-quiz.jpg","label":"سؤال تفاعلي","sub":"Interactive Story"},{"src":"work/active/04-posts.jpg","label":"منشورات الحملة","sub":"Campaign Posts"}],"hue":152,"group":"marketing","featured":false,"spotlight":true},{"id":"p-qudurati","title":"حملة القبول والتسجيل","client":"مركز قدراتي","year":"2026","category":"اتجاه بصري","kicker":"اتجاه بصري · مركز قدراتي","tags":["اتجاه بصري","حملة قبول","سوشال","إعلان رقمي","مطبوعات"],"summary":"اتجاه بصري لحملة القبول والتسجيل في قدراتي.","description":"اتجاه بصري لحملة القبول والتسجيل في مركز قدراتي لعام 2026.\nنظام لوني برتقالي وأخضر وشريط وردي يربط الصورة بالرسالة: الخبرة تفرق.\nمن مفتاح السنة وخط التسجيل، لمنشورات الرعاية والنقل، لإعلانات رقمية وبروشور مطبوع.","cover":"work/qudurati/00-cover.jpg","images":[{"src":"work/qudurati/01-year.jpg","label":"مفتاح السنة — ٢٦","sub":"Campaign Key Visual"},{"src":"work/qudurati/02-enroll.jpg","label":"للعام الجديد.. قم بتسجيلهم","sub":"Enrollment Line"},{"src":"work/qudurati/03-post-girl.jpg","label":"منشور الرعاية النهارية","sub":"Daycare Post"},{"src":"work/qudurati/04-photo-boy.jpg","label":"الاتجاه الصوري","sub":"Photography Direction"},{"src":"work/qudurati/05-access.jpg","label":"وصول أوسع وخدمة أقرب","sub":"Access Line"},{"src":"work/qudurati/06-transport.jpg","label":"النقل الآمن — منطقة القصيم","sub":"Transport Visual"},{"src":"work/qudurati/07-start.jpg","label":"إعلان رقمي — بداية العام التأهيلي","sub":"Digital Ad — Start Date"},{"src":"work/qudurati/08-hours.jpg","label":"إعلان رقمي — توقيت اليوم الدراسي","sub":"Digital Ad — School Hours"},{"src":"work/qudurati/09-brochure.jpg","label":"بروشور مطبوع — ابدأ اليوم","sub":"Printed Brochure"}],"hue":18,"group":"identity","featured":false,"spotlight":true},{"id":"p-nakod","title":"يلا نكود","client":"شركة مراحل التقنية","year":"2026","category":"هوية برنامج","kicker":"برنامج مراحل التدريبي لخريف 2026","tags":["هوية برنامج","اتجاه بصري","إطلاق","تايبوغرافي"],"summary":"هوية برنامج مراحل التدريبي لخريف 2026.","description":"هوية بصرية لبرنامج مراحل التدريبي لخريف 2026 تحت اسم يلا نكود.\nلغة بكسل هندسية، بنفسجي جريء، وخط عربي يحوّل محتوى تدريبي لإعلان يتحمّسون له.\nمن الشعار للبوسترات لإعلان الإطلاق — كله نفس النظام.","cover":"work/nakod/02-wordmark.jpg","images":[{"src":"work/nakod/01-poster.jpg","label":"إعلان الإطلاق","sub":"Launch Poster"},{"src":"work/nakod/02-wordmark.jpg","label":"الشعار الأساسي","sub":"Primary Wordmark"},{"src":"work/nakod/03-posters.jpg","label":"نظام البوسترات","sub":"Poster System"},{"src":"work/nakod/04-type.jpg","label":"الخط العربي للهوية","sub":"Arabic Type for Identity"},{"src":"work/nakod/05-mark.jpg","label":"المارك الهندسي","sub":"Geometric Mark"},{"src":"work/nakod/06-mark-set.jpg","label":"تطبيقات المارك","sub":"Mark Colorways"}],"hue":270,"group":"identity","featured":false,"spotlight":true},{"id":"p-scope","title":"الاتجاه البصري لسكوب ميديا","client":"سكوب ميديا","year":"2026","category":"اتجاه بصري","kicker":"دليل هوية · يوليو 2026","tags":["اتجاه بصري","ألوان","خطوط","أيقونات","تطبيقات"],"summary":"اتجاه بصري كامل لسكوب ميديا — كل النظام ما عدا الشعار.","description":"اتجاه بصري لشركة سكوب ميديا. الشعار كان جاهز، والشغل على باقي النظام: الوصف التعريفي، الألوان، الخطوط عربي وإنجليزي، الأيقونات، نمط الصور، وتطبيقات الهوية من البطاقة للكرت للقرطاسية.\nالإحساس: أسود غامق، أخضر نمو، ولمسة برتقالي نارية.","cover":"work/scope/09-imagery.jpg","images":[{"src":"work/scope/01-cover.jpg","label":"غلاف الدليل","sub":"Brand Guidelines Cover"},{"src":"work/scope/03-descriptor.jpg","label":"الوصف التعريفي","sub":"Brand Descriptor"},{"src":"work/scope/04-colors.jpg","label":"ألوان الهوية","sub":"Color Palette"},{"src":"work/scope/05-font-en.jpg","label":"الخطوط — Alexandria","sub":"English Type"},{"src":"work/scope/06-font-ar-display.jpg","label":"خط العناوين — زين","sub":"Arabic Display Type"},{"src":"work/scope/07-font-ar-body.jpg","label":"خط الفقرات — كيه أو سانس","sub":"Arabic Body Type"},{"src":"work/scope/08-icons.jpg","label":"الرموز التوضيحية","sub":"Icon System"},{"src":"work/scope/09-imagery.jpg","label":"نمط الصور","sub":"Brand Imagery"},{"src":"work/scope/10-cards.jpg","label":"تطبيقات الهوية — البطاقات","sub":"Business Cards"},{"src":"work/scope/11-badge.jpg","label":"تطبيقات الهوية — كرت الموظف","sub":"ID Badge"},{"src":"work/scope/12-stationery.jpg","label":"تطبيقات الهوية — القرطاسية","sub":"Stationery"},{"src":"work/scope/13-pens.jpg","label":"تطبيقات الهوية — الأقلام","sub":"Pens"},{"src":"work/scope/14-cups.jpg","label":"تطبيقات الهوية — الأكواب","sub":"Cups"}],"hue":140,"group":"identity","featured":false,"spotlight":true},{"id":"p1","title":"هوية مقهى نَوى","client":"نَوى","year":"2026","category":"هوية بصرية","summary":"هوية كاملة لمقهى مختص","description":"بناء هوية بصرية كاملة: الشعار، الألوان، التغليف، ولافتات الفرع.\nالتحدي كان هوية دافية تشتغل على كوب صغير وعلى واجهة كبيرة.","cover":"","images":[],"hue":265,"featured":false,"spotlight":false},{"id":"p2","title":"حملة رمضان","client":"علامة عطور","year":"2026","category":"حملة إعلانية","summary":"","description":"حملة موسمية متكاملة للسوشال والمتاجر.","cover":"","images":[],"hue":18,"featured":false},{"id":"p3","title":"تطبيق فعاليات","client":"منصة حجوزات","year":"2025","category":"واجهات","summary":"","description":"تصميم تجربة حجز الفعاليات من البحث حتى الدفع.","cover":"","images":[],"hue":195,"featured":false}],"works":[{"id":"w1","title":"بوستر معرض","category":"بوستر","image":"","hue":280},{"id":"w2","title":"منشورات اليوم الوطني","category":"سوشال","image":"","hue":150},{"id":"w3","title":"غلاف كتاب","category":"طباعة","image":"","hue":30},{"id":"w4","title":"إعلان منتج","category":"إعلان","image":"","hue":220},{"id":"w5","title":"تغليف","category":"تغليف","image":"","hue":330},{"id":"w6","title":"شعار","category":"شعار","image":"","hue":250}],"services":[{"id":"s1","title":"بناء الهويات البصرية","desc":"شعار ونظام بصري متكامل يشتغل بثبات على كل نقطة تواصل.","icon":"layers"},{"id":"s2","title":"بناء الخطط والاستراتيجيات التسويقية","desc":"أبني خطط تسويقية ودراسات سوق وكي بي آيز تربط الفكرة بالنتيجة.","icon":"spark"},{"id":"s3","title":"إطلاق الحملات الترويجية","desc":"من الفكرة للإطلاق: حملات ترويج وتتبع وتحسين ظهور.","icon":"megaphone"},{"id":"s4","title":"كتابة المحتوى والنصوص الإبداعية","desc":"أكتب محتوى ونصوص إبداعية تلامس المستخدم وتفهم احتياجاته","icon":"type"},{"id":"s5","title":"بناء الواجهات وتطوير وتهيئة الأنظمة","desc":"مواقع وأنظمة سهلة، أبرمجها وأهيئها عشان تشتغل بسلاسة.","icon":"phone"}],"contacts":[{"id":"c2","type":"whatsapp","label":"واتساب","url":"https://wa.me/966580892260"},{"id":"c1","type":"email","label":"hello@example.com","url":"hello@example.com"},{"id":"c3","type":"instagram","label":"انستقرام","url":"https://instagram.com/"},{"id":"c4","type":"behance","label":"بيهانس","url":"https://behance.net/"},{"id":"c5","type":"linkedin","label":"لينكدإن","url":"https://linkedin.com/"}]}</script>
 
 <script data-own>
 (function(){
@@ -695,7 +814,10 @@ try{S=JSON.parse(DATA_EL.textContent);}catch(e){S={};}
   S.site=Object.assign({dir:'rtl',name:'',role:'',hello:'',headline:'',intro:'',bio:'',facts:[],location:'',available:false,memoji:'',memojiType:'image',givenName:'',ctaBold:'',ctaScript:'',ctaLine:'',ctaButton:'',ctaEmail:''},S.site||{});
   if(!Array.isArray(S.site.facts)) S.site.facts=[];
   ['projects','works','services','contacts'].forEach(k=>{if(!Array.isArray(S[k]))S[k]=[];});
-  S.projects.forEach(p=>{if(!Array.isArray(p.images))p.images=[];});
+  S.projects.forEach(p=>{
+    if(!Array.isArray(p.images))p.images=[];
+    if(!Array.isArray(p.tags)) p.tags=p.category?[p.category]:[];
+  });
   ['projects','works','services','contacts'].forEach(k=>S[k].forEach(x=>{if(!x.id)x.id=uid();}));
   const inferGroup=x=>{
     const c=String(x.category||x.title||'');
@@ -705,11 +827,21 @@ try{S=JSON.parse(DATA_EL.textContent);}catch(e){S={};}
   };
   S.projects.forEach(p=>{if(!p.group) p.group=inferGroup(p);});
   S.works.forEach(w=>{if(!w.group) w.group=inferGroup(w);});
+  const anySpot=S.projects.some(p=>p.spotlight)||S.works.some(w=>w.spotlight);
+  if(!anySpot){
+    S.projects.forEach(p=>{if(p.featured) p.spotlight=true;});
+    const seen=new Set();
+    S.works.forEach(w=>{
+      const g=w.group||'identity';
+      if(!seen.has(g)){w.spotlight=true;seen.add(g);}
+    });
+    if(!S.projects.some(p=>p.spotlight)&&S.projects[0]) S.projects[0].spotlight=true;
+  }
 })();
 
 const T={
- ar:{about:'عنّي',work:'أعمالي',services:'خدماتي',contact:'تواصل',seeWork:'شوف أعمالي',talk:'تواصل معي',aboutH:'عنّي',featured:'أحدث مشروع',workH:'أعمالي',projects:'مشاريع',shots:'أعمال منفصلة',tabIdentity:'هويات وتصاميم وإتجاهات بصرية',tabMarketing:'خطط وحملات واستراتيجيات تسويقية',tabContent:'محتوى ونصوص إبداعية',servicesH:'وش أقدر أسوي لك',viewing:'يعرض الآن',client:'العميل',browse:'استعرض',next:'التالي',count:'مشاريع منشورة',dash:'لوحة التحكم',empty:'ما فيه شي هنا بعد',rights:'جميع الحقوق محفوظة',ping:'دق عليّ',moreStory:'تبي اشرح لك وشلون يعني؟',moreShort:'اشرح لك',moreSure:'متأكد ما تبي اشرح لك؟',lessStory:'زبط، فهمت'},
- en:{about:'About',work:'Work',services:'Services',contact:'Contact',seeWork:'See my work',talk:'Get in touch',aboutH:'About',featured:'Latest project',workH:'Selected work',projects:'Projects',shots:'Single works',tabIdentity:'Identities, design & visual direction',tabMarketing:'Plans, campaigns & marketing strategy',tabContent:'Creative content & copy',servicesH:'What I can do for you',viewing:'Now showing',client:'Client',browse:'Browse',next:'Next',count:'published projects',dash:'Dashboard',empty:'Nothing here yet',rights:'All rights reserved',ping:'Ping me',moreStory:'Want me to unpack that?',moreShort:'Let me explain',moreSure:'Sure you don’t want the story?',lessStory:'Got it, fold it'}
+ ar:{about:'عنّي',work:'أعمالي',stickers:'ستيكرز',stickersH:'فضاء الستيكرز',stickersFrom:'اسحب وافلت الملصقات',stickersLead:'ستيكرز الستريشنز · عملت عليها من الصفر',stickersSpace:'فضاء الستيكرز',stickersHint:'اسحب وافلت',services:'خدماتي',contact:'تواصل',seeWork:'شوف أعمالي',talk:'تواصل معي',aboutH:'عنّي',featured:'أحدث مشروع',workH:'أعمالي',projects:'مشاريع',shots:'أعمال منفصلة',tabFeatured:'أبرز الأعمال',tabIdentity:'هويات وتصاميم وإتجاهات بصرية',tabMarketing:'خطط وحملات واستراتيجيات تسويقية',tabContent:'محتوى ونصوص إبداعية',viewWork:'شاهد العمل',servicesH:'وش أقدر أسوي لك',viewing:'يعرض الآن',client:'العميل',browse:'استعرض',next:'التالي',count:'مشاريع منشورة',dash:'لوحة التحكم',empty:'ما فيه شي هنا بعد',rights:'جميع الحقوق محفوظة',ping:'دق عليّ',moreStory:'تبي اشرح لك وشلون يعني؟',moreShort:'اشرح لك',moreSure:'متأكد ما تبي اشرح لك؟',lessStory:'زبط، فهمت'},
+ en:{about:'About',work:'Work',stickers:'Stickers',stickersH:'Sticker space',stickersFrom:'Drag and drop the stickers',stickersLead:'Illustration stickers · drawn from scratch',stickersSpace:'Sticker space',stickersHint:'Drag and drop',services:'Services',contact:'Contact',seeWork:'See my work',talk:'Get in touch',aboutH:'About',featured:'Latest project',workH:'Selected work',projects:'Projects',shots:'Single works',tabFeatured:'Featured work',tabIdentity:'Identities, design & visual direction',tabMarketing:'Plans, campaigns & marketing strategy',tabContent:'Creative content & copy',viewWork:'Watch work',servicesH:'What I can do for you',viewing:'Now showing',client:'Client',browse:'Browse',next:'Next',count:'published projects',dash:'Dashboard',empty:'Nothing here yet',rights:'All rights reserved',ping:'Ping me',moreStory:'Want me to unpack that?',moreShort:'Let me explain',moreSure:'Sure you don’t want the story?',lessStory:'Got it, fold it'}
 };
 const t=k=>(T[S.site.dir==='ltr'?'en':'ar'])[k]||k;
 
@@ -727,11 +859,15 @@ const IC={
  mail:'<rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/>',
  chat:'<path d="m4 20 1.5-4A8 8 0 1 1 12 20a8 8 0 0 1-3.5-.8L4 20z"/>',
  briefcase:'<rect x="3" y="7" width="18" height="13" rx="3"/><path d="M9 7V5h6v2"/>',
+ building:'<path d="M4 21h16M6 21V8h12v13M10 21v-5h4v5M9 11h.01M15 11h.01M9 15h.01M15 15h.01M4 8l8-4 8 4"/>',
+ cal:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/>',
  globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>',
  at:'<circle cx="12" cy="12" r="4"/><path d="M16 12v1.5a2.5 2.5 0 0 0 5 0V12a9 9 0 1 0-3.5 7.1"/>',
  behance:'<path d="M3 7h5a2.5 2.5 0 0 1 0 5H3zM3 12h5.5a2.5 2.5 0 0 1 0 5H3zM14 14h7a3.5 3.5 0 1 0-1 2.5M15 8h5"/>',
  x:'<path d="M6 6l12 12M18 6 6 18"/>',
  arrow:'<path d="M7 17 17 7M9 7h8v8"/>',
+ expand:'<path d="M15 3h6v6M21 3l-7 7M9 21H3v-6M3 21l7-7"/>',
+ eye:'<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
  pin:'<path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
  up:'<path d="m6 14 6-6 6 6"/>',down:'<path d="m6 10 6 6 6-6"/>',
  trash:'<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',
@@ -742,6 +878,25 @@ const CT={email:['mail','البريد'],whatsapp:['chat','واتساب'],instagr
 const href=c=>{let u=safeUrl(c.url); if(c.type==='email'&&u&&!u.startsWith('mailto:'))u='mailto:'+u; return u||'#';};
 
 const hue=item=>Number.isFinite(+item.hue)?+item.hue:260;
+const imgSrc=x=>typeof x==='string'?x:(x&&x.src)||'';
+const tagList=p=>(p.tags&&p.tags.length)?p.tags:(p.category?[p.category]:[]);
+const KIND={ar:{identity:'اتجاه بصري',marketing:'حملة',content:'محتوى إبداعي'},en:{identity:'Visual direction',marketing:'Campaign',content:'Creative content'}};
+const META_L={ar:{org:'الجهة',kind:'نوع العمل',year:'السنة'},en:{org:'Client',kind:'Work type',year:'Year'}};
+function workKind(p){const map=KIND[S.site.lang]||KIND.ar; return p.kind||p.category||map[p.group]||'';}
+function metaItems(p){
+  const L=META_L[S.site.lang]||META_L.ar;
+  return [
+    p.client&&{ic:'building',lab:L.org,v:p.client},
+    {ic:'layers',lab:L.kind,v:workKind(p)},
+    p.year&&{ic:'cal',lab:L.year,v:String(p.year)}
+  ].filter(x=>x&&x.v);
+}
+function metaPills(p){
+  return `<div class="mpills">${metaItems(p).map(x=>`<span>${esc(x.v)}</span>`).join('')}</div>`;
+}
+function metaFacts(p){
+  return `<div class="m-facts">${metaItems(p).map(x=>`<div class="m-fact">${svg(x.ic,16)}<div><small>${esc(x.lab)}</small><b>${esc(x.v)}</b></div></div>`).join('')}</div>`;
+}
 /* البديل span وليس div لأنه يُستخدم أحياناً داخل <button> */
 const media=(item,key='cover')=>{const src=safeUrl(item[key]||item.image||item.cover); return src?`<img src="${esc(src)}" alt="${esc(item.title)}" loading="lazy" decoding="async">`:`<span class="ph" style="--h:${hue(item)}"><span>${esc(item.title)}</span></span>`;};
 const initial=()=>(S.site.name||'؟').trim().charAt(0);
@@ -875,7 +1030,7 @@ function render(){
   }
   renderMemoji();
   renderAbout();
-  renderShowcase(); renderWork(); renderServices(); renderFinale();
+  renderShowcase(); renderWork(); renderStickers(); renderServices(); renderFinale();
   $('#foot').textContent=`© ${new Date().getFullYear()} ${s.name}. ${t('rights')}`;
   refreshST();
 }
@@ -1047,7 +1202,7 @@ function pinSlot(el, slot, on, navB){
   el.style.top=navB+'px';
 }
 function spyNav(){
-  const items=[['about','#about'],['showcase','#work'],['work','#work'],['services','#services'],['contact','#contact']];
+  const items=[['about','#about'],['showcase','#work'],['work','#work'],['stickers','#stickers'],['services','#services'],['contact','#contact']];
   let on='';
   const line=($('.nav-in')?.getBoundingClientRect().bottom||72)+18;
   items.forEach(([id,href])=>{const el=document.getElementById(id); if(el&&el.getBoundingClientRect().top<=line) on=href;});
@@ -1114,24 +1269,211 @@ function renderShowcase(){
   $('#fc3').onclick=()=>openProject(nx.id);
 }
 
-let workTab='identity';
+let workTab='featured';
 const GROUP_OPTS=[['identity','هويات وتصاميم وإتجاهات بصرية'],['marketing','خطط وحملات واستراتيجيات تسويقية'],['content','محتوى ونصوص إبداعية']];
 function renderWork(){
   $$('.tabs [data-tab]').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===workTab));
   const body=$('#work-body');
   body.setAttribute('aria-labelledby','tab-'+workTab);
-  const ps=S.projects.filter(p=>(p.group||'identity')===workTab);
-  const ws=S.works.filter(w=>(w.group||'identity')===workTab);
+  const inTab=x=>workTab==='featured'?!!x.spotlight:(x.group||'identity')===workTab;
+  const ps=S.projects.filter(inTab);
+  const ws=S.works.filter(inTab);
   let html='';
   if(ps.length) html+=`<div class="pgrid">${ps.map(p=>`
       <article class="pcard">
-        <div class="pmedia">${media(p)}</div>
-        <div class="pinfo"><div><h3 id="pt-${esc(p.id)}">${esc(p.title)}</h3><p><span>${esc(p.client)}</span><span>${esc(p.year)}</span></p></div>${p.category?`<span class="tag">${esc(p.category)}</span>`:''}</div>
+        <div class="pmedia">${media(p)}<button class="pgo" type="button" data-open="${esc(p.id)}"><span class="pgo-ic">${svg('eye',15)}</span>${esc(t('viewWork'))}</button></div>
+        <div class="pinfo">
+          <h3 id="pt-${esc(p.id)}">${esc(p.title)}</h3>
+          ${metaPills(p)}
+        </div>
         <button class="hit" type="button" data-open="${esc(p.id)}" aria-labelledby="pt-${esc(p.id)}"></button>
       </article>`).join('')}</div>`;
   if(ws.length) html+=`<div class="shots"${ps.length?' style="margin-top:28px"':''}>${ws.map(w=>`
-      <figure class="shot">${media(w,'image')}<figcaption><b id="wt-${esc(w.id)}">${esc(w.title)}</b><span>${esc(w.category)}</span></figcaption><button class="hit" type="button" data-shot="${esc(w.id)}" aria-labelledby="wt-${esc(w.id)}"></button></figure>`).join('')}</div>`;
+      <figure class="shot">${media(w,'image')}<button class="pgo" type="button" data-shot="${esc(w.id)}"><span class="pgo-ic">${svg('eye',15)}</span>${esc(t('viewWork'))}</button><figcaption><b id="wt-${esc(w.id)}">${esc(w.title)}</b><span>${esc(w.category)}</span></figcaption><button class="hit" type="button" data-shot="${esc(w.id)}" aria-labelledby="wt-${esc(w.id)}"></button></figure>`).join('')}</div>`;
   setHTML(body,html||`<div class="empty">${t('empty')}</div>`);
+}
+
+const STK_FALLBACK=Array.from({length:41},(_,i)=>`stickers/sticker1-${String(i+1).padStart(2,'0')}.png`);
+const STK_IMG=/\.(png|jpe?g|webp|gif|svg)$/i;
+let STK=STK_FALLBACK.slice();
+const stk={z:2,raf:0,ro:null,drag:null,bits:[],on:true,poll:0,load:0};
+const stkRand=(a,b)=>a+Math.random()*(b-a);
+function stkParseListing(html){
+  const names=new Set();
+  const re=/href\s*=\s*(?:"([^"]+)"|'([^']+)'|([^\s>]+))/gi;
+  let m;
+  while((m=re.exec(html))){
+    let href=m[1]||m[2]||m[3]||'';
+    href=href.split('?')[0].split('#')[0];
+    if(!href||href.endsWith('/')) continue;
+    let name='';
+    try{name=decodeURIComponent(href.split('/').pop());}catch(e){name=href.split('/').pop();}
+    if(name&&STK_IMG.test(name)&&!name.startsWith('.')&&!/^index\./i.test(name)) names.add(name);
+  }
+  return [...names].sort((a,b)=>a.localeCompare(b,'en',{numeric:true,sensitivity:'base'})).map(n=>'stickers/'+n);
+}
+function stkSame(a,b){return a.length===b.length&&a.every((x,i)=>x===b[i]);}
+async function stkDiscover(){
+  try{
+    const r=await fetch('stickers/',{cache:'no-store'});
+    if(r.ok){
+      const ct=r.headers.get('content-type')||'';
+      const text=await r.text();
+      if(/html/i.test(ct)||/<a\s/i.test(text)){
+        const list=stkParseListing(text);
+        if(list.length) return list;
+      }
+    }
+  }catch(e){}
+  try{
+    const r=await fetch('stickers.json',{cache:'no-store'});
+    if(r.ok){
+      const j=await r.json();
+      const raw=Array.isArray(j)?j:(j&&j.files)||[];
+      const list=raw.map(x=>String(x)).filter(Boolean).map(x=>x.startsWith('stickers/')?x:'stickers/'+x.replace(/^\.?\//,''));
+      if(list.length) return list;
+    }
+  }catch(e){}
+  return STK_FALLBACK.slice();
+}
+async function stkRefresh(force){
+  const id=++stk.load;
+  const list=await stkDiscover();
+  if(id!==stk.load) return;
+  if(!force&&stkSame(list,STK)&&stk.bits.length===list.length) return;
+  STK=list;
+  paintStickers();
+}
+const stkRand=(a,b)=>a+Math.random()*(b-a);
+function stkTeardown(){
+  if(stk.raf){cancelAnimationFrame(stk.raf);stk.raf=0;}
+  if(stk.ro){stk.ro.disconnect();stk.ro=null;}
+  if(stk.drag){stk.drag=null; lenis&&!dashOpen&&!modalOpen()&&lenis.start();}
+  stk.bits=[];
+}
+function stkMotion(el,hx,hy,size){
+  el._m={
+    hx,hy,s:size,
+    r:stkRand(-10,10),
+    p:stkRand(0,Math.PI*2),
+    sx:stkRand(.28,.48),
+    sy:stkRand(.22,.4),
+    sr:stkRand(.18,.32),
+    ax:stkRand(18,32),
+    ay:stkRand(14,26),
+    rr:stkRand(3.5,6.5)
+  };
+  el.style.setProperty('--s',size+'px');
+  el.style.setProperty('--r',el._m.r.toFixed(1)+'deg');
+  el.style.left=hx+'px';
+  el.style.top=hy+'px';
+}
+function stkLayout(grid){
+  const w=grid.clientWidth, h=grid.clientHeight, n=STK.length;
+  const mobile=matchMedia('(max-width:900px)').matches;
+  const cols=mobile?5:7;
+  const rows=Math.ceil(n/cols);
+  const padX=mobile?18:28, padY=mobile?44:52;
+  const cw=(w-padX*2)/cols, ch=(h-padY-16)/rows;
+  const sizeMin=mobile?74:88, sizeMax=mobile?90:108;
+  STK.forEach((src,i)=>{
+    const el=stk.bits[i]; if(!el) return;
+    const col=i%cols, row=Math.floor(i/cols);
+    const size=stkRand(sizeMin,sizeMax);
+    const hx=padX+col*cw+(cw-size)/2+stkRand(-10,10);
+    const hy=padY+row*ch+(ch-size)/2+stkRand(-8,8);
+    el.querySelector('.stk-face').style.animationDelay=(-stkRand(0,9)).toFixed(2)+'s';
+    stkMotion(el,hx,hy,size);
+  });
+}
+function stkBind(el,grid){
+  let sx=0,sy=0,ox=0,oy=0,moved=false;
+  el.addEventListener('pointerdown',e=>{
+    if(e.button) return;
+    e.preventDefault();
+    el.setPointerCapture(e.pointerId);
+    stk.drag=el; moved=false;
+    sx=e.clientX; sy=e.clientY;
+    ox=parseFloat(el.style.left)||0; oy=parseFloat(el.style.top)||0;
+    el.classList.add('hold');
+    el.style.zIndex=String(++stk.z);
+    lenis&&lenis.stop();
+  });
+  el.addEventListener('pointermove',e=>{
+    if(stk.drag!==el) return;
+    const dx=e.clientX-sx, dy=e.clientY-sy;
+    if(Math.hypot(dx,dy)>5) moved=true;
+    el.style.left=(ox+dx)+'px';
+    el.style.top=(oy+dy)+'px';
+  });
+  const end=()=>{
+    if(stk.drag!==el) return;
+    el.classList.remove('hold');
+    stk.drag=null;
+    lenis&&!dashOpen&&!modalOpen()&&lenis.start();
+    if(moved) el.dataset.moved='1';
+    const s=el._m?.s||80;
+    const x=Math.min(grid.clientWidth-s*.4, Math.max(-s*.15, parseFloat(el.style.left)||0));
+    const y=Math.min(grid.clientHeight-s*.4, Math.max(10, parseFloat(el.style.top)||0));
+    el.style.left=x+'px'; el.style.top=y+'px';
+    if(el._m){el._m.hx=x; el._m.hy=y;}
+  };
+  el.addEventListener('pointerup',end);
+  el.addEventListener('pointercancel',end);
+}
+function stkTick(now){
+  stk.raf=requestAnimationFrame(stkTick);
+  const sec=$('#stickers');
+  if(document.hidden||(sec&&sec.classList.contains('anim-off'))) return;
+  const t=now/1000;
+  stk.bits.forEach(el=>{
+    if(el===stk.drag||!el._m) return;
+    const a=el._m;
+    el.style.left=(a.hx+Math.sin(t*a.sx+a.p)*a.ax)+'px';
+    el.style.top=(a.hy+Math.cos(t*a.sy+a.p)*a.ay)+'px';
+    el.style.setProperty('--r',(a.r+Math.sin(t*a.sr+a.p)*a.rr).toFixed(1)+'deg');
+  });
+}
+function paintStickers(){
+  stkTeardown();
+  const grid=$('#stk-grid');
+  if(!grid) return;
+  grid.innerHTML='';
+  STK.forEach(src=>{
+    const el=document.createElement('button');
+    el.type='button';
+    el.className='stk-bit';
+    el.dataset.stk=src;
+    el.innerHTML=`<span class="stk-face"><img src="${esc(src)}" alt="" decoding="async" draggable="false"></span>`;
+    grid.appendChild(el);
+    stkBind(el,grid);
+    stk.bits.push(el);
+  });
+  const place=()=>{ if(grid.clientWidth>40) stkLayout(grid); };
+  requestAnimationFrame(()=>requestAnimationFrame(place));
+  if(!reduce) stk.raf=requestAnimationFrame(stkTick);
+  if(window.ResizeObserver){
+    stk.gw=0; stk.gh=0;
+    stk.ro=new ResizeObserver(()=>{
+      const w=grid.clientWidth, h=grid.clientHeight;
+      if(Math.abs(w-(stk.gw||0))<8&&Math.abs(h-(stk.gh||0))<8) return;
+      stk.gw=w; stk.gh=h;
+      if(stk.drag) return;
+      stkLayout(grid);
+    });
+    stk.ro.observe(grid);
+  }
+}
+function renderStickers(){
+  stkRefresh(true);
+  if(!stk.poll){
+    stk.poll=setInterval(()=>{
+      if(document.hidden) return;
+      const sec=$('#stickers');
+      if(sec&&sec.classList.contains('anim-off')) return;
+      stkRefresh(false);
+    },4000);
+  }
 }
 
 function renderServices(){
@@ -1187,27 +1529,39 @@ const modalOpen=()=>modal.classList.contains('open');
 function openModal(html,lb){
   lastFocus=document.activeElement;
   mcard.innerHTML=`<button class="x-btn" type="button" data-close aria-label="إغلاق">${svg('x',18)}</button>`+html;
-  modal.classList.toggle('lb',!!lb); modal.classList.add('open'); lenis&&lenis.stop(); chaseMore();
+  modal.classList.toggle('lb',!!lb); modal.classList.remove('stk-lb'); modal.classList.add('open'); lenis&&lenis.stop(); chaseMore();
   void modal.offsetWidth;   /* نجبر إعادة حساب الأنماط عشان العنصر يكون قابلاً للتركيز فعلاً */
   $('[data-close]',mcard).focus();
 }
 function closeModal(){
   if(!modalOpen()) return;
-  modal.classList.remove('open');
+  modal.classList.remove('open','stk-lb');
   lenis&&!dashOpen&&lenis.start();
   if(lastFocus&&lastFocus.isConnected) lastFocus.focus(); lastFocus=null;
   chaseMore();
 }
 function openProject(id){
   const p=S.projects.find(x=>x.id===id); if(!p) return;
+  const slides=(p.images||[]).map(x=>typeof x==='string'?{src:x,label:'',sub:''}:{src:x.src||'',label:x.label||'',sub:x.sub||''});
+  const gal=slides.map((s,i)=>{
+    const src=safeUrl(s.src); if(!src) return '';
+    const n=String(i+1).padStart(2,'0');
+    const cap=s.label?`<figcaption class="g-cap"><span class="g-num">${n}</span><span class="g-lab"><b>${esc(s.label)}</b>${s.sub?`<span>${esc(s.sub)}</span>`:''}</span></figcaption>`:'';
+    return `<figure class="g-item">${cap}<img src="${esc(src)}" alt="${esc(s.label||p.title)}" loading="lazy" decoding="async"></figure>`;
+  }).join('');
   openModal(`<div class="pmedia">${media(p)}</div><div class="m-body"><h3>${esc(p.title)}</h3>
-   <div class="m-meta">${[p.client,p.year,p.category].filter(Boolean).map(x=>`<span class="tag">${esc(x)}</span>`).join('')}</div>
-   <p>${esc(p.description)}</p><div class="gallery">${(p.images||[]).map(src=>safeUrl(src)).filter(Boolean).map(src=>`<img src="${esc(src)}" alt="${esc(p.title)}" loading="lazy" decoding="async">`).join('')}</div></div>`);
+   ${metaFacts(p)}
+   <p>${esc(p.description)}</p>${gal?`<div class="gallery">${gal}</div>`:''}</div>`);
 }
 function openShot(id){
   const w=S.works.find(x=>x.id===id); if(!w) return;
   const src=safeUrl(w.image);
   openModal(src?`<img src="${esc(src)}" alt="${esc(w.title)}" decoding="async">`:`<div style="width:min(80vw,600px);aspect-ratio:4/5;border-radius:24px;overflow:hidden">${media(w,'image')}</div>`,true);
+}
+function openSticker(src){
+  const url=safeUrl(src); if(!url) return;
+  openModal(`<img src="${esc(url)}" alt="${esc(t('stickers'))}" decoding="async">`,true);
+  modal.classList.add('stk-lb');
 }
 modal.addEventListener('click',e=>{if(e.target===modal||e.target.closest('[data-close]'))closeModal();});
 addEventListener('keydown',e=>{
@@ -1223,6 +1577,7 @@ addEventListener('keydown',e=>{
 });
 document.addEventListener('click',e=>{
   const o=e.target.closest('[data-open]'); if(o){openProject(o.dataset.open);return;}
+  const sk=e.target.closest('[data-stk]'); if(sk){ if(sk.dataset.moved){ delete sk.dataset.moved; return; } openSticker(sk.dataset.stk); return; }
   const sh=e.target.closest('[data-shot]'); if(sh){openShot(sh.dataset.shot);return;}
   const tb=e.target.closest('[data-tab]'); if(tb){workTab=tb.dataset.tab;renderWork();return;}
   const more=e.target.closest('#bio-more-btn');
@@ -1290,7 +1645,7 @@ function motion(){
     else{const r=tm=>{lenis.raf(tm);requestAnimationFrame(r)};requestAnimationFrame(r);}
   }
   memojiLoop();
-  pauseOffscreen('.hero-stage,.scene,.tools');
+  pauseOffscreen('.hero-stage,.scene,.tools,.stk-sec');
   const onChase=()=>chaseMore();
   if(lenis) lenis.on('scroll',onChase);
   addEventListener('scroll',onChase,{passive:true});
@@ -1359,14 +1714,15 @@ function renderDash(){
     S.projects.map((p,i)=>`<details class="item" data-id="${p.id}" ${openItems.has(p.id)?'open':''}><summary><span class="thumb">${media(p)}</span><span class="grow">${esc(p.title||'مشروع بدون اسم')}</span>${p.featured?'<span class="tag">مميز</span>':''}${ctrl('projects.'+i)}</summary>
       <div class="inner fgrid">${F.text('اسم المشروع',`projects.${i}.title`)}${F.text('العميل',`projects.${i}.client`)}${F.text('السنة',`projects.${i}.year`)}${F.sel('التبويب',`projects.${i}.group`,GROUP_OPTS)}${F.text('التصنيف',`projects.${i}.category`)}
       ${F.area('الوصف',`projects.${i}.description`,4)}
+      ${F.chk('اعرضه في أبرز الأعمال',`projects.${i}.spotlight`,'full')}
       ${F.chk('اعرضه كمشروع مميز داخل الجوال',`projects.${i}.featured`,'full')}
       <div class="f full"><span>صورة الغلاف</span><div class="imgs">${p.cover?imgBox(p.cover,`projects.${i}.cover`):''}${upl(`projects.${i}.cover`,'set',p.cover?'تغيير':'ارفع غلاف')}</div></div>
-      <div class="f full"><span>صور المشروع</span><div class="imgs">${(p.images||[]).map((src,j)=>imgBox(src,`projects.${i}.images.${j}`)).join('')}${upl(`projects.${i}.images`,'push','أضف صور','image/*',true)}</div></div></div></details>`).join('')+
+      <div class="f full"><span>صور المشروع</span><div class="imgs">${(p.images||[]).map((src,j)=>imgBox(imgSrc(src),`projects.${i}.images.${j}`)).join('')}${upl(`projects.${i}.images`,'push','أضف صور','image/*',true)}</div></div></div></details>`).join('')+
     `<button class="add-btn" type="button" data-act="add-project">+ إضافة مشروع</button>`;
   }
   else if(dtab==='works'){
     h=`<h3>الأعمال المنفصلة</h3><p class="hint">تقدر ترفع أكثر من صورة مرة وحدة، كل صورة تصير عمل مستقل.</p><div class="wgrid">`+
-    S.works.map((w,i)=>`<div class="wcard">${imgBox(w.image,w.image?`works.${i}.image`:'')}<div class="imgs" style="margin:0">${upl(`works.${i}.image`,'set',w.image?'تغيير الصورة':'ارفع صورة')}</div>${F.text('العنوان',`works.${i}.title`)}${F.sel('التبويب',`works.${i}.group`,GROUP_OPTS)}${F.text('التصنيف',`works.${i}.category`)}${ctrl('works.'+i)}</div>`).join('')+
+    S.works.map((w,i)=>`<div class="wcard">${imgBox(w.image,w.image?`works.${i}.image`:'')}<div class="imgs" style="margin:0">${upl(`works.${i}.image`,'set',w.image?'تغيير الصورة':'ارفع صورة')}</div>${F.text('العنوان',`works.${i}.title`)}${F.sel('التبويب',`works.${i}.group`,GROUP_OPTS)}${F.text('التصنيف',`works.${i}.category`)}${F.chk('اعرضه في أبرز الأعمال',`works.${i}.spotlight`,'full')}${ctrl('works.'+i)}</div>`).join('')+
     `</div><div style="margin-top:14px">${upl('works','new-works','+ ارفع أعمال جديدة','image/*',true).replace('class="upl"','class="add-btn"')}</div>`;
   }
   else if(dtab==='services'){
