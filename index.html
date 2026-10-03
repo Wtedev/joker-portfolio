@@ -1344,7 +1344,6 @@ async function stkRefresh(force){
   STK=list;
   paintStickers();
 }
-const stkRand=(a,b)=>a+Math.random()*(b-a);
 function stkTeardown(){
   if(stk.raf){cancelAnimationFrame(stk.raf);stk.raf=0;}
   if(stk.ro){stk.ro.disconnect();stk.ro=null;}
