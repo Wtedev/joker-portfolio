@@ -228,6 +228,8 @@ h2{font-size:clamp(34px,4.6vw,60px);line-height:1.08;font-weight:700}
 .about-wa{display:flex;width:max-content;margin-top:22px}
 .more-slot{display:block;width:max-content;max-width:100%;margin-top:16px;min-height:36px}
 .more-btn{display:block;width:max-content;max-width:100%;padding:0;border:0;background:none;color:#fff;font-weight:700;font-size:13px;line-height:1.3;text-align:start;cursor:pointer}
+.more-btn.stuck{transition:opacity .35s ease}
+.more-btn.stuck.fade-off{opacity:0;pointer-events:none}
 .more-in{position:relative;display:flex;align-items:center;gap:7px;padding:7px 12px 8px;background:var(--violet);border-radius:4px 16px 16px 16px;box-shadow:0 10px 28px -12px rgba(88,50,230,.9);transform-origin:50% 80%;animation:lure 3.8s ease-in-out infinite;will-change:transform}
 [dir=rtl] .more-in{border-radius:16px 4px 16px 16px}
 .more-in::before{content:"";position:absolute;inset:-8px;border-radius:12px 22px 22px 22px;box-shadow:0 0 0 1.5px rgba(185,166,255,.5);animation:lure-ring 3.8s ease-out infinite;pointer-events:none}
@@ -276,12 +278,16 @@ h2{font-size:clamp(34px,4.6vw,60px);line-height:1.08;font-weight:700}
 /* ---------- showcase (phone) ---------- */
 .showcase{padding:clamp(60px,8vw,110px) 0 clamp(80px,10vw,140px);overflow:hidden}
 .showcase .a4{width:1000px;height:640px;top:7%;left:50%;margin-left:-500px;background:radial-gradient(circle,rgba(255,92,147,.3) 0%,rgba(163,92,255,.27) 30%,rgba(112,70,235,.15) 54%,rgba(109,74,255,.05) 70%,rgba(109,74,255,0) 82%)}
-.show-head{text-align:center;margin-bottom:10px}
-.show-head p{color:var(--muted);margin-top:10px}
-.scene{position:relative;height:760px;display:grid;place-items:center;perspective:1700px}
-.phone-float{animation:floaty 7s ease-in-out infinite;transform-style:preserve-3d;will-change:transform}
+.show-head{text-align:center;margin-bottom:10px;display:flex;flex-direction:column;align-items:center}
+.show-head h2{font-size:clamp(40px,5.6vw,72px);font-weight:800;line-height:1.15;letter-spacing:-.03em}
+.show-head .show-lead{margin-top:10px;max-width:34ch;color:#D9D4E6;font-size:clamp(16px,1.7vw,20px);font-weight:550;line-height:1.7}
+.show-end{position:relative;z-index:2;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px 18px;margin-top:8px;text-align:center}
+.show-end p{font-size:clamp(18px,2vw,26px);font-weight:700}
+.en-hot{display:inline-block;font-family:"Inter Tight",var(--sans);font-weight:800;letter-spacing:-.04em;line-height:1;color:transparent;-webkit-text-fill-color:transparent;-webkit-background-clip:text;background-clip:text;background-image:linear-gradient(90deg,#FFFFFF 0%,#E4D8FF 28%,#C7B4FF 55%,#FF9EBE 100%);padding-inline:0 .04em}
+.scene{position:relative;flex:none;width:800px;height:760px;display:grid;place-items:center;perspective:1700px;zoom:min(1.1, calc(100cqw / 800px))}
+.phone-float{position:relative;z-index:4;animation:floaty 7s ease-in-out infinite;transform-style:preserve-3d}
 @keyframes floaty{50%{transform:translateY(-18px)}}
-.phone{position:relative;width:290px;height:600px;transform-style:preserve-3d;transform:rotateX(18deg) rotateY(-22deg) rotateZ(-10deg);will-change:transform}
+.phone{position:relative;width:290px;height:600px;transform-style:preserve-3d;transform:rotateX(18deg) rotateY(-22deg) rotateZ(-10deg)}
 .phone-edge{position:absolute;inset:0;border-radius:52px;background:linear-gradient(160deg,#2E2E34,#0B0B0E);transform:translateZ(-10px)}
 .phone-edge.e2{transform:translateZ(-5px);background:#1a1a1f}
 .phone-body{position:absolute;inset:0;border-radius:52px;padding:9px;background:linear-gradient(150deg,#45454D,#18181C 38%,#2C2C33 70%,#101013);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.14),0 60px 90px -40px rgba(109,74,255,.5)}
@@ -289,7 +295,46 @@ h2{font-size:clamp(34px,4.6vw,60px);line-height:1.08;font-weight:700}
 .screen{position:relative;width:100%;height:100%;border-radius:44px;overflow:hidden;background:#050507}
 .screen-media{position:absolute;inset:0}
 .screen-media img{width:100%;height:100%;object-fit:cover}
-.screen::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 26%,rgba(0,0,0,.28) 45%,rgba(0,0,0,.66) 62%,rgba(0,0,0,.9) 80%)}
+.screen::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 26%,rgba(0,0,0,.28) 45%,rgba(0,0,0,.66) 62%,rgba(0,0,0,.9) 80%);pointer-events:none}
+.screen.chat-on{background:
+  radial-gradient(90% 50% at 50% 0%,rgba(109,74,255,.28),transparent 60%),
+  #07060C}
+.screen.chat-on::after{display:none}
+.chat-feed{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;gap:8px;padding:54px 12px 16px;overflow:hidden}
+.note{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:16px;background:rgba(18,16,28,.72);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(14px);font-size:11px;line-height:1.35;text-align:start}
+.note b{flex:none;font-size:10px;font-weight:700;color:#08070C;background:var(--lilac);border-radius:99px;padding:2px 7px}
+.note span{min-width:0}
+.bub{max-width:88%;padding:8px 11px;border-radius:16px;font-size:12px;line-height:1.45;text-align:start}
+.bub.them{align-self:flex-start;border-start-start-radius:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1)}
+.bub.me{align-self:flex-end;border-start-end-radius:6px;background:rgba(109,74,255,.42);border:1px solid rgba(185,166,255,.32)}
+.typing{align-self:flex-end;display:inline-flex;gap:4px;padding:10px 12px;border-radius:16px;background:rgba(109,74,255,.28)}
+.typing i{width:5px;height:5px;border-radius:50%;background:#fff;animation:type-dot 1s ease-in-out infinite}
+.typing i:nth-child(2){animation-delay:.15s}
+.typing i:nth-child(3){animation-delay:.3s}
+@keyframes type-dot{0%,80%,100%{opacity:.25;transform:translateY(0)}40%{opacity:1;transform:translateY(-2px)}}
+.ins-viewport{position:absolute;inset:0;z-index:1;overflow:hidden;touch-action:pan-y;cursor:grab}
+.ins-viewport.is-drag{cursor:grabbing}
+.ins-track{display:flex;height:100%;will-change:transform}
+.ins-slide{flex:none;width:100%;height:100%;display:flex;flex-direction:column;gap:7px;padding:50px 12px 28px;text-align:start;overflow:hidden}
+.ins-name{font-size:14px;font-weight:800;line-height:1.3}
+.ins-period{color:var(--muted);font-size:10px}
+.ins-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.ins-stat{padding:7px 8px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)}
+.ins-stat small{display:block;color:var(--muted);font-size:9px;line-height:1.3}
+.ins-stat b{display:block;margin-top:2px;font-size:15px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.ins-up{display:block;margin-top:1px;color:#3DDC84;font-size:10px;font-weight:700;direction:ltr;text-align:end}
+.ins-chart{position:relative;height:78px;flex:none}
+.ins-chart svg{width:100%;height:64px;display:block;overflow:visible}
+.ins-drop{position:absolute;top:0;transform:translateX(-50%);max-width:92px;padding:1px 5px;border-radius:7px;background:rgba(185,166,255,.18);color:#E4D9FF;font-size:8px;font-weight:700;line-height:1.35;white-space:nowrap}
+.ins-top{display:flex;align-items:center;gap:8px;padding:6px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
+.ins-thumb{width:36px;height:36px;border-radius:9px;overflow:hidden;flex:none;background:rgba(109,74,255,.28);color:var(--lilac);display:grid;place-items:center}
+.ins-thumb img{width:100%;height:100%;object-fit:cover}
+.ins-top b{font-size:12px}
+.ins-top span{display:block;color:var(--muted);font-size:9px}
+.ins-dots{position:absolute;z-index:4;left:0;right:0;bottom:10px;display:flex;justify-content:center;gap:6px}
+.ins-dots button{width:6px;height:6px;padding:0;border-radius:99px;background:rgba(255,255,255,.28)}
+.ins-dots button[aria-current=true]{width:16px;background:var(--lilac)}
+.ins-slide .demo-tag{margin-top:0;align-self:flex-start}
 .island{position:absolute;top:11px;left:50%;width:92px;height:27px;margin-left:-46px;border-radius:20px;background:#000;z-index:3}
 .status{position:absolute;top:15px;inset-inline:26px;display:flex;justify-content:space-between;font-size:12px;font-weight:600;z-index:3;direction:ltr}
 .scr-ui{position:absolute;inset-inline:12px;bottom:14px;z-index:2;display:grid;gap:8px}
@@ -303,28 +348,55 @@ h2{font-size:clamp(34px,4.6vw,60px);line-height:1.08;font-weight:700}
 .av{width:30px;height:30px;border-radius:50%;overflow:hidden;background:linear-gradient(140deg,#8A66FF,#B77BFF 48%,var(--rose));display:grid;place-items:center;font-size:12px;font-weight:700;flex:none;border:2px solid rgba(255,255,255,.2)}
 .av img{width:100%;height:100%;object-fit:cover}
 .fc{position:absolute;z-index:5}
-.fc-in{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:30px;background:rgba(22,20,32,.38);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(16px) saturate(1.5);-webkit-backdrop-filter:blur(16px) saturate(1.5);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 24px 50px -28px rgba(0,0,0,.7);animation:floaty 8s ease-in-out infinite;min-width:250px;text-align:start;will-change:transform}
+.rev-deck{position:absolute;inset:0;pointer-events:none}
+.rev-deck .fc{pointer-events:auto}
+.fc-in{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:30px;background:rgba(22,20,32,.38);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(16px) saturate(1.5);-webkit-backdrop-filter:blur(16px) saturate(1.5);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 24px 50px -28px rgba(0,0,0,.7);animation:floaty 8s ease-in-out infinite;min-width:250px;text-align:start}
 .fc .t,.fc .n,.fc-in .grow{display:block}
-.fc-1{top:15%;inset-inline-end:calc(50% - 400px)}
-.fc-2{top:44%;inset-inline-start:calc(50% - 420px)}
+.fc-1{top:16%;left:calc(50% - 340px)}
+.fc-2{top:38%;left:calc(50% + 28px);z-index:7}
 .fc-2 .fc-in{animation-delay:-3s}
-.fc-3{bottom:10%;inset-inline-end:calc(50% - 250px)}
-.fc-3 .fc-in{animation-delay:-5s}
+.fc-rev.r1{top:16%;left:calc(50% - 268px);z-index:6}
+.fc-rev.r2{top:58%;left:calc(50% + 46px);z-index:6}
+.fc-rev.r2 .fc-in{animation-delay:-5s}
+.fc-rev.r3{top:12%;left:calc(50% + 18px);z-index:6}
+.fc-rev.r3 .fc-in{animation-delay:-2s}
+.fc-rev.r4{top:60%;left:calc(50% - 236px);z-index:6}
+.fc-rev.r4 .fc-in{animation-delay:-4s}
+.fc-rev.back{z-index:2}
+.fc-rev.back .fc-in{filter:blur(1.6px)}
+.rev.is-on{border-color:rgba(185,166,255,.55);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 24px 50px -24px rgba(109,74,255,.65)}
+.demo-tag{display:inline-flex;margin-top:6px;padding:2px 7px;border-radius:99px;background:rgba(232,192,122,.14);border:1px solid rgba(232,192,122,.4);color:#E8C07A;font-size:10px;font-weight:700;line-height:1.4}
 .fc .t{font-size:12px;color:var(--muted)}
 .fc .n{font-weight:600}
-.fc .grow{flex:1}
+.fc .grow{flex:1;min-width:0}
+.rev{min-width:210px;max-width:248px}
+.rev .n{font-size:14.5px;font-weight:650;line-height:1.45}
+.rev-mark{font-family:var(--script);font-size:34px;line-height:.7;color:var(--lilac);flex:none}
+.fc-count{padding:14px 16px;gap:14px;overflow:visible;min-width:280px;align-items:center}
+.fc-shot{width:52px;height:52px;min-height:0;display:grid;place-items:center;flex:none;border-radius:16px;background:rgba(109,74,255,.28);color:var(--lilac);border:1px solid rgba(185,166,255,.4)}
+.fc-count .grow{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:0}
+.fc-count .pill-btn{align-self:center;flex:none}
 .pill-btn{padding:9px 18px;border-radius:99px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-size:14px;font-weight:500}
 .thumb{width:48px;height:48px;border-radius:14px;overflow:hidden;flex:none}
 .thumb img,.thumb .ph{width:100%;height:100%;object-fit:cover}
 .bar{display:inline-block;width:22px;height:4px;border-radius:9px;background:var(--cyan);vertical-align:middle;margin-inline-start:6px}
+.scene-fit{container-type:inline-size;display:flex;justify-content:center;width:100%;overflow:hidden}
 @media (max-width:900px){
-  .scene{height:640px}
-  .phone{width:240px;height:500px}
-  .fc-in{min-width:0;padding:10px 12px;gap:10px;font-size:14px}
-  .fc-1{top:6%;inset-inline-end:4%}
-  .fc-2{top:46%;inset-inline-start:2%}
-  .fc-3{bottom:4%;inset-inline-end:6%}
-  .fc .thumb{width:38px;height:38px}
+  .scene{height:880px;align-items:start;padding-top:20px;zoom:calc(100cqw / 800px)}
+  .phone{zoom:1.2}
+  .phone-edge,.phone-body{border-radius:68px}
+  .screen{border-radius:56px}
+  .island{border-radius:20px}
+  .fc-in{border-radius:32px}
+  .fc-shot,.thumb{border-radius:18px}
+  .fc-rev.r1{top:167px}
+  .fc-rev.r3{top:137px}
+  .fc-2{top:334px}
+  .fc-rev.r2{top:486px}
+  .fc-rev.r4{top:502px}
+  .show-end{gap:8px 12px;margin-top:12px}
+  .show-end p{font-size:15px}
+  .show-end .btn{padding:8px 14px;font-size:13px}
 }
 
 /* ---------- placeholders ---------- */
@@ -343,54 +415,11 @@ h2{font-size:clamp(34px,4.6vw,60px);line-height:1.08;font-weight:700}
     radial-gradient(95% 85% at 92% 100%,oklch(.5 .155 calc(var(--hb) + 34)) 0%,oklch(.5 .155 calc(var(--hb) + 34) / .5) 32%,oklch(.5 .155 calc(var(--hb) + 34) / .12) 56%,oklch(.5 .155 calc(var(--hb) + 34) / 0) 74%),
     linear-gradient(160deg,#151127,#0A0812);
 }
-.ph > span{font-weight:700;font-size:clamp(18px,2.4vw,28px);color:rgba(255,255,255,.9);padding:20px;text-align:center;text-shadow:0 2px 14px rgba(0,0,0,.45)}
-.ph-case{display:flex;align-items:stretch;place-items:stretch}
-.ph-case-in{display:flex;flex-direction:column;justify-content:flex-end;gap:12px;width:100%;height:100%;padding:22px 18px 58px;text-align:start}
-.ph-kicker{font-size:11.5px;font-weight:700;letter-spacing:.04em;color:rgba(255,255,255,.62)}
-.ph-title{font-size:clamp(18px,2.15vw,32px);font-weight:800;line-height:1.28;color:#F7F4FF;max-width:18ch;text-shadow:0 10px 28px rgba(0,0,0,.35)}
-.ph-kpis{display:flex;flex-wrap:wrap;gap:6px}
-.pcard:has(.ph-case) .ph-kpis{margin-inline-end:132px}
-.ph-kpi{display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:rgba(8,7,12,.38);border:1px solid rgba(255,255,255,.12);max-width:100%}
-.ph-kpi b{font-size:12px;font-weight:700;line-height:1.3;color:#fff;white-space:nowrap}
-.ph-case[data-type=plan]{
-  background:
-    radial-gradient(120% 90% at 8% 0%,rgba(86,220,232,.42) 0%,rgba(86,220,232,.14) 38%,transparent 68%),
-    radial-gradient(90% 80% at 100% 110%,rgba(58,168,181,.35) 0%,transparent 58%),
-    linear-gradient(165deg,#102028,#0B0A12);
-}
-.ph-case[data-type=plan] .ph-title{color:#E7FBFF}
-.ph-case[data-type=copy]{
-  background:
-    radial-gradient(120% 90% at 8% 0%,rgba(232,192,122,.4) 0%,rgba(232,192,122,.14) 38%,transparent 68%),
-    radial-gradient(90% 80% at 100% 110%,rgba(109,74,255,.28) 0%,transparent 58%),
-    linear-gradient(165deg,#1C1408,#0B0A12);
-}
-.ph-case[data-type=copy] .ph-title{color:#FFE9B8}
-.ph-case[data-type=dir]{
-  background:
-    radial-gradient(120% 90% at 8% 0%,rgba(185,166,255,.4) 0%,rgba(185,166,255,.14) 38%,transparent 68%),
-    radial-gradient(90% 80% at 100% 110%,rgba(109,74,255,.32) 0%,transparent 58%),
-    linear-gradient(165deg,#161127,#0B0A12);
-}
-.ph-case[data-type=id]{
-  background:
-    radial-gradient(120% 90% at 8% 0%,rgba(255,92,147,.4) 0%,rgba(255,92,147,.14) 38%,transparent 68%),
-    radial-gradient(90% 80% at 100% 110%,rgba(226,59,114,.28) 0%,transparent 58%),
-    linear-gradient(165deg,#1C1018,#0B0A12);
-}
-.pmedia:has(.ph-case)::after{display:none}
-.thumb .ph-case-in,.imgbox .ph-case-in,.mini .ph-case-in{display:none}
-.thumb .ph-case{display:grid;place-items:center}
-.thumb .ph-case::after{content:"";width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.88);box-shadow:0 0 0 6px rgba(255,255,255,.14)}
-.pcard:first-child .ph-title{font-size:clamp(22px,2.8vw,38px);max-width:22ch}
-@media (max-width:900px){
-  .ph-case-in{padding:16px 12px 52px;gap:10px}
-  .ph-title{font-size:17px;max-width:none}
-  .ph-kpis{gap:6px}
-  .ph-kpi{padding:5px 9px}
-  .ph-kpi b{font-size:11px}
-  .pcard:has(.ph-case) .pgo{left:8px}
-}
+.ph-line{display:block;max-width:92%;padding:20px 22px 28px;font-size:clamp(18px,2.4vw,28px);font-weight:700;line-height:1.4;text-align:center;text-shadow:0 2px 16px rgba(0,0,0,.5)}
+.ph-line .pk{color:var(--lilac)}
+.ph-line .pd{color:rgba(255,255,255,.45);font-weight:600}
+.ph-line .pt{color:#fff}
+.thumb .ph-line,.fc .ph-line,.imgbox .ph-line{display:none}
 
 /* ---------- work ---------- */
 .tabs{display:inline-flex;flex-wrap:wrap;gap:4px;padding:5px;border-radius:22px;background:var(--glass-2);border:1px solid var(--line);max-width:100%;justify-content:flex-end}
@@ -398,38 +427,29 @@ h2{font-size:clamp(34px,4.6vw,60px);line-height:1.08;font-weight:700}
 .tabs button.tab-main{color:var(--ink);font-weight:650}
 .tabs button[aria-selected=true]{background:var(--ink);color:#08070C}
 @media (max-width:900px){
-  .tabs{width:100%;flex-direction:column;align-items:stretch;border-radius:18px}
-  .tabs button{width:100%;font-size:13.5px;padding:11px 14px;border-radius:14px}
+  .tabs{display:flex;width:100%;flex-direction:row;flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;border-radius:999px;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tabs button{width:auto;flex:none;white-space:nowrap;font-size:13px;padding:10px 14px;border-radius:999px}
 }
 .pgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
-.pcard{position:relative;display:block;text-align:start;border-radius:var(--r-xl);padding:12px;background:var(--glass-2);border:1px solid var(--line);transition:border-color .5s,box-shadow .5s,transform .7s cubic-bezier(.2,.8,.2,1)}
+.pcard{position:relative;display:block;text-align:start;border-radius:var(--r-xl);padding:12px;background:var(--glass-2);border:1px solid var(--line);transition:border-color .5s,transform .7s cubic-bezier(.2,.8,.2,1)}
 /* زر شفاف يغطي البطاقة كاملة عشان أي ضغطة تفتح المشروع */
 .hit{position:absolute;inset:0;z-index:3;border-radius:inherit;cursor:pointer}
 .pcard:hover{border-color:rgba(185,166,255,.3);transform:translateY(-4px)}
 .pcard:first-child{grid-column:1/-1}
 .pmedia{position:relative;aspect-ratio:16/10;border-radius:28px;overflow:hidden}
-.ptype{position:absolute;z-index:2;top:12px;inset-inline-start:12px;display:inline-flex;align-items:center;gap:7px;padding:6px 11px 6px 9px;border-radius:999px;font-size:11.5px;font-weight:750;letter-spacing:.01em;line-height:1;pointer-events:none;backdrop-filter:blur(16px) saturate(1.35);-webkit-backdrop-filter:blur(16px) saturate(1.35);box-shadow:0 10px 28px -14px rgba(0,0,0,.65)}
-.ptype i{width:7px;height:7px;border-radius:50%;background:currentColor;box-shadow:0 0 0 3px color-mix(in srgb,currentColor 30%,transparent);flex:none}
-.pcard[data-type=plan],.shot[data-type=plan]{border-color:rgba(58,168,181,.28)}
-.pcard[data-type=dir],.shot[data-type=dir]{border-color:rgba(185,166,255,.28)}
-.pcard[data-type=id],.shot[data-type=id]{border-color:rgba(255,92,147,.28)}
-.pcard[data-type=copy],.shot[data-type=copy]{border-color:rgba(232,192,122,.3)}
-.pcard[data-type=plan]:hover{border-color:rgba(86,220,232,.55);box-shadow:0 18px 40px -28px rgba(58,168,181,.55)}
-.pcard[data-type=dir]:hover{border-color:rgba(185,166,255,.55);box-shadow:0 18px 40px -28px rgba(109,74,255,.5)}
-.pcard[data-type=id]:hover{border-color:rgba(255,92,147,.55);box-shadow:0 18px 40px -28px rgba(255,92,147,.45)}
-.pcard[data-type=copy]:hover{border-color:rgba(232,192,122,.6);box-shadow:0 18px 40px -28px rgba(232,192,122,.4)}
-.ptype[data-type=plan],.pcard[data-type=plan] .ptype,.shot[data-type=plan] .ptype{color:#C3FBFF;background:rgba(12,42,48,.78);border:1px solid rgba(134,227,246,.42)}
-.ptype[data-type=dir],.pcard[data-type=dir] .ptype,.shot[data-type=dir] .ptype{color:#EDE6FF;background:rgba(32,22,72,.78);border:1px solid rgba(185,166,255,.45)}
-.ptype[data-type=id],.pcard[data-type=id] .ptype,.shot[data-type=id] .ptype{color:#FFD6E4;background:rgba(58,16,34,.78);border:1px solid rgba(255,92,147,.45)}
-.ptype[data-type=copy],.pcard[data-type=copy] .ptype,.shot[data-type=copy] .ptype{color:#FFE9B8;background:rgba(48,34,10,.78);border:1px solid rgba(232,192,122,.48)}
 .pcard:first-child .pmedia{aspect-ratio:21/9}
 .pmedia img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
 .pmedia picture,.screen-media picture,.shot picture,.gallery picture,.thumb picture{display:block;width:100%;height:100%}
 .pmedia::after{content:"";position:absolute;inset:auto 0 0;height:46%;background:linear-gradient(to top,rgba(8,7,12,.62),transparent);pointer-events:none;opacity:.9;transition:opacity .45s}
+.pmedia:has(.ph)::after{display:none}
 .pcard:hover .pmedia img{transform:scale(1.04)}
 .pcard:hover .pmedia::after{opacity:1}
 .pinfo{display:flex;flex-direction:column;align-items:flex-start;gap:0;padding:16px 10px 12px}
-.pinfo h3{font-size:22px;font-weight:600;line-height:1.3}
+.pinfo h3{font-size:22px;font-weight:700;line-height:1.4}
+.pinfo h3 .pk{color:var(--lilac)}
+.pinfo h3 .pd{color:var(--muted);font-weight:600}
+.pinfo h3 .pt{color:#fff}
 .mpills{display:flex;flex-wrap:wrap;align-items:center;margin-top:8px;color:var(--muted);font-size:14.5px;line-height:1.5}
 .mpills span+span::before{content:"";display:inline-block;width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.45;margin:0 10px;vertical-align:middle}
 .pgo{position:absolute;z-index:4;right:12px;bottom:12px;display:inline-flex;align-items:center;gap:8px;padding:4px 14px 4px 4px;padding-inline:4px 14px;border-radius:16px;background:rgba(14,12,20,.78);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);color:#F4F2FA;font-size:13px;font-weight:650;letter-spacing:.01em;white-space:nowrap;cursor:pointer;transition:background .3s,color .3s,border-color .3s,transform .4s cubic-bezier(.2,.8,.2,1),box-shadow .4s}
@@ -437,7 +457,6 @@ h2{font-size:clamp(34px,4.6vw,60px);line-height:1.08;font-weight:700}
 .pgo:hover,.pgo:focus-visible{background:#F4F2FA;color:#08070C;border-color:#F4F2FA;transform:scale(1.05);box-shadow:0 10px 28px rgba(0,0,0,.28)}
 .pgo:hover .pgo-ic,.pgo:focus-visible .pgo-ic{background:rgba(8,7,12,.1)}
 .pgo .ic{flex-shrink:0}
-.pcard:has(.ph-case) .pgo{right:auto;left:12px}
 .tag{font-size:12.5px;padding:6px 12px;border-radius:99px;border:1px solid var(--line);color:#CFCAE0;white-space:nowrap}
 .tags{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-start;margin-top:10px;max-width:100%}
 .tag-accent{border-color:rgba(185,166,255,.35);color:#E4D9FF;background:rgba(185,166,255,.08)}
@@ -448,52 +467,31 @@ h2{font-size:clamp(34px,4.6vw,60px);line-height:1.08;font-weight:700}
 .shot figcaption{position:absolute;inset-inline:10px;bottom:10px;padding:10px 14px;border-radius:16px;background:rgba(20,19,26,.82);font-size:14px;display:flex;justify-content:space-between;gap:10px;opacity:0;transform:translateY(8px);transition:opacity .5s cubic-bezier(.2,.8,.2,1),transform .5s cubic-bezier(.2,.8,.2,1)}
 .shot:hover figcaption,.shot:has(.hit:focus-visible) figcaption{opacity:1;transform:none}
 .shot figcaption span{color:var(--muted)}
+.shot figcaption .pk{color:var(--lilac)}
+.shot figcaption .pd{color:rgba(255,255,255,.45)}
+.shot figcaption .pt{color:#fff}
 .empty{padding:60px 20px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:var(--r-lg)}
 @media (max-width:900px){
   .pcard{border-radius:16px;padding:8px}
   .pmedia{border-radius:12px}
   .shot{border-radius:16px}
-  .ptype{top:8px;inset-inline-start:8px;font-size:10.5px;padding:5px 9px 5px 7px}
   .pgo{right:8px;bottom:8px;padding:3px 12px 3px 3px;padding-inline:3px 12px;font-size:12px;gap:6px;border-radius:14px}
-  .pcard:has(.ph-case) .pgo{right:auto;left:8px}
   .pgo-ic{width:24px;height:24px;border-radius:9px}
   .pinfo{padding:12px 6px 8px}
   .pinfo h3{font-size:17px}
   .mpills{margin-top:6px;font-size:13px}
   .pgrid{gap:14px}
-  .modal{padding:8px}
-  .modal-card{border-radius:16px;padding:0;max-height:92vh}
-  .modal-card .pmedia{border-radius:12px;aspect-ratio:16/10;margin:8px 8px 0}
-  .m-head{padding:10px 12px 10px 8px}
-  .m-head h3{font-size:15px}
-  .m-body{padding:10px 12px 14px}
-  .m-body h3{font-size:20px;line-height:1.3}
-  .m-facts{grid-template-columns:1fr;border-radius:14px;margin:10px 0 12px}
-  .m-fact{display:grid;grid-template-columns:auto auto 1fr;align-items:center;gap:8px 10px;border-inline-start:0;border-top:1px solid var(--line);padding:11px 12px}
-  .m-fact:first-child{border-top:0}
-  .m-fact>div{display:contents}
-  .m-fact small{font-size:12px}
-  .m-fact b{font-size:13.5px;text-align:end;justify-self:end}
-  .m-body p{font-size:13.5px;line-height:1.65}
-  .gallery{gap:10px;margin-top:10px}
-  .g-item{gap:4px}
-  .g-item img,.gallery img{border-radius:12px}
-  .g-cap{gap:8px;padding:0}
-  .g-num{font-size:10px}
-  .g-lab b{font-size:13px}
-  .g-lab span{font-size:11px}
-  .x-btn{width:34px;height:34px}
-  .lb img{border-radius:14px}
 }
 @media (max-width:760px){.pgrid{grid-template-columns:1fr}.pcard:first-child .pmedia{aspect-ratio:16/10}.shot figcaption{opacity:1;transform:none}}
 
 /* ---------- sticker space ---------- */
 .stk-sec{padding-bottom:clamp(70px,8vw,110px)}
 .stk-head{display:grid;gap:12px;margin-bottom:26px;justify-items:start}
-.stk-head .lead{margin:0;max-width:46ch}
+.stk-head .lead{margin:48px 0 0;max-width:46ch}
+.stk-verb{color:var(--lilac);font-weight:700}
 .stk-kicker{display:inline-flex;align-items:center;gap:8px;color:var(--lilac);font-size:13px;font-weight:700;letter-spacing:.04em}
 .stk-kicker i{width:7px;height:7px;border-radius:50%;background:var(--lilac);box-shadow:0 0 0 4px rgba(185,166,255,.16)}
-.stk-head h2{position:relative;font-size:clamp(40px,6.2vw,76px);font-weight:800;line-height:1.12;letter-spacing:-.03em;color:transparent;-webkit-text-fill-color:transparent;-webkit-background-clip:text;background-clip:text;background-image:linear-gradient(270deg,#FFFFFF 0%,#F4F0FF 28%,#D8CAFF 58%,#FFC2D6 100%);filter:drop-shadow(0 10px 28px rgba(109,74,255,.28));transform:rotate(-1.1deg);transform-origin:right center}
+.stk-head h2{position:relative;font-size:clamp(40px,6.2vw,76px);font-weight:800;line-height:1.45;padding-bottom:.2em;letter-spacing:-.03em;color:transparent;-webkit-text-fill-color:transparent;-webkit-background-clip:text;background-clip:text;background-image:linear-gradient(270deg,#FFFFFF 0%,#F4F0FF 28%,#D8CAFF 58%,#FFC2D6 100%);filter:drop-shadow(0 10px 28px rgba(109,74,255,.28));transform:rotate(-1.1deg);transform-origin:right center;overflow:visible}
 [dir=ltr] .stk-head h2{background-image:linear-gradient(90deg,#FFFFFF 0%,#F4F0FF 28%,#D8CAFF 58%,#FFC2D6 100%);transform-origin:left center}
 .stk-space{position:relative;border-radius:28px;border:1px solid var(--line);background:rgba(18,16,28,.72);overflow:hidden;min-height:min(760px,78vh);height:min(760px,78vh);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 30px 80px -40px rgba(109,74,255,.4)}
 .stk-chrome{position:absolute;inset:14px 14px auto;z-index:2;display:flex;align-items:center;gap:10px;pointer-events:none}
@@ -523,6 +521,7 @@ h2{font-size:clamp(34px,4.6vw,60px);line-height:1.08;font-weight:700}
 @media (max-width:900px){
   .stk-space{border-radius:20px;min-height:min(620px,74vh);height:min(620px,74vh)}
   .stk-grid{background-size:36px 36px,36px 36px,auto,auto}
+  .stk-face{filter:drop-shadow(0 8px 10px rgba(0,0,0,.35))}
   .stk-chrome{inset:10px 10px auto}
   .stk-chrome small{display:none}
 }
@@ -530,7 +529,8 @@ h2{font-size:clamp(34px,4.6vw,60px);line-height:1.08;font-weight:700}
 
 /* ---------- services bento ---------- */
 .bento{display:grid;grid-template-columns:1.15fr 1fr 1fr;grid-auto-rows:minmax(230px,auto);gap:16px}
-.svc{position:relative;overflow:hidden;padding:26px;border-radius:var(--r-lg);background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.02));border:1px solid var(--line);display:flex;flex-direction:column;gap:12px}
+.svc{position:relative;overflow:hidden;padding:26px;border-radius:var(--r-lg);background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.02));border:1px solid var(--line);display:flex;flex-direction:column;gap:12px;cursor:pointer;transition:border-color .3s}
+.svc:hover,.svc:focus-visible{border-color:rgba(185,166,255,.55)}
 .svc h3{font-size:19px;font-weight:600}
 .svc p{color:var(--muted);font-size:15px;line-height:1.7}
 .svc-ic{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--lilac)}
@@ -574,13 +574,13 @@ footer{padding:40px 0 calc(30px + env(safe-area-inset-bottom,0px));color:var(--f
 /* visibility بدون انتقال عند الفتح (وإلا يفضل مخفياً أول إطار فما يقبل التركيز)، وبتأخير عند الإغلاق حتى يكتمل التلاشي */
 .modal{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:12px;background:#0a0a0e;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .4s,visibility 0s .4s}
 .modal.open{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .4s,visibility 0s}
-.modal-card{width:min(980px,100%);max-height:88vh;display:flex;flex-direction:column;overflow:hidden;border-radius:var(--r-xl);background:#121118;border:1px solid var(--line);padding:0;direction:rtl;text-align:start;isolation:isolate}
+.modal-card{width:min(980px,100%);max-width:100%;min-width:0;max-height:88vh;display:flex;flex-direction:column;overflow:hidden;border-radius:var(--r-xl);background:#121118;border:1px solid var(--line);padding:0;direction:rtl;text-align:start;isolation:isolate}
 .m-head{position:relative;flex:none;z-index:8;display:flex;align-items:center;gap:12px;padding:11px 14px 11px 10px;background:#121118;box-shadow:0 8px 18px rgba(0,0,0,.28)}
 .m-head h3{flex:1;min-width:0;margin:0;font-size:16.5px;font-weight:700;line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .m-head .x-btn{position:static;float:none;flex:none;background:rgba(255,255,255,.08)}
-.m-scroll{position:relative;z-index:0;flex:1 1 auto;min-height:0;overflow:auto;overflow-x:hidden;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;background:#121118}
+.m-scroll{position:relative;z-index:0;flex:1 1 auto;min-width:0;min-height:0;overflow:auto;overflow-x:hidden;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;background:#121118}
 .modal-card .pmedia{aspect-ratio:16/9;margin:10px 10px 0}
-.m-body{padding:14px 16px 18px}
+.m-body{padding:14px 16px 18px;min-width:0}
 .m-body h3{font-size:clamp(26px,3vw,38px);line-height:1.2;font-weight:700}
 .m-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:16px 0 18px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:rgba(255,255,255,.03)}
 .m-fact{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;border-inline-start:1px solid var(--line);min-width:0}
@@ -601,7 +601,9 @@ footer{padding:40px 0 calc(30px + env(safe-area-inset-bottom,0px));color:var(--f
 .g-lab span{font-size:12.5px;color:var(--muted)}
 .m-kicker{font-size:12px;letter-spacing:.16em;color:var(--lilac);margin-bottom:4px;font-weight:650}
 .m-body .lede{color:#CFCAE0;max-width:none;width:100%;white-space:pre-line}
-.study{display:grid;gap:22px;margin:22px 0 6px;width:100%;max-width:none}
+.study{display:grid;gap:22px;margin:22px 0 6px;width:100%;max-width:none;min-width:0}
+.study-sec{min-width:0;max-width:100%}
+.study>*{min-width:0;max-width:100%}
 .study-sec h4{font-size:15px;font-weight:750;margin:0 0 8px;color:var(--ink)}
 .study-sec p{color:#CFCAE0;font-size:15px;line-height:1.75;margin:0;white-space:pre-line}
 .study-sec ul{display:grid;gap:8px;padding:0;margin:0;list-style:none}
@@ -610,12 +612,12 @@ footer{padding:40px 0 calc(30px + env(safe-area-inset-bottom,0px));color:var(--f
 .study-q{margin:0;padding:18px 20px;border-radius:18px;background:rgba(109,74,255,.12);border:1px solid rgba(185,166,255,.22);color:#F4F2FA;font-size:clamp(18px,2.2vw,26px);font-weight:700;line-height:1.5}
 .study-cta p{color:var(--lilac);font-size:15px;line-height:1.75;margin:0;font-weight:500;width:auto}
 .study-cta .btn{display:inline-flex;vertical-align:middle;margin-inline-start:8px;padding:4px 11px;font-size:12px;gap:4px;transform:none}
-.study-table{width:100%;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:rgba(255,255,255,.02)}
+.study-table{width:100%;min-width:0;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:rgba(255,255,255,.02)}
 .study-row{display:grid;grid-template-columns:minmax(108px,.85fr) 1.45fr;gap:12px;padding:12px 16px;border-top:1px solid var(--line);font-size:14.5px;line-height:1.65}
 .study-row:first-child{border-top:0}
 .study-row b{color:var(--ink);font-weight:650}
 .study-row span{color:#CFCAE0}
-.study-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;width:100%}
+.study-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;width:100%;min-width:0}
 .study-kpi{padding:16px;border-radius:16px;background:rgba(255,255,255,.03);border:1px solid var(--line);min-width:0}
 .study-kpi b{display:block;font-size:18px;font-weight:800;color:var(--lilac);margin-bottom:6px;line-height:1.3}
 .study-kpi span{font-size:13px;color:var(--muted);line-height:1.45}
@@ -625,7 +627,7 @@ footer{padding:40px 0 calc(30px + env(safe-area-inset-bottom,0px));color:var(--f
 .study-tools .tool-cat{display:none}
 .study-tools .tool-name{position:static;opacity:1;transform:none;inset:auto;margin-top:8px;white-space:normal;text-align:center;line-height:1.25;max-width:76px}
 .study-tools .tool:hover .tool-face{transform:scale3d(1.1,1.1,1)}
-.study-tl-wrap{width:100%;overflow-x:auto;padding:6px 0 4px;margin-inline:-2px;overscroll-behavior:contain}
+.study-tl-wrap{width:100%;min-width:0;max-width:100%;overflow-x:auto;padding:6px 0 4px;margin-inline:-2px;overscroll-behavior:contain}
 .study-tl{--n:5;position:relative;display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:14px 0;width:100%;min-width:calc(var(--n)*132px);padding-top:2px}
 .study-tl-line{position:absolute;top:8px;inset-inline:calc(50%/var(--n));height:2px;border-radius:99px;background:linear-gradient(to left,rgba(185,166,255,.18),var(--lilac),rgba(185,166,255,.18));pointer-events:none;z-index:0}
 .study-tl-item{position:relative;z-index:1;display:grid;justify-items:center;text-align:center;gap:8px;min-width:0;padding-inline:8px}
@@ -657,6 +659,31 @@ footer{padding:40px 0 calc(30px + env(safe-area-inset-bottom,0px));color:var(--f
 .x-btn{position:sticky;top:0;float:inline-end;z-index:2;width:42px;height:42px;border-radius:50%;background:rgba(40,38,48,.85);border:1px solid var(--line);display:grid;place-items:center}
 .lb img{max-height:84vh;border-radius:24px;width:auto;margin:auto}
 .lb .modal-card{background:none;border:0;padding:0;width:auto;max-height:none;overflow:visible;display:block;isolation:auto}
+@media (max-width:900px){
+  .modal{padding:8px}
+  .modal-card{border-radius:16px;max-height:92vh}
+  .modal-card .pmedia{border-radius:12px;aspect-ratio:16/10;margin:8px 8px 0}
+  .m-head{padding:10px 12px 10px 8px}
+  .m-head h3{font-size:15px}
+  .m-body{padding:10px 12px 14px}
+  .m-body h3{font-size:20px;line-height:1.3}
+  .m-facts{grid-template-columns:1fr;border-radius:14px;margin:10px 0 12px}
+  .m-fact{display:grid;grid-template-columns:auto auto 1fr;align-items:center;gap:8px 10px;border-inline-start:0;border-top:1px solid var(--line);padding:11px 12px}
+  .m-fact:first-child{border-top:0}
+  .m-fact>div{display:contents}
+  .m-fact small{font-size:12px}
+  .m-fact b{font-size:13.5px;text-align:end;justify-self:end}
+  .m-body p{font-size:13.5px;line-height:1.65}
+  .gallery{gap:10px;margin-top:10px}
+  .g-item{gap:4px}
+  .g-item img,.gallery img{border-radius:12px}
+  .g-cap{gap:8px;padding:0}
+  .g-num{font-size:10px}
+  .g-lab b{font-size:13px}
+  .g-lab span{font-size:11px}
+  .x-btn{width:34px;height:34px}
+  .lb img{border-radius:14px}
+}
 
 /* ---------- dashboard ---------- */
 .dash{position:fixed;inset:0;z-index:100;background:rgba(4,4,7,.82);backdrop-filter:blur(18px);display:none;padding:calc(14px + env(safe-area-inset-top,0px)) 14px calc(14px + env(safe-area-inset-bottom,0px))}
@@ -721,6 +748,7 @@ footer{padding:40px 0 calc(30px + env(safe-area-inset-bottom,0px));color:var(--f
   *,*::before,*::after{animation:none!important;transition:none!important}
   .cta-script text{fill-opacity:1;stroke-dashoffset:0}
   .cta-bold .cb{clip-path:none;transform:none}
+  .ins-line{transition:none!important;stroke-dashoffset:0!important}
   .tools{height:auto;-webkit-mask-image:none;mask-image:none;overflow:visible}
   .tools-track{position:relative;top:auto;left:auto;flex-wrap:wrap;width:auto;height:auto;animation:none}
   .tools-set{flex-wrap:wrap;padding-inline-end:0}
@@ -795,9 +823,10 @@ footer{padding:40px 0 calc(30px + env(safe-area-inset-bottom,0px));color:var(--f
   <section class="showcase" id="showcase">
     <div class="aurora a4"></div>
     <div class="wrap show-head">
-      <h2 data-t="featured"></h2>
-      <p id="show-sub"></p>
+      <h2 id="show-title">محتوى <span class="en-hot">Viral</span></h2>
+      <p class="show-lead" id="show-sub">ما أنشر زيادة عدد.. أبني محتوى ممتع ويبيع ويجيب نتايج</p>
     </div>
+    <div class="scene-fit">
     <div class="scene" id="scene">
       <div class="phone-float">
         <div class="phone" id="phone">
@@ -806,22 +835,22 @@ footer{padding:40px 0 calc(30px + env(safe-area-inset-bottom,0px));color:var(--f
           <span class="phone-btn" style="top:120px;height:34px"></span>
           <span class="phone-btn" style="top:170px;height:58px"></span>
           <div class="phone-body">
-            <div class="screen">
+            <div class="screen chat-on">
               <div class="island"></div>
               <div class="status"><span>9:41</span><span>●●● ▮</span></div>
-              <div class="screen-media" id="scr-media"></div>
-              <div class="scr-ui">
-                <div class="scr-title"><small id="scr-cat"></small><div id="scr-title"></div></div>
-                <div class="mini"><span class="av" id="scr-av"></span><div class="grow"><div class="t" data-t="viewing"></div><div id="scr-name"></div></div><span class="wave" id="scr-wave"></span></div>
-                <div class="mini"><div class="grow"><div class="t" data-t="client"></div><div id="scr-client"></div></div><span id="scr-year"></span></div>
-              </div>
+              <div class="ins-viewport" id="ins-view" tabindex="0" aria-roledescription="عرض الحملات"></div>
+              <div class="ins-dots" id="ins-dots" role="tablist" aria-label="الحملات"></div>
             </div>
           </div>
         </div>
       </div>
-      <div class="fc fc-1"><button class="fc-in" type="button" id="fc1"><span class="av" id="fc-av"></span><span class="grow"><span class="t" data-t="viewing"></span><span class="n" id="fc-name"></span></span><span class="wave" id="fc-wave"></span></button></div>
-      <div class="fc fc-2"><a class="fc-in" href="#work"><span class="av" style="background:linear-gradient(135deg,#86E3F6,#6D4AFF)" id="fc-count-ic"></span><span class="grow n" id="fc-count"></span><span class="pill-btn" data-t="browse"></span></a></div>
-      <div class="fc fc-3"><button class="fc-in" type="button" id="fc3"><span class="thumb" id="fc-next-thumb"></span><span class="grow"><span class="t"><span data-t="next"></span><span class="bar"></span></span><span class="n" id="fc-next-title"></span></span></button></div>
+      <div class="rev-deck" id="rev-deck"></div>
+      <div class="fc fc-2"><a class="fc-in fc-count" href="#work"><span class="fc-shot" id="fc-count-ic"></span><span class="grow"><span class="n" id="fc-count"></span></span><span class="pill-btn" data-t="browse"></span></a></div>
+    </div>
+    </div>
+    <div class="show-end">
+      <p id="show-close">أساعدك بفكرة تنتشر؟</p>
+      <a class="btn btn-light" id="show-cta" href="#contact">خلنا نسولف</a>
     </div>
   </section>
 
@@ -845,7 +874,7 @@ footer{padding:40px 0 calc(30px + env(safe-area-inset-bottom,0px));color:var(--f
       <div class="stk-head">
         <p class="stk-kicker"><i></i><span data-t="stickersFrom"></span></p>
         <h2 data-t="stickersH"></h2>
-        <p class="lead" data-t="stickersLead"></p>
+        <p class="lead" id="stk-lead">ستيكرز الستريشنز <span class="stk-verb">صممتها</span> من الصفر</p>
       </div>
       <div class="stk-space" id="stk-space">
         <div class="stk-chrome">
@@ -853,7 +882,7 @@ footer{padding:40px 0 calc(30px + env(safe-area-inset-bottom,0px));color:var(--f
           <b data-t="stickersSpace"></b>
           <small data-t="stickersHint"></small>
         </div>
-        <div class="stk-grid" id="stk-grid" role="application" aria-label="فضاء الستيكرز"></div>
+        <div class="stk-grid" id="stk-grid" role="application" aria-label="بريك خفيف : ستيكرات لعملاءي"></div>
       </div>
     </div>
   </section>
@@ -915,7 +944,49 @@ footer{padding:40px 0 calc(30px + env(safe-area-inset-bottom,0px));color:var(--f
 <input type="file" id="file-in" hidden data-own>
 <div class="toast" id="toast" data-own></div>
 
-<script type="application/json" id="pf-data" data-own>{"site":{"dir":"rtl","name":"جوكر","role":"جوكر إبداعي","hello":"متاح لمشاريع جديدة","headline":"جوكر\nومصمم إبداعي","intro":"مصمم إبداعي، أحوّل أفكار العلامات التجارية لتجارب بصرية واضحة وجريئة، من الهوية إلى الحملة إلى الشاشة.","bio":"مبدعة .. أبني اتجاهات واستراتيجيات بصرية تجذبك وتعجبك، وتوافق توجهاتك وأهم شي .. توصل أفكارك.\n+++\nأحب أبني هويات للحملات والبراندات وأشتغل على منشورات، أعرف للمطبوعات بس نتهاوش شوي، و**أموووووووت** بالإلستريشنز والواجهات والستيكرز.\n\nومو بس أصمم أنا **جوكر** ..\n\nلي بالتسويق خصوصاً متاجر **سلة** — ذولي اشتغلت عليهم سنين. أربط البكسلز وأطلق حملات وأحسّن الظهور بمحركات البحث. أشتغل على أدوات قوقل وأدوات الترويج وسيمرش بعد.\n\nوابني خطط تسويقية وأحط كي بي آيز بس أتهاوش مع العملاء .. أحياناً **يعصبوني**.\n\nوما يحتاج أقول .. إني أكتب محتوى وأدقق نصوص. خلاص شكلي **أفتح شركة**.\n\nدقيقة ترا تخصصي حاسب و**أبرمج**   و ....... ولا أقولك دق عليّ أعلمك","facts":["أصمم إتجاهات بصرية للبراندات والحملات وأصمم منشورات ومطبوعات والستريشنز من الصفر","أبني حملات واستراتيجيات تسويقية رهيبة بعد ما أسوي دراسات للسوق وأروج وأربط أدوات التتبع وأحسن الظهور بمحركات البحث.","أكتب محتوى ونصوص إبداعية تلامس المستخدم وتفهم احتياجاته","أبرمج وأبني مواقع وأنظمة"],"location":"القصيم، بريدة","available":true,"memoji":"memoji.webp","memojiType":"image","ctaBold":"ودك نسوي","ctaScript":"شي كرييتف","ctaLine":"عندك فكرة، علامة جديدة، أو حملة قريبة؟ أرسل لي وأرجع لك خلال يوم.","ctaButton":"ابدأ مشروعك","ctaEmail":"hello@example.com","givenName":"لمى المشيقح"},"projects":[{"id":"p-rawabet","title":"حملة الإنطلاق - يلا نسولف سوا","client":"مركز روابط التواصل التخصصي","year":"2026","category":"اتجاه بصري","kicker":"اتجاه براند + حملة يلا نسولف سوا","tags":["اتجاه بصري","براند","حملة إطلاق","سوشال","مطبوعات","أوتدور"],"summary":"اتجاه بصري كامل لحملة إطلاق المركز.","description":"اتجاه بصري لبراند مركز روابط التواصل التخصصي، واتجاه بصري لحملة الانطلاق «يلا نسولف سوا».\nللبراند: الألوان، سلوقن «معًا نتواصل»، الاتجاه الصوري والجرافيكي، السوشال، الهايلايت، والمطبوعات.\nللحملة: لوك أب يلا نسولف سوا، ظهور الإطلاق، وإعلانات الشوارع.","cover":"work/rawabet/00-cover.jpg","images":[{"src":"work/rawabet/03-colors.jpg","label":"البراند — ألوان الهوية","sub":"Brand Colors"},{"src":"work/rawabet/04-slogan.jpg","label":"البراند — سلوقن معًا نتواصل","sub":"Brand Slogan"},{"src":"work/rawabet/05-photo.jpg","label":"البراند — الاتجاه الصوري","sub":"Photography Direction"},{"src":"work/rawabet/06-graphic.jpg","label":"البراند — الاتجاه الجرافيكي","sub":"Graphic Direction"},{"src":"work/rawabet/07-social.jpg","label":"البراند — ظهور السوشال","sub":"Social Media Direction"},{"src":"work/rawabet/08-highlights.jpg","label":"البراند — نظام الهايلايت","sub":"Highlight System"},{"src":"work/rawabet/09-badges.jpg","label":"البراند — كروت المطبوعات","sub":"Print — ID Badges"},{"src":"work/rawabet/10-print.jpg","label":"البراند — الفولدر والورق","sub":"Print — Folder & Letterhead"},{"src":"work/rawabet/11-campaign.jpg","label":"الحملة — لوك أب يلا نسولف سوا","sub":"Launch Lockup"},{"src":"work/rawabet/12-presence.jpg","label":"الحملة — ظهور الإطلاق","sub":"Launch Presence"},{"src":"work/rawabet/13-outdoor.jpg","label":"الحملة — إعلان الشارع العمودي","sub":"Outdoor Vertical"},{"src":"work/rawabet/14-billboard.jpg","label":"الحملة — إعلان الشارع العريض","sub":"Outdoor Billboard"}],"hue":168,"group":"marketing","featured":true,"spotlight":true,"kind":"اتجاه بصري"},{"id":"p-plastic","title":"نجيك وأنت بمكانك","client":"مصنع بلاستيك سعودي","year":"2026","category":"استراتيجية تسويق ومبيعات","kind":"خطة تسويقية","kicker":"B2B و B2C · سلة · 12 شهر","tags":["استراتيجية","حملات","سلة","B2B"],"summary":"استعادة المبيعات اليومية من 5–6 آلاف إلى 12–16 ألف ريال، وبناء شراء متكرر مع الأعمال والمنازل.","description":"علامة سعودية لمنتجات البلاستيك ولوازم المنزل، لها حضور وسمعة، ومنتجات قوية بأسعار تنافسية وشحن سريع، ومتجر وتطبيق ونقاط بيع وقاعدة عملاء قائمة. وصلت مبيعاتها سابقًا إلى 16 ألف ريال يوميًا، ثم مرّت بتوقف وتستقر اليوم بين 5 و6 آلاف. الاستراتيجية تعيدها إلى مستواها السابق وأعلى: علاقة شراء متكررة مع المطاعم والبوفيهات ومكاتب العمل والمنازل، ورفع المبيعات اليومية إلى 12–16 ألف ريال.","cover":"","images":[],"hue":268,"group":"marketing","featured":false,"spotlight":true,"study":[{"kpis":[{"v":"5–6 آلاف → 12–16 ألف","l":"المبيعات اليومية المستهدفة"},{"v":"12 شهر","l":"مدى الخطة من الانطلاق لرمضان وما بعده"},{"v":"سلة · تطبيق · نقاط بيع","l":"منصات البيع القائمة"}]},{"h":"التحدي","items":["فجوة بين ما تحققه العلامة وما حققته سابقًا: المنتج والسعر والسمعة موجودة، لكن المبيعات أقل من ثلث ذروتها.","بيانات غير مستغلة: طلبات وعملاء وسلات متروكة وحملات سابقة، لم تُحوَّل بعد إلى قرارات تسويقية.","عملاء يشترون من غيرها: المطاعم والبوفيهات والشركات تستهلك هذه المنتجات يوميًا، وكثير منها يشتري من وسطاء.","موسم قريب: رمضان على بُعد أشهر، وهو ذروة الطلب على منتجات التقديم والتغليف."]},{"h":"الأهداف","items":["رفع المبيعات اليومية من 5–6 آلاف إلى 12–16 ألف ريال.","فهم أسباب ارتفاع المبيعات السابق، وبناء الخطة على عوامل النجاح ومعالجة نقاط الضعف.","بناء قاعدة عملاء أعمال بفاتورة توريد شهرية.","رفع أداء المتجر الإلكتروني والتطبيق كقناة البيع الأولى.","تقوية الظهور الحالي في بحث قوقل وظهور المنتجات في Google Shopping Ads.","استثمار موسم رمضان لاكتساب عملاء يستمرون بعده.","ظهور موحد للعلامة يدعم المبيعات الرقمية ونقاط البيع."]},{"h":"البيانات أولًا","p":"لدى العلامة كنز من البيانات، فبدل افتراض الجمهور تبدأ الخطة بقراءة ما يقوله العملاء بمشترياتهم."},{"table":[["الطلبات السابقة","حجم الطلبات، ومتوسط قيمتها، وتكرار الشراء"],["العملاء السابقون","الشرائح، والأعلى قيمة، والمتكررون، ومن توقفوا عن الشراء"],["السلات المتروكة","المنتجات التي اهتم بها العميل ولم يشترها، وفرص إعادة الاستهداف"],["المنتجات الأكثر طلبًا","ما يُبنى حوله العروض والباقات، وما يجذب العميل الجديد"],["المواسم والأوقات","متى يرتفع الطلب، وأي المنتجات ترتبط بالمواسم، ومتى يكون العميل أكثر استعدادًا للشراء"]]},{"h":"ركائز بنيت عليها الخطة التسويقية","table":[["المنتجات استهلاكية، والعميل يحتاجها مرة بعد مرة","القيمة الحقيقية في العميل المتكرر، لا في الطلب الواحد"],["المطاعم والبوفيهات والمكاتب تشتري كل شهر","أولوية لقطاع الأعمال وفاتورة التوريد الشهرية"],["المبيعات وصلت سابقًا إلى 16 ألف ريال يوميًا","الهدف واقعي ومثبت، والمطلوب استعادة عوامل نجاحه"],["تجهيزات رمضان تبدأ قبل الشهر بأسابيع","البيع يبدأ قبل الموسم لا خلاله"]]},{"h":"طلب واحد يعني عميل للأبد."},{"p":"بدل التنافس على السعر في كل صفقة، تُبنى الخطة على علاقة توريد مستمرة. كل عميل أعمال يُكسب مرة، ويطلب كل شهر."},{"h":"التموضع","p":"مصنع بلاستيكات سعودي يورّد للعميل مباشرة، بسعر المصنع."},{"h":"الجمهور حسب الأولوية","table":[["1 · المطاعم","تغليف وتوصيل وتقديم وتخزين بكميات منتظمة · أعلى تكرار شراء"],["2 · البوفيهات وجهات الإعاشة","صواني وأطقم تقديم وحافظات بالكميات · أعلى قيمة طلب في المواسم"],["3 · مكاتب العمل","تجهيز مطبخ الشركة والضيافة وإفطار الموظفين · فئة غير مخدومة"],["4 · المنازل","جودة تدوم بسعر معقول · حجم ودعم للعلامة ونقاط البيع"],["الجمعيات الخيرية","سلال إفطار صائم بالكميات · طلب موسمي كبير في رمضان"]]},{"h":"ركائز الرسائل","table":[["السعر","هامش وسيط 0٪، سعر المصنع مباشرة"],["الاستمرارية","توريد لا ينقطع من إنتاج محلي"],["السهولة","يوصلك كل شهر بدون ما تطلب"],["الجودة","آمن غذائيًا ويتحمل ضغط المطابخ التجارية"],["الانتماء","صناعة سعودية"]]},{"h":"ثلاثة قرارات استراتيجية","items":["الأعمال أولًا: نقل التركيز من المنازل إلى قطاع الأعمال، حيث تكرار الشراء أعلى وميزة المصنع أوضح.","التطبيق يطلب عنك: توريد مجدول يصل تلقائيًا، وإعادة الطلب بضغطة، وتذكير قبل نفاد المخزون، وعروض حصرية لمستخدميه.","موسم رمضان يبدأ قبل رمضان: حجز كميات الموسم مبكرًا بسعر ثابت، ثم تحويل عميل الموسم إلى عقد شهري بعد العيد."]},{"h":"رحلة العميل والقنوات","table":[["الوعي","تيك توك · سناب شات · صناع محتوى · انستقرام"],["الاهتمام","محتوى خط الإنتاج · اختبارات المتانة · لينكدإن"],["الشراء","متجر سلة · Google Ads · Google Shopping Ads · واتساب أعمال · المبيعات الميدانية"],["التكرار","التطبيق · رسائل وإشعارات مجدولة · عقود التوريد"],["التوصية","برنامج الشركاء · تجارب العملاء"]]},{"h":"حملة الانطلاق: سعودي بدون هامش توريد!","p":"منتج سعودي يصلك من المصنع مباشرة، بسعر لا يمر على أي وسيط.","table":[["التشويق","لقطات للمنتج على رفوف الماركت بسعره المميز، وعائلات تشتريه، وكلمات ثقة لأنه سعودي"],["برنامج الشركاء","فواتير شهرية للجهات؛ الموظف يطلب لشركته ويختار باقة السنة"],["الإثبات","حضور المنتج على كل سفرة، وتجارب حقيقية من جانب العملاء"],["التوسع للمنازل","خيارات متعددة وجميلة للأكواب والسُّفر"]],"banner":true,"tone":"launch"},{"h":"حملة رمضان: الجندي المجهول للإفطار","p":"ما أحد ينتبه له على السفرة.. لكن بدونه ما فيه سفرة.","table":[["قبل رمضان","حجز الكميات قبل الموسم بأسعار مميزة"],["أول الشهر","باقات إفطار الصائمين للجمعيات والجهات والعزائم"],["العشر الأواخر","باقات عزائم العيد"],["بعد العيد","تحويل الجهات إلى عملاء دائمين، وإعادة استهدافهم بالفواتير الشهرية"]],"banner":true,"tone":"ramadan"},{"h":"استراتيجيات رفع المبيعات على المتجر","table":[["اكتساب العملاء","SEO، وإعلانات قوقل و Google Shopping Ads، وإعلانات تيك توك وسناب، وصناع محتوى، واختبار مستمر للقنوات"],["معدل التحويل","دراسة رحلة العميل، وكشف نقاط التسرب، وترتيب المتجر حسب فئة العميل، وعرض واضح للمقاسات والكميات"],["قيمة السلة","باقات لكل قطاع، ومنتجات مكمّلة، وترقية الكميات، وعروض مثل 4 + 1، وتوصيل مجاني عند حد معين"],["عرض المنتج","سعر واضح في كل القنوات، وإبراز التوصيل المجاني، وباقات مبنية على فهم العميل، وتصوير ومعالجة احترافية للمنتجات"],["الطلب الشهري","تفعيل التطبيق، وتوريد مجدول، وحملات رسائل لإعادة استهداف كل شريحة حسب دورة شرائها"],["السلات المتروكة","تذكير تلقائي، وكود خصم محدود، وتواصل مباشر مع عملاء الأعمال"]]},{"h":"مراحل الخطة","timeline":[["أكتوبر – ديسمبر","الانطلاق: تجهيز المتجر والتطبيق، والتشويق، وبرنامج الشركاء"],["يناير","رمضان قبل رمضان: حجز كميات الموسم وتجهيز الباقات وإنتاج المحتوى"],["رمضان","الجندي المجهول للإفطار: ذروة الطلب في المطاعم والبوفيهات والشركات"],["بعد العيد","من الموسم إلى العقد: تحويل الطلبات الموسمية إلى توريد شهري"],["بقية السنة","مواسم مستمرة: الأضحى والولائم، والصيف والفعاليات، والعودة للمدارس، واليوم الوطني"]]},{"h":"إطار القياس","table":[["المؤشر الرئيسي","متوسط المبيعات اليومية مقابل هدف 12–16 ألف ريال"],["العملاء","عدد حسابات الأعمال الجديدة، ونسبة العملاء بفاتورة شهرية"],["التكرار","معدل إعادة الطلب، ومستخدمو التطبيق النشطون"],["المتجر","معدل التحويل، ومتوسط قيمة السلة، ونسبة السلات المستردة"],["الكفاءة","تكلفة اكتساب العميل، والعائد على الإنفاق الإعلاني"],["الحضور","ترتيب المتجر في بحث قوقل، وظهور المنتجات في Google Shopping Ads"]]},{"p":"نراجع الأداء أسبوعيًا، وكل أسبوعين نحرّك الميزانية مع القنوات الأعلى نتيجة، وبعد كل حملة نلخّص وش تحقق ووش نعدّل."},{"h":"النتائج المتوقعة","items":["مبيعات يومية من 5–6 آلاف إلى 12–16 ألف ريال.","عملاء كبار دائمون من المطاعم والبوفيهات والشركات بفاتورة توريد شهرية.","النتائج الأولى في بحث قوقل عند البحث عن أي من منتجات المتجر.","ظهور المنتجات في Google Shopping Ads بالصورة والسعر أعلى نتائج البحث.","حضور مستمر على تيك توك وسناب شات عبر صناع محتوى وإعلانات ترويجية طوال الحملات.","علامة موحدة ومميزة تعزز المبيعات الرقمية وفي نقاط البيع."]},{"h":"الأدوات","tools":["semrush","googleanalytics","googletagmanager","googlesearchconsole","googleads","meta"]},{"cta":"عندك منتج قوي ما وصل لعميله الحقيقي؟ خلنا نحوّله من صفقة.. إلى فاتورة كل شهر."}]},{"id":"p-plastic-copy","title":"نجيك وأنت بمكانك","client":"مصنع بلاستيك سعودي","year":"2026","category":"استراتيجية محتوى · كتابة إبداعية","kind":"محتوى إبداعي","kicker":"نبرة · سكربتات · رسائل","tags":["نبرة","سكربتات","رسائل","إعلانات"],"summary":"محتوى علامة واحدة يكلّم المطعم والشركة والبيت، بنفس الشخصية وبلغة تناسب كل واحد.","description":"محتوى علامة لمصنع بلاستيك سعودي يكلّم صاحب المطعم، ومسؤول المشتريات، وربة البيت، بنفس الشخصية وبلغة تناسب كل واحد منهم.","cover":"","images":[],"hue":268,"group":"content","featured":false,"spotlight":false,"study":[{"kpis":[{"v":"دليل نبرة · 3 شعارات","l":"صوت العلامة"},{"v":"6 باقات · 21 رسالة","l":"ما يتكرر ويبيع"},{"v":"فيلمان · 4 إعلانات · 13 بنر","l":"ما يظهر على الشاشة"}]},{"h":"التحدي","p":"علامة واحدة تبيع لمطعم يطلب كل شهر، ولشركة تحتاج فاتورة رسمية، ولعائلة تجهز عزيمة. لو تكلمت بلغة واحدة ستخسر أحدهم، ولو تكلمت بثلاث لغات ستخسر هويتها."},{"h":"الحل: شخصية واحدة، ومستويان من اللغة","p":"الشخصية: مورّد تعرفه من سنين. قريب، واثق، عملي، وسعودي بفخر هادئ."},{"h":"وين وكيف نتكلم","table":[["السوشال والإعلانات والرسائل","لهجة سعودية بيضاء: «طلبك الشهري؟ لا تشيل همه، نجيك.»"],["المتجر وعروض الشركات","فصحى مبسطة ودافئة: «نوفر لمنشأتكم توريدًا شهريًا بسعر ثابت.»"]]},{"h":"كلمات اخترناها بدل غيرها","table":[["سعر المصنع","بدل «أرخص»"],["نجيك","بدل «يتم الشحن»"],["هلا [الاسم]","بدل «عزيزي العميل»"]]},{"q":"كل شهر بدون لا تقول.. نجيك وأنت بمكانك"},{"h":"الشعارات","table":[["الشعار الرئيسي","كل شهر بدون لا تقول.. نجيك وأنت بمكانك"],["حملة الانطلاق","سعودي بدون هامش توريد!"],["حملة رمضان","الجندي المجهول للإفطار"]]},{"h":"أسماء تبيع","table":[["باقة الطلبات (المطاعم)","كل طلب يطلع من مطبخك مغلّف صح."],["باقة الضيافة (البوفيهات)","عزيمتك كبيرة؟ تجهيزاتنا أكبر."],["باقة الدوام (المكاتب)","عرفان معاد يطلب! لأن مصنعنا يلبي."],["باقة الأجر (الجمعيات)","جهّز إفطار الصائمين بسعر المصنع."],["باقة السنة (الجهات)","فوترها للسنة كاملة."]]},{"h":"رسائل تبني عميلًا شهريًا","p":"كتبنا رحلة رسائل كاملة تتبع العميل من أول طلب حتى يصير طلبه شهريًا، مع نسخة للأفراد ونسخة رسمية للجهات."},{"h":"رحلة الرسائل","timeline":[["الترحيب","من أول طلب"],["ما بعد الشراء","يثبّت العلاقة"],["التذكير الشهري","قبل ما ينقطع الطلب"],["إعادة التنشيط","لمن توقف وما رجع"]]},{"h":"مثال: سلسلة السلة المتروكة","table":[["بعد ساعتين","هلا [الاسم]، سلتك لسا تنتظرك. [المنتج] محجوز لك، كمّل طلبك قبل ما تخلص الكمية."],["بعد يوم","عشان ما يفوتك طلبك، هذا كود خصم لك، صالح 48 ساعة فقط."],["بعد 3 أيام","معك [اسم الموظف]. واجهتك مشكلة في الدفع؟ أو تحتاج كمية أكبر بسعر خاص؟ متواجدة لمساعدتك حتى نصل لحل يرضيك"]]},{"p":"الرسالة الثالثة تنقل العميل من نظام آلي إلى شخص حقيقي، لأن عميل الأعمال يتوقف غالبًا لسؤال، لا لعدم اهتمام."},{"banner":true,"tone":"ramadan","h":"فيلم رمضان: الجندي المجهول للإفطار","p":"60 ثانية. الساعة الأخيرة قبل الإفطار في أربعة أماكن: مطبخ مطعم في ذروته، ومتطوعون يوزعون الوجبات عند الإشارة، وسفرة موظفين في شركة، وطفل يرتب الأكواب في بيت. الكل يركض ليجهز السفرة.\n\nثم يُرفع الأذان. كل شيء يتوقف: لا موسيقى، ولا نص، ولا شعار.\n\nبعدها لقطات بطيئة لكوب يُرفع، ومنديل يُفرد، وعلبة تنفتح.","items":["المطعم: حجز مبكر قبل الزحمة.","المتطوعون: باقة الأجر لإفطار الصائمين.","المكتب: باقة الدوام لسفرة الموظفين.","البيت: عزائم العيد وتجهيز السفرة."],"q":"الجندي المجهول خلف كل سفرة."},{"banner":true,"tone":"launch","h":"فيديو الانطلاق: سعودي بدون هامش توريد!","p":"40 ثانية. نبدأ من رف الماركت حيث يعرف الناس المنتج، ونسمع عائلات وصاحب مطعم يقولون بكلامهم ليش يثقون فيه. ثم نقطع إلى خط الإنتاج، والسيارة تطلع من المصنع إلى باب البيت والمطعم.","q":"المنتج اللي تثق فيه.. صار يوصلك من المصنع مباشرة. بسعره الحقيقي."},{"banner":true,"tone":"ad","h":"إعلان قصير: خلص المخزون","p":"15 ثانية للمطاعم. يد تمد لرف فاضي، والطلبات ما وقفت. الباب ينفتح، والمندوب يدخل بالكراتين قبل ما يطلب أحد.","q":"خلص المخزون بس فاتورتك الشهرية المجدولة .. وصلت"},{"cta":"عندك علامة تبيع لأكثر من جمهور؟ نثبّت لها شخصية واحدة، ولغة تناسب كل واحد منهم."}]},{"id":"p-active","title":"حملة اليوم الوطني","client":"مركز آكتف موفمنت","year":"2026","category":"حملة سوشال","kicker":"حملة وطنية · سبتمبر 2026","tags":["حملة سوشال","اليوم الوطني","ستوري","تفاعلي"],"summary":"حملة اليوم الوطني 96 لمركز آكتف موفمنت.","description":"حملة اليوم الوطني 96 لمركز آكتف موفمنت.\nمن إعلان تشويقي لتواريخ 23 و24 سبتمبر، لستوري العرض، لسؤال تفاعلي، لمنشورات «عزنا بطبعنا» بخصم يصل 35٪ على الخدمات.","cover":"work/active/00-cover.jpg","images":[{"src":"work/active/01-teaser.jpg","label":"الإعلان التشويقي","sub":"Teaser Ad"},{"src":"work/active/02-story.jpg","label":"ستوري اليوم الوطني","sub":"National Day Story"},{"src":"work/active/03-quiz.jpg","label":"سؤال تفاعلي","sub":"Interactive Story"},{"src":"work/active/04-posts.jpg","label":"منشورات الحملة","sub":"Campaign Posts"}],"hue":152,"group":"marketing","featured":false,"spotlight":true,"kind":"خطة تسويقية"},{"id":"p-qudurati","title":"حملة القبول والتسجيل","client":"مركز قدراتي","year":"2026","category":"اتجاه بصري","kicker":"اتجاه بصري · مركز قدراتي","tags":["اتجاه بصري","حملة قبول","سوشال","إعلان رقمي","مطبوعات"],"summary":"اتجاه بصري لحملة القبول والتسجيل في قدراتي.","description":"اتجاه بصري لحملة القبول والتسجيل في مركز قدراتي لعام 2026.\nنظام لوني برتقالي وأخضر وشريط وردي يربط الصورة بالرسالة: الخبرة تفرق.\nمن مفتاح السنة وخط التسجيل، لمنشورات الرعاية والنقل، لإعلانات رقمية وبروشور مطبوع.","cover":"work/qudurati/00-cover.jpg","images":[{"src":"work/qudurati/01-year.jpg","label":"مفتاح السنة — ٢٦","sub":"Campaign Key Visual"},{"src":"work/qudurati/02-enroll.jpg","label":"للعام الجديد.. قم بتسجيلهم","sub":"Enrollment Line"},{"src":"work/qudurati/03-post-girl.jpg","label":"منشور الرعاية النهارية","sub":"Daycare Post"},{"src":"work/qudurati/04-photo-boy.jpg","label":"الاتجاه الصوري","sub":"Photography Direction"},{"src":"work/qudurati/05-access.jpg","label":"وصول أوسع وخدمة أقرب","sub":"Access Line"},{"src":"work/qudurati/06-transport.jpg","label":"النقل الآمن — منطقة القصيم","sub":"Transport Visual"},{"src":"work/qudurati/07-start.jpg","label":"إعلان رقمي — بداية العام التأهيلي","sub":"Digital Ad — Start Date"},{"src":"work/qudurati/08-hours.jpg","label":"إعلان رقمي — توقيت اليوم الدراسي","sub":"Digital Ad — School Hours"},{"src":"work/qudurati/09-brochure.jpg","label":"بروشور مطبوع — ابدأ اليوم","sub":"Printed Brochure"}],"hue":18,"group":"identity","featured":false,"spotlight":true,"kind":"اتجاه بصري"},{"id":"p-nakod","title":"يلا نكود","client":"شركة مراحل التقنية","year":"2026","category":"هوية برنامج","kicker":"برنامج مراحل التدريبي لخريف 2026","tags":["هوية برنامج","اتجاه بصري","إطلاق","تايبوغرافي"],"summary":"هوية برنامج مراحل التدريبي لخريف 2026.","description":"هوية بصرية لبرنامج مراحل التدريبي لخريف 2026 تحت اسم يلا نكود.\nلغة بكسل هندسية، بنفسجي جريء، وخط عربي يحوّل محتوى تدريبي لإعلان يتحمّسون له.\nمن الشعار للبوسترات لإعلان الإطلاق — كله نفس النظام.","cover":"work/nakod/02-wordmark.jpg","images":[{"src":"work/nakod/01-poster.jpg","label":"إعلان الإطلاق","sub":"Launch Poster"},{"src":"work/nakod/02-wordmark.jpg","label":"الشعار الأساسي","sub":"Primary Wordmark"},{"src":"work/nakod/03-posters.jpg","label":"نظام البوسترات","sub":"Poster System"},{"src":"work/nakod/04-type.jpg","label":"الخط العربي للهوية","sub":"Arabic Type for Identity"},{"src":"work/nakod/05-mark.jpg","label":"المارك الهندسي","sub":"Geometric Mark"},{"src":"work/nakod/06-mark-set.jpg","label":"تطبيقات المارك","sub":"Mark Colorways"}],"hue":270,"group":"identity","featured":false,"spotlight":true,"kind":"هوية بصرية"},{"id":"p-scope","title":"الاتجاه البصري لسكوب ميديا","client":"سكوب ميديا","year":"2026","category":"اتجاه بصري","kicker":"دليل هوية · يوليو 2026","tags":["اتجاه بصري","ألوان","خطوط","أيقونات","تطبيقات"],"summary":"اتجاه بصري كامل لسكوب ميديا — كل النظام ما عدا الشعار.","description":"اتجاه بصري لشركة سكوب ميديا. الشعار كان جاهز، والشغل على باقي النظام: الوصف التعريفي، الألوان، الخطوط عربي وإنجليزي، الأيقونات، نمط الصور، وتطبيقات الهوية من البطاقة للكرت للقرطاسية.\nالإحساس: أسود غامق، أخضر نمو، ولمسة برتقالي نارية.","cover":"work/scope/09-imagery.jpg","images":[{"src":"work/scope/01-cover.jpg","label":"غلاف الدليل","sub":"Brand Guidelines Cover"},{"src":"work/scope/03-descriptor.jpg","label":"الوصف التعريفي","sub":"Brand Descriptor"},{"src":"work/scope/04-colors.jpg","label":"ألوان الهوية","sub":"Color Palette"},{"src":"work/scope/05-font-en.jpg","label":"الخطوط — Alexandria","sub":"English Type"},{"src":"work/scope/06-font-ar-display.jpg","label":"خط العناوين — زين","sub":"Arabic Display Type"},{"src":"work/scope/07-font-ar-body.jpg","label":"خط الفقرات — كيه أو سانس","sub":"Arabic Body Type"},{"src":"work/scope/08-icons.jpg","label":"الرموز التوضيحية","sub":"Icon System"},{"src":"work/scope/09-imagery.jpg","label":"نمط الصور","sub":"Brand Imagery"},{"src":"work/scope/10-cards.jpg","label":"تطبيقات الهوية — البطاقات","sub":"Business Cards"},{"src":"work/scope/11-badge.jpg","label":"تطبيقات الهوية — كرت الموظف","sub":"ID Badge"},{"src":"work/scope/12-stationery.jpg","label":"تطبيقات الهوية — القرطاسية","sub":"Stationery"},{"src":"work/scope/13-pens.jpg","label":"تطبيقات الهوية — الأقلام","sub":"Pens"},{"src":"work/scope/14-cups.jpg","label":"تطبيقات الهوية — الأكواب","sub":"Cups"}],"hue":140,"group":"identity","featured":false,"spotlight":true,"kind":"اتجاه بصري"},{"id":"p1","title":"هوية مقهى نَوى","client":"نَوى","year":"2026","category":"هوية بصرية","summary":"هوية كاملة لمقهى مختص","description":"بناء هوية بصرية كاملة: الشعار، الألوان، التغليف، ولافتات الفرع.\nالتحدي كان هوية دافية تشتغل على كوب صغير وعلى واجهة كبيرة.","cover":"","images":[],"hue":265,"featured":false,"spotlight":false,"kind":"هوية بصرية"},{"id":"p2","title":"حملة رمضان","client":"علامة عطور","year":"2026","category":"حملة إعلانية","summary":"","description":"حملة موسمية متكاملة للسوشال والمتاجر.","cover":"","images":[],"hue":18,"featured":false,"kind":"خطة تسويقية"},{"id":"p3","title":"تطبيق فعاليات","client":"منصة حجوزات","year":"2025","category":"واجهات","summary":"","description":"تصميم تجربة حجز الفعاليات من البحث حتى الدفع.","cover":"","images":[],"hue":195,"featured":false}],"works":[{"id":"w1","title":"بوستر معرض","category":"بوستر","image":"","hue":280},{"id":"w2","title":"منشورات اليوم الوطني","category":"سوشال","image":"","hue":150},{"id":"w3","title":"غلاف كتاب","category":"طباعة","image":"","hue":30},{"id":"w4","title":"إعلان منتج","category":"إعلان","image":"","hue":220},{"id":"w5","title":"تغليف","category":"تغليف","image":"","hue":330},{"id":"w6","title":"شعار","category":"شعار","image":"","hue":250}],"services":[{"id":"s1","title":"بناء الهويات البصرية","desc":"شعار ونظام بصري متكامل يشتغل بثبات على كل نقطة تواصل.","icon":"layers"},{"id":"s2","title":"بناء الخطط والاستراتيجيات التسويقية","desc":"أبني خطط تسويقية ودراسات سوق وكي بي آيز تربط الفكرة بالنتيجة.","icon":"spark"},{"id":"s3","title":"إطلاق الحملات الترويجية","desc":"من الفكرة للإطلاق: حملات ترويج وتتبع وتحسين ظهور.","icon":"megaphone"},{"id":"s4","title":"كتابة المحتوى والنصوص الإبداعية","desc":"أكتب محتوى ونصوص إبداعية تلامس المستخدم وتفهم احتياجاته","icon":"type"},{"id":"s5","title":"بناء الواجهات وتطوير وتهيئة الأنظمة","desc":"مواقع وأنظمة سهلة، أبرمجها وأهيئها عشان تشتغل بسلاسة.","icon":"phone"}],"contacts":[{"id":"c2","type":"whatsapp","label":"واتساب","url":"https://wa.me/966580892260"},{"id":"c1","type":"email","label":"hello@example.com","url":"hello@example.com"},{"id":"c3","type":"instagram","label":"انستقرام","url":"https://instagram.com/"},{"id":"c4","type":"behance","label":"بيهانس","url":"https://behance.net/"},{"id":"c5","type":"linkedin","label":"لينكدإن","url":"https://linkedin.com/"}]}</script>
+<script type="application/json" id="pf-data" data-own>{"site":{"dir":"rtl","name":"جوكر","role":"جوكر إبداعي","hello":"متاح لمشاريع جديدة","headline":"جوكر\nومصمم كرييتف","intro":"الورقة الرابحة اللي تقلب اللعبة لصالحك، بالحملات، الاستراتيجيات وبكل الشاشات.","bio":"مبدعة .. أبني اتجاهات واستراتيجيات بصرية تجذبك وتعجبك، وتوافق توجهاتك وأهم شي .. توصل أفكارك.\n+++\nأحب أبني هويات للحملات والبراندات وأشتغل على منشورات، أعرف للمطبوعات بس نتهاوش شوي، و**أموووووووت** بالإلستريشنز والواجهات والستيكرز.\n\nومو بس أصمم أنا **جوكر** ..\n\nلي بالتسويق خصوصاً متاجر **سلة** — ذولي اشتغلت عليهم سنين. أربط البكسلز وأطلق حملات وأحسّن الظهور بمحركات البحث. أشتغل على أدوات قوقل وأدوات الترويج وسيمرش بعد.\n\nوابني خطط تسويقية وأحط كي بي آيز بس أتهاوش مع العملاء .. أحياناً **يعصبوني**.\n\nوما يحتاج أقول .. إني أكتب محتوى وأدقق نصوص. خلاص شكلي **أفتح شركة**.\n\nدقيقة ترا تخصصي حاسب و**أبرمج**   و ....... ولا أقولك دق عليّ أعلمك.","facts":["أصمم إتجاهات بصرية للبراندات والحملات وأصمم منشورات ومطبوعات والستريشنز من الصفر","أبني حملات واستراتيجيات تسويقية رهيبة بعد ما أسوي دراسات للسوق وأروج وأربط أدوات التتبع وأحسن الظهور بمحركات البحث","أكتب محتوى ونصوص إبداعية تلامس المستخدم وتفهم احتياجاته","أبرمج وأبني مواقع وأنظمة"],"location":"القصيم، بريدة","available":true,"memoji":"memoji.webp","memojiType":"image","ctaBold":"ودك نسوي","ctaScript":"شي كرييتف","ctaLine":"عندك فكرة، علامة جديدة، أو حملة قريبة؟ أرسل لي وأرجع لك خلال يوم.","ctaButton":"ابدأ مشروعك","ctaEmail":"lamaalmushyqih@gmail.com","givenName":"لمى المشيقح"},"projects":[{"id":"p-rawabet","title":"حملة الإنطلاق - يلا نسولف سوا","client":"مركز روابط التواصل التخصصي","year":"2026","category":"اتجاه بصري","kicker":"اتجاه براند + حملة يلا نسولف سوا","tags":["اتجاه بصري","براند","حملة إطلاق","سوشال","مطبوعات","أوتدور"],"summary":"اتجاه بصري كامل لحملة إطلاق المركز","description":"اتجاه بصري لبراند مركز روابط التواصل التخصصي، واتجاه بصري لحملة الانطلاق «يلا نسولف سوا».\nللبراند: الألوان، سلوقن «معًا نتواصل»، الاتجاه الصوري والجرافيكي، السوشال، الهايلايت، والمطبوعات.\nللحملة: لوك أب يلا نسولف سوا، ظهور الإطلاق، وإعلانات الشوارع.","cover":"work/rawabet/00-cover.jpg","images":[{"src":"work/rawabet/03-colors.jpg","label":"البراند — ألوان الهوية","sub":"Brand Colors"},{"src":"work/rawabet/04-slogan.jpg","label":"البراند — سلوقن معًا نتواصل","sub":"Brand Slogan"},{"src":"work/rawabet/05-photo.jpg","label":"البراند — الاتجاه الصوري","sub":"Photography Direction"},{"src":"work/rawabet/06-graphic.jpg","label":"البراند — الاتجاه الجرافيكي","sub":"Graphic Direction"},{"src":"work/rawabet/07-social.jpg","label":"البراند — ظهور السوشال","sub":"Social Media Direction"},{"src":"work/rawabet/08-highlights.jpg","label":"البراند — نظام الهايلايت","sub":"Highlight System"},{"src":"work/rawabet/09-badges.jpg","label":"البراند — كروت المطبوعات","sub":"Print — ID Badges"},{"src":"work/rawabet/10-print.jpg","label":"البراند — الفولدر والورق","sub":"Print — Folder & Letterhead"},{"src":"work/rawabet/11-campaign.jpg","label":"الحملة — لوك أب يلا نسولف سوا","sub":"Launch Lockup"},{"src":"work/rawabet/12-presence.jpg","label":"الحملة — ظهور الإطلاق","sub":"Launch Presence"},{"src":"work/rawabet/13-outdoor.jpg","label":"الحملة — إعلان الشارع العمودي","sub":"Outdoor Vertical"},{"src":"work/rawabet/14-billboard.jpg","label":"الحملة — إعلان الشارع العريض","sub":"Outdoor Billboard"}],"hue":168,"group":"marketing","featured":true,"spotlight":true,"kind":"اتجاه بصري"},{"id":"p-plastic","title":"نجيك وأنت بمكانك","client":"مصنع بلاستيك سعودي","year":"2026","category":"استراتيجية تسويق ومبيعات","kind":"خطة تسويقية","kicker":"B2B و B2C · سلة · 12 شهر","tags":["استراتيجية","حملات","سلة","B2B"],"summary":"استعادة المبيعات اليومية من 5–6 آلاف إلى 12–16 ألف ريال، وبناء شراء متكرر مع الأعمال والمنازل","description":"علامة سعودية لمنتجات البلاستيك ولوازم المنزل، لها حضور وسمعة، ومنتجات قوية بأسعار تنافسية وشحن سريع، ومتجر وتطبيق ونقاط بيع وقاعدة عملاء قائمة. وصلت مبيعاتها سابقًا إلى 16 ألف ريال يوميًا، ثم مرّت بتوقف وتستقر اليوم بين 5 و6 آلاف. الاستراتيجية تعيدها إلى مستواها السابق وأعلى: علاقة شراء متكررة مع المطاعم والبوفيهات ومكاتب العمل والمنازل، ورفع المبيعات اليومية إلى 12–16 ألف ريال.","cover":"","images":[],"hue":268,"group":"marketing","featured":false,"spotlight":true,"study":[{"kpis":[{"v":"5–6 آلاف → 12–16 ألف","l":"المبيعات اليومية المستهدفة"},{"v":"12 شهر","l":"مدى الخطة من الانطلاق لرمضان وما بعده"},{"v":"سلة · تطبيق · نقاط بيع","l":"منصات البيع القائمة"}]},{"h":"التحدي","items":["فجوة بين ما تحققه العلامة وما حققته سابقًا: المنتج والسعر والسمعة موجودة، لكن المبيعات أقل من ثلث ذروتها","بيانات غير مستغلة: طلبات وعملاء وسلات متروكة وحملات سابقة، لم تُحوَّل بعد إلى قرارات تسويقية","عملاء يشترون من غيرها: المطاعم والبوفيهات والشركات تستهلك هذه المنتجات يوميًا، وكثير منها يشتري من وسطاء","موسم قريب: رمضان على بُعد أشهر، وهو ذروة الطلب على منتجات التقديم والتغليف"]},{"h":"الأهداف","items":["رفع المبيعات اليومية من 5–6 آلاف إلى 12–16 ألف ريال","فهم أسباب ارتفاع المبيعات السابق، وبناء الخطة على عوامل النجاح ومعالجة نقاط الضعف","بناء قاعدة عملاء أعمال بفاتورة توريد شهرية","رفع أداء المتجر الإلكتروني والتطبيق كقناة البيع الأولى","تقوية الظهور الحالي في بحث قوقل وظهور المنتجات في Google Shopping Ads","استثمار موسم رمضان لاكتساب عملاء يستمرون بعده","ظهور موحد للعلامة يدعم المبيعات الرقمية ونقاط البيع"]},{"h":"البيانات أولًا","p":"لدى العلامة كنز من البيانات، فبدل افتراض الجمهور تبدأ الخطة بقراءة ما يقوله العملاء بمشترياتهم."},{"table":[["الطلبات السابقة","حجم الطلبات، ومتوسط قيمتها، وتكرار الشراء"],["العملاء السابقون","الشرائح، والأعلى قيمة، والمتكررون، ومن توقفوا عن الشراء"],["السلات المتروكة","المنتجات التي اهتم بها العميل ولم يشترها، وفرص إعادة الاستهداف"],["المنتجات الأكثر طلبًا","ما يُبنى حوله العروض والباقات، وما يجذب العميل الجديد"],["المواسم والأوقات","متى يرتفع الطلب، وأي المنتجات ترتبط بالمواسم، ومتى يكون العميل أكثر استعدادًا للشراء"]]},{"h":"ركائز بنيت عليها الخطة التسويقية","table":[["المنتجات استهلاكية، والعميل يحتاجها مرة بعد مرة","القيمة الحقيقية في العميل المتكرر، لا في الطلب الواحد"],["المطاعم والبوفيهات والمكاتب تشتري كل شهر","أولوية لقطاع الأعمال وفاتورة التوريد الشهرية"],["المبيعات وصلت سابقًا إلى 16 ألف ريال يوميًا","الهدف واقعي ومثبت، والمطلوب استعادة عوامل نجاحه"],["تجهيزات رمضان تبدأ قبل الشهر بأسابيع","البيع يبدأ قبل الموسم لا خلاله"]]},{"h":"طلب واحد يعني عميل للأبد"},{"p":"بدل التنافس على السعر في كل صفقة، تُبنى الخطة على علاقة توريد مستمرة. كل عميل أعمال يُكسب مرة، ويطلب كل شهر."},{"h":"التموضع","p":"مصنع بلاستيكات سعودي يورّد للعميل مباشرة، بسعر المصنع."},{"h":"الجمهور حسب الأولوية","table":[["1 · المطاعم","تغليف وتوصيل وتقديم وتخزين بكميات منتظمة · أعلى تكرار شراء"],["2 · البوفيهات وجهات الإعاشة","صواني وأطقم تقديم وحافظات بالكميات · أعلى قيمة طلب في المواسم"],["3 · مكاتب العمل","تجهيز مطبخ الشركة والضيافة وإفطار الموظفين · فئة غير مخدومة"],["4 · المنازل","جودة تدوم بسعر معقول · حجم ودعم للعلامة ونقاط البيع"],["الجمعيات الخيرية","سلال إفطار صائم بالكميات · طلب موسمي كبير في رمضان"]]},{"h":"ركائز الرسائل","table":[["السعر","هامش وسيط 0٪، سعر المصنع مباشرة"],["الاستمرارية","توريد لا ينقطع من إنتاج محلي"],["السهولة","يوصلك كل شهر بدون ما تطلب"],["الجودة","آمن غذائيًا ويتحمل ضغط المطابخ التجارية"],["الانتماء","صناعة سعودية"]]},{"h":"ثلاثة قرارات استراتيجية","items":["الأعمال أولًا: نقل التركيز من المنازل إلى قطاع الأعمال، حيث تكرار الشراء أعلى وميزة المصنع أوضح","التطبيق يطلب عنك: توريد مجدول يصل تلقائيًا، وإعادة الطلب بضغطة، وتذكير قبل نفاد المخزون، وعروض حصرية لمستخدميه","موسم رمضان يبدأ قبل رمضان: حجز كميات الموسم مبكرًا بسعر ثابت، ثم تحويل عميل الموسم إلى عقد شهري بعد العيد"]},{"h":"رحلة العميل والقنوات","table":[["الوعي","تيك توك · سناب شات · صناع محتوى · انستقرام"],["الاهتمام","محتوى خط الإنتاج · اختبارات المتانة · لينكدإن"],["الشراء","متجر سلة · Google Ads · Google Shopping Ads · واتساب أعمال · المبيعات الميدانية"],["التكرار","التطبيق · رسائل وإشعارات مجدولة · عقود التوريد"],["التوصية","برنامج الشركاء · تجارب العملاء"]]},{"h":"حملة الانطلاق: سعودي بدون هامش توريد!","p":"منتج سعودي يصلك من المصنع مباشرة، بسعر لا يمر على أي وسيط.","table":[["التشويق","لقطات للمنتج على رفوف الماركت بسعره المميز، وعائلات تشتريه، وكلمات ثقة لأنه سعودي"],["برنامج الشركاء","فواتير شهرية للجهات؛ الموظف يطلب لشركته ويختار باقة السنة"],["الإثبات","حضور المنتج على كل سفرة، وتجارب حقيقية من جانب العملاء"],["التوسع للمنازل","خيارات متعددة وجميلة للأكواب والسُّفر"]],"banner":true,"tone":"launch"},{"h":"حملة رمضان: الجندي المجهول للإفطار","p":"ما أحد ينتبه له على السفرة.. لكن بدونه ما فيه سفرة.","table":[["قبل رمضان","حجز الكميات قبل الموسم بأسعار مميزة"],["أول الشهر","باقات إفطار الصائمين للجمعيات والجهات والعزائم"],["العشر الأواخر","باقات عزائم العيد"],["بعد العيد","تحويل الجهات إلى عملاء دائمين، وإعادة استهدافهم بالفواتير الشهرية"]],"banner":true,"tone":"ramadan"},{"h":"استراتيجيات رفع المبيعات على المتجر","table":[["اكتساب العملاء","SEO، وإعلانات قوقل و Google Shopping Ads، وإعلانات تيك توك وسناب، وصناع محتوى، واختبار مستمر للقنوات"],["معدل التحويل","دراسة رحلة العميل، وكشف نقاط التسرب، وترتيب المتجر حسب فئة العميل، وعرض واضح للمقاسات والكميات"],["قيمة السلة","باقات لكل قطاع، ومنتجات مكمّلة، وترقية الكميات، وعروض مثل 4 + 1، وتوصيل مجاني عند حد معين"],["عرض المنتج","سعر واضح في كل القنوات، وإبراز التوصيل المجاني، وباقات مبنية على فهم العميل، وتصوير ومعالجة احترافية للمنتجات"],["الطلب الشهري","تفعيل التطبيق، وتوريد مجدول، وحملات رسائل لإعادة استهداف كل شريحة حسب دورة شرائها"],["السلات المتروكة","تذكير تلقائي، وكود خصم محدود، وتواصل مباشر مع عملاء الأعمال"]]},{"h":"مراحل الخطة","timeline":[["أكتوبر – ديسمبر","الانطلاق: تجهيز المتجر والتطبيق، والتشويق، وبرنامج الشركاء"],["يناير","رمضان قبل رمضان: حجز كميات الموسم وتجهيز الباقات وإنتاج المحتوى"],["رمضان","الجندي المجهول للإفطار: ذروة الطلب في المطاعم والبوفيهات والشركات"],["بعد العيد","من الموسم إلى العقد: تحويل الطلبات الموسمية إلى توريد شهري"],["بقية السنة","مواسم مستمرة: الأضحى والولائم، والصيف والفعاليات، والعودة للمدارس، واليوم الوطني"]]},{"h":"إطار القياس","table":[["المؤشر الرئيسي","متوسط المبيعات اليومية مقابل هدف 12–16 ألف ريال"],["العملاء","عدد حسابات الأعمال الجديدة، ونسبة العملاء بفاتورة شهرية"],["التكرار","معدل إعادة الطلب، ومستخدمو التطبيق النشطون"],["المتجر","معدل التحويل، ومتوسط قيمة السلة، ونسبة السلات المستردة"],["الكفاءة","تكلفة اكتساب العميل، والعائد على الإنفاق الإعلاني"],["الحضور","ترتيب المتجر في بحث قوقل، وظهور المنتجات في Google Shopping Ads"]]},{"p":"نراجع الأداء أسبوعيًا، وكل أسبوعين نحرّك الميزانية مع القنوات الأعلى نتيجة، وبعد كل حملة نلخّص وش تحقق ووش نعدّل."},{"h":"النتائج المتوقعة","items":["مبيعات يومية من 5–6 آلاف إلى 12–16 ألف ريال","عملاء كبار دائمون من المطاعم والبوفيهات والشركات بفاتورة توريد شهرية","النتائج الأولى في بحث قوقل عند البحث عن أي من منتجات المتجر","ظهور المنتجات في Google Shopping Ads بالصورة والسعر أعلى نتائج البحث","حضور مستمر على تيك توك وسناب شات عبر صناع محتوى وإعلانات ترويجية طوال الحملات","علامة موحدة ومميزة تعزز المبيعات الرقمية وفي نقاط البيع"]},{"h":"الأدوات","tools":["semrush","googleanalytics","googletagmanager","googlesearchconsole","googleads","meta"]},{"cta":"عندك منتج قوي ما وصل لعميله الحقيقي؟ خلنا نحوّله من صفقة.. إلى فاتورة كل شهر."}]},{"id":"p-plastic-copy","title":"نجيك وأنت بمكانك","client":"مصنع بلاستيك سعودي","year":"2026","category":"استراتيجية محتوى · كتابة إبداعية","kind":"محتوى إبداعي","kicker":"نبرة · سكربتات · رسائل","tags":["نبرة","سكربتات","رسائل","إعلانات"],"summary":"محتوى علامة واحدة يكلّم المطعم والشركة والبيت، بنفس الشخصية وبلغة تناسب كل واحد","description":"محتوى علامة لمصنع بلاستيك سعودي يكلّم صاحب المطعم، ومسؤول المشتريات، وربة البيت، بنفس الشخصية وبلغة تناسب كل واحد منهم.","cover":"","images":[],"hue":268,"group":"content","featured":false,"spotlight":false,"study":[{"kpis":[{"v":"دليل نبرة · 3 شعارات","l":"صوت العلامة"},{"v":"6 باقات · 21 رسالة","l":"ما يتكرر ويبيع"},{"v":"فيلمان · 4 إعلانات · 13 بنر","l":"ما يظهر على الشاشة"}]},{"h":"التحدي","p":"علامة واحدة تبيع لمطعم يطلب كل شهر، ولشركة تحتاج فاتورة رسمية، ولعائلة تجهز عزيمة. لو تكلمت بلغة واحدة ستخسر أحدهم، ولو تكلمت بثلاث لغات ستخسر هويتها."},{"h":"الحل: شخصية واحدة، ومستويان من اللغة","p":"الشخصية: مورّد تعرفه من سنين. قريب، واثق، عملي، وسعودي بفخر هادئ."},{"h":"وين وكيف نتكلم","table":[["السوشال والإعلانات والرسائل","لهجة سعودية بيضاء: «طلبك الشهري؟ لا تشيل همه، نجيك.»"],["المتجر وعروض الشركات","فصحى مبسطة ودافئة: «نوفر لمنشأتكم توريدًا شهريًا بسعر ثابت.»"]]},{"h":"كلمات اخترناها بدل غيرها","table":[["سعر المصنع","بدل «أرخص»"],["نجيك","بدل «يتم الشحن»"],["هلا [الاسم]","بدل «عزيزي العميل»"]]},{"q":"كل شهر بدون لا تقول.. نجيك وأنت بمكانك"},{"h":"الشعارات","table":[["الشعار الرئيسي","كل شهر بدون لا تقول.. نجيك وأنت بمكانك"],["حملة الانطلاق","سعودي بدون هامش توريد!"],["حملة رمضان","الجندي المجهول للإفطار"]]},{"h":"أسماء تبيع","table":[["باقة الطلبات (المطاعم)","كل طلب يطلع من مطبخك مغلّف صح"],["باقة الضيافة (البوفيهات)","عزيمتك كبيرة؟ تجهيزاتنا أكبر"],["باقة الدوام (المكاتب)","عرفان معاد يطلب! لأن مصنعنا يلبي"],["باقة الأجر (الجمعيات)","جهّز إفطار الصائمين بسعر المصنع"],["باقة السنة (الجهات)","فوترها للسنة كاملة"]]},{"h":"رسائل تبني عميلًا شهريًا","p":"كتبنا رحلة رسائل كاملة تتبع العميل من أول طلب حتى يصير طلبه شهريًا، مع نسخة للأفراد ونسخة رسمية للجهات."},{"h":"رحلة الرسائل","timeline":[["الترحيب","من أول طلب"],["ما بعد الشراء","يثبّت العلاقة"],["التذكير الشهري","قبل ما ينقطع الطلب"],["إعادة التنشيط","لمن توقف وما رجع"]]},{"h":"مثال: سلسلة السلة المتروكة","table":[["بعد ساعتين","هلا [الاسم]، سلتك لسا تنتظرك. [المنتج] محجوز لك، كمّل طلبك قبل ما تخلص الكمية"],["بعد يوم","عشان ما يفوتك طلبك، هذا كود خصم لك، صالح 48 ساعة فقط"],["بعد 3 أيام","معك [اسم الموظف]. واجهتك مشكلة في الدفع؟ أو تحتاج كمية أكبر بسعر خاص؟ متواجدة لمساعدتك حتى نصل لحل يرضيك"]]},{"p":"الرسالة الثالثة تنقل العميل من نظام آلي إلى شخص حقيقي، لأن عميل الأعمال يتوقف غالبًا لسؤال، لا لعدم اهتمام."},{"banner":true,"tone":"ramadan","h":"فيلم رمضان: الجندي المجهول للإفطار","p":"60 ثانية. الساعة الأخيرة قبل الإفطار في أربعة أماكن: مطبخ مطعم في ذروته، ومتطوعون يوزعون الوجبات عند الإشارة، وسفرة موظفين في شركة، وطفل يرتب الأكواب في بيت. الكل يركض ليجهز السفرة.\n\nثم يُرفع الأذان. كل شيء يتوقف: لا موسيقى، ولا نص، ولا شعار.\n\nبعدها لقطات بطيئة لكوب يُرفع، ومنديل يُفرد، وعلبة تنفتح.","items":["المطعم: حجز مبكر قبل الزحمة","المتطوعون: باقة الأجر لإفطار الصائمين","المكتب: باقة الدوام لسفرة الموظفين","البيت: عزائم العيد وتجهيز السفرة"],"q":"الجندي المجهول خلف كل سفرة"},{"banner":true,"tone":"launch","h":"فيديو الانطلاق: سعودي بدون هامش توريد!","p":"40 ثانية. نبدأ من رف الماركت حيث يعرف الناس المنتج، ونسمع عائلات وصاحب مطعم يقولون بكلامهم ليش يثقون فيه. ثم نقطع إلى خط الإنتاج، والسيارة تطلع من المصنع إلى باب البيت والمطعم.","q":"المنتج اللي تثق فيه.. صار يوصلك من المصنع مباشرة. بسعره الحقيقي"},{"banner":true,"tone":"ad","h":"إعلان قصير: خلص المخزون","p":"15 ثانية للمطاعم. يد تمد لرف فاضي، والطلبات ما وقفت. الباب ينفتح، والمندوب يدخل بالكراتين قبل ما يطلب أحد.","q":"خلص المخزون بس فاتورتك الشهرية المجدولة .. وصلت"},{"cta":"عندك علامة تبيع لأكثر من جمهور؟ نثبّت لها شخصية واحدة، ولغة تناسب كل واحد منهم."}]},{"id":"p-active","title":"حملة اليوم الوطني","client":"مركز آكتف موفمنت","year":"2026","category":"حملة سوشال","kicker":"حملة وطنية · سبتمبر 2026","tags":["حملة سوشال","اليوم الوطني","ستوري","تفاعلي"],"summary":"حملة اليوم الوطني 96 لمركز آكتف موفمنت","description":"حملة اليوم الوطني 96 لمركز آكتف موفمنت.\nمن إعلان تشويقي لتواريخ 23 و24 سبتمبر، لستوري العرض، لسؤال تفاعلي، لمنشورات «عزنا بطبعنا» بخصم يصل 35٪ على الخدمات.","cover":"work/active/00-cover.jpg","images":[{"src":"work/active/01-teaser.jpg","label":"الإعلان التشويقي","sub":"Teaser Ad"},{"src":"work/active/02-story.jpg","label":"ستوري اليوم الوطني","sub":"National Day Story"},{"src":"work/active/03-quiz.jpg","label":"سؤال تفاعلي","sub":"Interactive Story"},{"src":"work/active/04-posts.jpg","label":"منشورات الحملة","sub":"Campaign Posts"}],"hue":152,"group":"marketing","featured":false,"spotlight":true,"kind":"اتجاه بصري"},{"id":"p-qudurati","title":"حملة القبول والتسجيل","client":"مركز قدراتي","year":"2026","category":"اتجاه بصري","kicker":"اتجاه بصري · مركز قدراتي","tags":["اتجاه بصري","حملة قبول","سوشال","إعلان رقمي","مطبوعات"],"summary":"اتجاه بصري لحملة القبول والتسجيل في قدراتي","description":"اتجاه بصري لحملة القبول والتسجيل في مركز قدراتي لعام 2026.\nنظام لوني برتقالي وأخضر وشريط وردي يربط الصورة بالرسالة: الخبرة تفرق.\nمن مفتاح السنة وخط التسجيل، لمنشورات الرعاية والنقل، لإعلانات رقمية وبروشور مطبوع.","cover":"work/qudurati/00-cover.jpg","images":[{"src":"work/qudurati/01-year.jpg","label":"مفتاح السنة — ٢٦","sub":"Campaign Key Visual"},{"src":"work/qudurati/02-enroll.jpg","label":"للعام الجديد.. قم بتسجيلهم","sub":"Enrollment Line"},{"src":"work/qudurati/03-post-girl.jpg","label":"منشور الرعاية النهارية","sub":"Daycare Post"},{"src":"work/qudurati/04-photo-boy.jpg","label":"الاتجاه الصوري","sub":"Photography Direction"},{"src":"work/qudurati/05-access.jpg","label":"وصول أوسع وخدمة أقرب","sub":"Access Line"},{"src":"work/qudurati/06-transport.jpg","label":"النقل الآمن — منطقة القصيم","sub":"Transport Visual"},{"src":"work/qudurati/07-start.jpg","label":"إعلان رقمي — بداية العام التأهيلي","sub":"Digital Ad — Start Date"},{"src":"work/qudurati/08-hours.jpg","label":"إعلان رقمي — توقيت اليوم الدراسي","sub":"Digital Ad — School Hours"},{"src":"work/qudurati/09-brochure.jpg","label":"بروشور مطبوع — ابدأ اليوم","sub":"Printed Brochure"}],"hue":18,"group":"identity","featured":false,"spotlight":true,"kind":"اتجاه بصري"},{"id":"p-nakod","title":"يلا نكود","client":"شركة مراحل التقنية","year":"2026","category":"هوية برنامج","kicker":"برنامج مراحل التدريبي لخريف 2026","tags":["هوية برنامج","اتجاه بصري","إطلاق","تايبوغرافي"],"summary":"هوية برنامج مراحل التدريبي لخريف 2026","description":"هوية بصرية لبرنامج مراحل التدريبي لخريف 2026 تحت اسم يلا نكود.\nلغة بكسل هندسية، بنفسجي جريء، وخط عربي يحوّل محتوى تدريبي لإعلان يتحمّسون له.\nمن الشعار للبوسترات لإعلان الإطلاق — كله نفس النظام.","cover":"work/nakod/02-wordmark.jpg","images":[{"src":"work/nakod/01-poster.jpg","label":"إعلان الإطلاق","sub":"Launch Poster"},{"src":"work/nakod/02-wordmark.jpg","label":"الشعار الأساسي","sub":"Primary Wordmark"},{"src":"work/nakod/03-posters.jpg","label":"نظام البوسترات","sub":"Poster System"},{"src":"work/nakod/04-type.jpg","label":"الخط العربي للهوية","sub":"Arabic Type for Identity"},{"src":"work/nakod/05-mark.jpg","label":"المارك الهندسي","sub":"Geometric Mark"},{"src":"work/nakod/06-mark-set.jpg","label":"تطبيقات المارك","sub":"Mark Colorways"}],"hue":270,"group":"identity","featured":false,"spotlight":true,"kind":"هوية بصرية"},{"id":"p-scope","title":"الاتجاه البصري لسكوب ميديا","client":"سكوب ميديا","year":"2026","category":"اتجاه بصري","kicker":"دليل هوية · يوليو 2026","tags":["اتجاه بصري","ألوان","خطوط","أيقونات","تطبيقات"],"summary":"اتجاه بصري كامل لسكوب ميديا — كل النظام ما عدا الشعار","description":"اتجاه بصري لشركة سكوب ميديا. الشعار كان جاهز، والشغل على باقي النظام: الوصف التعريفي، الألوان، الخطوط عربي وإنجليزي، الأيقونات، نمط الصور، وتطبيقات الهوية من البطاقة للكرت للقرطاسية.\nالإحساس: أسود غامق، أخضر نمو، ولمسة برتقالي نارية.","cover":"work/scope/09-imagery.jpg","images":[{"src":"work/scope/01-cover.jpg","label":"غلاف الدليل","sub":"Brand Guidelines Cover"},{"src":"work/scope/03-descriptor.jpg","label":"الوصف التعريفي","sub":"Brand Descriptor"},{"src":"work/scope/04-colors.jpg","label":"ألوان الهوية","sub":"Color Palette"},{"src":"work/scope/05-font-en.jpg","label":"الخطوط — Alexandria","sub":"English Type"},{"src":"work/scope/06-font-ar-display.jpg","label":"خط العناوين — زين","sub":"Arabic Display Type"},{"src":"work/scope/07-font-ar-body.jpg","label":"خط الفقرات — كيه أو سانس","sub":"Arabic Body Type"},{"src":"work/scope/08-icons.jpg","label":"الرموز التوضيحية","sub":"Icon System"},{"src":"work/scope/09-imagery.jpg","label":"نمط الصور","sub":"Brand Imagery"},{"src":"work/scope/10-cards.jpg","label":"تطبيقات الهوية — البطاقات","sub":"Business Cards"},{"src":"work/scope/11-badge.jpg","label":"تطبيقات الهوية — كرت الموظف","sub":"ID Badge"},{"src":"work/scope/12-stationery.jpg","label":"تطبيقات الهوية — القرطاسية","sub":"Stationery"},{"src":"work/scope/13-pens.jpg","label":"تطبيقات الهوية — الأقلام","sub":"Pens"},{"src":"work/scope/14-cups.jpg","label":"تطبيقات الهوية — الأكواب","sub":"Cups"}],"hue":140,"group":"identity","featured":false,"spotlight":true,"kind":"اتجاه بصري"}],"works":[],"services":[{"id":"s1","title":"بناء الهويات البصرية","desc":"شعار ونظام بصري متكامل يشتغل بثبات على كل نقطة تواصل.","icon":"layers"},{"id":"s2","title":"بناء الخطط والاستراتيجيات التسويقية","desc":"أبني خطط تسويقية ودراسات سوق وكي بي آيز تربط الفكرة بالنتيجة.","icon":"spark"},{"id":"s3","title":"إطلاق الحملات الترويجية","desc":"من الفكرة للإطلاق: حملات ترويج وتتبع وتحسين ظهور.","icon":"megaphone"},{"id":"s4","title":"كتابة المحتوى والنصوص الإبداعية","desc":"أكتب محتوى ونصوص إبداعية تلامس المستخدم وتفهم احتياجاته.","icon":"type"},{"id":"s5","title":"بناء الواجهات وتطوير وتهيئة الأنظمة","desc":"مواقع وأنظمة سهلة، أبرمجها وأهيئها عشان تشتغل بسلاسة.","icon":"phone"}],"contacts":[{"id":"c2","type":"whatsapp","label":"واتساب","url":"https://wa.me/966590187528"},{"id":"c1","type":"email","label":"lamaalmushyqih@gmail.com","url":"lamaalmushyqih@gmail.com"},{"id":"c3","type":"instagram","label":"انستقرام","url":"https://instagram.com/inspirelama"},{"id":"c5","type":"linkedin","label":"لينكدإن","url":"https://www.linkedin.com/in/lama-almushyqih"}]}</script>
+
+<!-- عدّل البيانات هنا: حملات شاشة الجوال والنوافذ اللي حولها. -->
+<script type="application/json" id="showcase-data">
+{
+  "campaigns": [
+    {
+      "id": "rawabet",
+      "name": "يلا نسولف سوا",
+      "period": "مركز روابط التواصل",
+      "stats": [
+        {"label": "الوصول", "value": 128400, "delta": 18},
+        {"label": "المشاركات", "value": 2400, "delta": 32},
+        {"label": "الحفظ", "value": 860, "delta": 12},
+        {"label": "متابعين جدد", "value": 410, "delta": 9}
+      ],
+      "series": [8, 12, 11, 18, 24, 22, 36, 52, 61, 74, 86, 98],
+      "dropAt": 6,
+      "top": {"label": "إعلان الشارع", "metric": "الوصول", "value": 64000, "image": ""}
+    },
+    {
+      "id": "najik",
+      "name": "نجيك وأنت بمكانك",
+      "period": "محتوى الحملة",
+      "stats": [
+        {"label": "الوصول", "value": 86400, "delta": 24},
+        {"label": "المشاركات", "value": 1800, "delta": 15},
+        {"label": "الحفظ", "value": 540, "delta": 8},
+        {"label": "متابعين جدد", "value": 260, "delta": 11}
+      ],
+      "series": [14, 16, 20, 19, 28, 36, 44, 52, 63, 71, 84, 96],
+      "dropAt": 4,
+      "top": {"label": "فيلم رمضان", "metric": "المشاركات", "value": 920, "image": ""}
+    }
+  ],
+  "testimonials": [
+    {"text": "معًا نتواصل، على الشاشة وعلى الشارع", "name": "مركز روابط", "role": "يلا نسولف سوا", "org": "", "image": "", "campaignId": "rawabet", "back": true},
+    {"text": "الجندي المجهول خلف كل سفرة", "name": "حملة رمضان", "role": "محتوى الفيلم", "org": "", "image": "", "campaignId": "najik", "back": true},
+    {"text": "كل شهر بدون لا تقول.. نجيك", "name": "مصنع البلاستيك", "role": "شعار الحملة", "org": "", "image": "", "campaignId": "najik"},
+    {"text": "الهوية تتكلم قبل ما نشرح الحملة", "name": "روابط التواصل", "role": "اتجاه بصري", "org": "", "image": "", "campaignId": "rawabet"}
+  ]
+}
+</script>
 
 <script data-own>
 (function(){
@@ -933,6 +1004,8 @@ const setHTML=(el,html)=>{if(el&&el.__h!==html){el.__h=html;el.innerHTML=html;}}
 
 let S;
 try{S=JSON.parse(DATA_EL.textContent);}catch(e){S={};}
+let SHOW={campaigns:[],testimonials:[]};
+try{SHOW=JSON.parse(document.getElementById('showcase-data').textContent)||SHOW;}catch(e){}
 /* البيانات المنشورة قد تكون ناقصة، فنكمّلها عشان ما تطيح الصفحة كلها */
 (function normalize(){
   if(!S||typeof S!=='object') S={};
@@ -965,8 +1038,8 @@ try{S=JSON.parse(DATA_EL.textContent);}catch(e){S={};}
 })();
 
 const T={
- ar:{about:'عنّي',work:'أعمالي',stickers:'ستيكرز',stickersH:'فضاء الستيكرز',stickersFrom:'اسحب وافلت الملصقات',stickersLead:'ستيكرز الستريشنز · عملت عليها من الصفر',stickersSpace:'فضاء الستيكرز',stickersHint:'اسحب وافلت',services:'خدماتي',contact:'تواصل',seeWork:'شوف أعمالي',talk:'تواصل معي',aboutH:'عنّي',featured:'أحدث مشروع',workH:'أعمالي',projects:'مشاريع',shots:'أعمال منفصلة',tabFeatured:'أبرز الأعمال',tabIdentity:'هويات وتصاميم وإتجاهات بصرية',tabMarketing:'خطط وحملات واستراتيجيات تسويقية',tabContent:'محتوى ونصوص إبداعية',viewWork:'شاهد العمل',servicesH:'وش أقدر أسوي لك',viewing:'يعرض الآن',client:'العميل',browse:'استعرض',next:'التالي',count:'مشاريع منشورة',dash:'لوحة التحكم',empty:'ما فيه شي هنا بعد',rights:'جميع الحقوق محفوظة',ping:'دق عليّ',moreStory:'تبي اشرح لك وشلون يعني؟',moreShort:'اشرح لك',moreSure:'متأكد ما تبي اشرح لك؟',lessStory:'زبط، فهمت'},
- en:{about:'About',work:'Work',stickers:'Stickers',stickersH:'Sticker space',stickersFrom:'Drag and drop the stickers',stickersLead:'Illustration stickers · drawn from scratch',stickersSpace:'Sticker space',stickersHint:'Drag and drop',services:'Services',contact:'Contact',seeWork:'See my work',talk:'Get in touch',aboutH:'About',featured:'Latest project',workH:'Selected work',projects:'Projects',shots:'Single works',tabFeatured:'Featured work',tabIdentity:'Identities, design & visual direction',tabMarketing:'Plans, campaigns & marketing strategy',tabContent:'Creative content & copy',viewWork:'Watch work',servicesH:'What I can do for you',viewing:'Now showing',client:'Client',browse:'Browse',next:'Next',count:'published projects',dash:'Dashboard',empty:'Nothing here yet',rights:'All rights reserved',ping:'Ping me',moreStory:'Want me to unpack that?',moreShort:'Let me explain',moreSure:'Sure you don’t want the story?',lessStory:'Got it, fold it'}
+ ar:{about:'عنّي',work:'أعمالي',stickers:'ستيكرز',stickersH:'بريك خفيف : ستيكرات لعملاءي',stickersFrom:'اسحب وافلت الملصقات',stickersLead:'ستيكرز الستريشنز صممتها من الصفر',stickersSpace:'بريك خفيف : ستيكرات لعملاءي',stickersHint:'اسحب وافلت',services:'خدماتي',contact:'تواصل',seeWork:'شوف أعمالي',talk:'تواصل معي',aboutH:'عنّي',featured:'أحدث مشروع',workH:'أعمالي ومشاريع لعبتها صح',projects:'مشاريع',shots:'أعمال منفصلة',tabFeatured:'أبرز الأعمال',tabIdentity:'هويات وتصاميم وإتجاهات بصرية',tabMarketing:'خطط وحملات واستراتيجيات تسويقية',tabContent:'محتوى ونصوص إبداعية',viewWork:'شاهد العمل',servicesH:'ميداني وملعبي : حلول أساعدك فيها',viewing:'يعرض الآن',client:'العميل',browse:'استعرض',next:'التالي',count:'مشاريع منشورة',dash:'لوحة التحكم',empty:'ما فيه شي هنا بعد',rights:'جميع الحقوق محفوظة',ping:'دق عليّ',moreStory:'تبي اشرح لك وشلون يعني؟',moreShort:'اشرح لك',moreSure:'متأكد ما تبي اشرح لك؟',lessStory:'زبط، فهمت'},
+ en:{about:'About',work:'Work',stickers:'Stickers',stickersH:'Sticker space',stickersFrom:'Drag and drop the stickers',stickersLead:'Illustration stickers designed from scratch',stickersSpace:'Sticker space',stickersHint:'Drag and drop',services:'Services',contact:'Contact',seeWork:'See my work',talk:'Get in touch',aboutH:'About',featured:'Latest project',workH:'Selected work',projects:'Projects',shots:'Single works',tabFeatured:'Featured work',tabIdentity:'Identities, design & visual direction',tabMarketing:'Plans, campaigns & marketing strategy',tabContent:'Creative content & copy',viewWork:'Watch work',servicesH:'What I can do for you',viewing:'Now showing',client:'Client',browse:'Browse',next:'Next',count:'published projects',dash:'Dashboard',empty:'Nothing here yet',rights:'All rights reserved',ping:'Ping me',moreStory:'Want me to unpack that?',moreShort:'Let me explain',moreSure:'Sure you don’t want the story?',lessStory:'Got it, fold it'}
 };
 const t=k=>(T[S.site.dir==='ltr'?'en':'ar'])[k]||k;
 
@@ -1027,9 +1100,9 @@ function typeInfo(p){
   return {k,label:(KIND[lang]||KIND.ar)[k],ic:KIND_IC[k]};
 }
 function workKind(p){return typeInfo(p).label;}
-function typeChip(p){
+function typeLine(p){
   const x=typeInfo(p);
-  return `<span class="ptype" data-type="${x.k}"><i aria-hidden="true"></i>${esc(x.label)}</span>`;
+  return `<b class="pk">${esc(x.label)}</b><span class="pd"> : </span><span class="pt">${esc(p.title)}</span>`;
 }
 function metaItems(p){
   const L=META_L[S.site.lang]||META_L.ar;
@@ -1057,31 +1130,10 @@ function raster(src,alt,extra=''){
   }
   return `<img src="${u}" ${attrs}>`;
 }
-function caseLine(p){
-  const s=p.study||[];
-  const q=s.find(b=>b.q&&!b.banner);
-  if(q&&q.q) return q.q;
-  const punch=s.find(b=>b.h&&!b.p&&!b.items&&!b.table&&!b.kpis&&!b.timeline&&!b.cta&&String(b.h).length<90);
-  if(punch) return punch.h;
-  return p.title||'';
-}
-function caseKpis(p){
-  const b=(p.study||[]).find(x=>x.kpis);
-  return (b&&b.kpis||[]).slice(0,3);
-}
-function caseCover(p){
-  const x=typeInfo(p);
-  const line=caseLine(p);
-  const kpis=caseKpis(p);
-  const kicker=p.kicker||x.label;
-  const kpisHtml=kpis.length?`<span class="ph-kpis">${kpis.map(k=>`<span class="ph-kpi"><b>${esc(k.v)}</b></span>`).join('')}</span>`:'';
-  return `<span class="ph ph-case" data-type="${x.k}" style="--h:${hue(p)}"><span class="ph-case-in"><span class="ph-kicker">${esc(kicker)}</span><span class="ph-title">${esc(line)}</span>${kpisHtml}</span></span>`;
-}
 const media=(item,key='cover')=>{
   const src=safeUrl(item[key]||item.image||item.cover);
   if(src) return raster(src,item.title);
-  if(Array.isArray(item.study)&&item.study.length) return caseCover(item);
-  return `<span class="ph" style="--h:${hue(item)}"><span>${esc(item.title)}</span></span>`;
+  return `<span class="ph" data-type="${typeKey(item)}" style="--h:${hue(item)}"><span class="ph-line">${typeLine(item)}</span></span>`;
 };
 const initial=()=>(S.site.name||'؟').trim().charAt(0);
 const avatar=()=>{const m=safeUrl(S.site.memoji); return m&&S.site.memojiType!=='video'?`<img src="${esc(m)}" alt="" decoding="async">`:esc(initial());};
@@ -1165,7 +1217,7 @@ function toolsMarquee(){
   const step=now=>{
     if(!live()){raf=0; last=0; return;}
     raf=requestAnimationFrame(step);
-    const w=measure();
+    const w=prevW||measure();
     if(!w){last=now; return;}
     if(!last){last=now; return;}
     const dt=Math.min(48, now-last); last=now;
@@ -1177,9 +1229,11 @@ function toolsMarquee(){
   const onEnter=()=>{hover=true; if(raf){cancelAnimationFrame(raf); raf=0;} last=0;};
   const onLeave=()=>{hover=false; kick();};
   const onVis=()=>document.hidden?(raf&&(cancelAnimationFrame(raf),raf=0,last=0)):kick();
+  const onResize=()=>{prevW=0; measure();};
   wrap.addEventListener('pointerenter',onEnter);
   wrap.addEventListener('pointerleave',onLeave);
   document.addEventListener('visibilitychange',onVis);
+  addEventListener('resize',onResize,{passive:true});
   const mo=new MutationObserver(kick);
   mo.observe(wrap,{attributes:true,attributeFilter:['class']});
   kick();
@@ -1189,6 +1243,7 @@ function toolsMarquee(){
     wrap.removeEventListener('pointerenter',onEnter);
     wrap.removeEventListener('pointerleave',onLeave);
     document.removeEventListener('visibilitychange',onVis);
+    removeEventListener('resize',onResize);
     mo.disconnect();
   };
 }
@@ -1203,6 +1258,9 @@ function render(){
   document.title=`${s.name} | ${s.role}`;
   const desc=$('#meta-desc'); if(desc&&s.intro) desc.setAttribute('content',s.intro);
   $$('[data-t]').forEach(el=>el.textContent=t(el.dataset.t));
+  setHTML($('#stk-lead'), S.site.dir==='ltr'
+    ? 'Illustration stickers <span class="stk-verb">designed</span> from scratch'
+    : 'ستيكرز الستريشنز <span class="stk-verb">صممتها</span> من الصفر');
   const who=(s.givenName||s.name||'').trim();
   setHTML($('#nav-name'),`<span class="nav-brand">بورتفوليو إبداعي</span>${who?`<span class="sep">|</span>${esc(who)}`:''}`);
   setHTML($('#h-headline'),String(s.headline||'').split('\n').filter(x=>x.trim()).map(l=>`<span class="line"><span>${esc(l)}</span></span>`).join(''));
@@ -1224,7 +1282,7 @@ function render(){
   renderMemoji();
   renderAbout();
   renderShowcase(); renderWork(); renderStickers(); renderServices(); renderFinale();
-  $('#foot').textContent=`© ${new Date().getFullYear()} ${s.name}. ${t('rights')}`;
+  $('#foot').textContent=`© ${new Date().getFullYear()} ${t('rights')}`;
   refreshST();
 }
 
@@ -1409,6 +1467,13 @@ function chaseMore(){
   const navB=($('.nav-in')?.getBoundingClientRect().bottom||72)+10;
   const busy=dashOpen||(typeof modalOpen==='function'&&modalOpen());
   pinSlot(btn, slot, !busy && !btn.hidden && !open, navB);
+  const head=document.querySelector('#showcase .show-head');
+  let cover=false;
+  if(head&&btn.classList.contains('stuck')&&!open){
+    const a=btn.getBoundingClientRect(), b=head.getBoundingClientRect(), pad=8;
+    cover=!(a.bottom<b.top-pad||a.top>b.bottom+pad||a.right<b.left-pad||a.left>b.right+pad);
+  }
+  btn.classList.toggle('fade-off',cover);
   spyNav();
   const key=storyKey(open,btn.classList.contains('stuck'));
   if(key!==storyK){
@@ -1441,25 +1506,173 @@ function syncAboutWa(){
   wa.hidden=!(link&&open);
   if(link){ wa.href=link; setHTML(wa,svg('chat',18)+esc(t('ping'))); }
 }
-function featured(){const ps=S.projects; return ps.find(p=>p.featured)||ps[0];}
+function spreadLine(n){
+  n=Math.max(0,n|0);
+  if(n===1) return 'مشروع واحد انتشر';
+  if(n===2) return 'مشروعين انتشروا';
+  if(n>=3&&n<=10) return n+' مشاريع انتشرت';
+  return n+' مشروع انتشر';
+}
+function fmtFull(n){return Math.round(Number(n)||0).toLocaleString('en-US');}
+function fmtShort(n){
+  const v=Math.abs(Number(n)||0);
+  if(v>=1000000) return (v/1000000).toFixed(1).replace(/\.0$/,'')+' مليون';
+  if(v>=1000) return (v/1000).toFixed(1).replace(/\.0$/,'')+' ألف';
+  return String(Math.round(v));
+}
+function chartSvg(c){
+  const s=Array.isArray(c.series)?c.series.map(Number).filter(v=>!Number.isNaN(v)):[];
+  if(s.length<2) return '';
+  const w=240,h=64,pad=8;
+  const max=Math.max(...s), min=Math.min(...s);
+  const span=Math.max(1,max-min);
+  const pts=s.map((v,i)=>{
+    const x=w-pad-(i/(s.length-1))*(w-pad*2);
+    const y=h-pad-((v-min)/span)*(h-pad*2);
+    return [x,y];
+  });
+  const line=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
+  const area=line+` L${pts.at(-1)[0].toFixed(1)} ${h} L${pts[0][0].toFixed(1)} ${h} Z`;
+  const di=Math.max(0,Math.min(s.length-1,c.dropAt|0));
+  const m=pts[di];
+  const gid='cg'+di+s.length+(c.id||'').replace(/[^\w-]/g,'');
+  const label=s.at(-1)>=s[0]?'رسم بياني صاعد خلال الفترة':'رسم بياني خلال الفترة';
+  return `<div class="ins-chart"><svg viewBox="0 0 ${w} ${h}" role="img" aria-label="${esc(label)}"><defs><linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B9A6FF" stop-opacity=".45"/><stop offset="1" stop-color="#B9A6FF" stop-opacity="0"/></linearGradient></defs><path d="${area}" fill="url(#${gid})"></path><path class="ins-line" d="${line}" fill="none" stroke="#C7B4FF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="${m[0].toFixed(1)}" cy="${m[1].toFixed(1)}" r="3.4" fill="#fff" stroke="#6D4AFF" stroke-width="2"></circle></svg><span class="ins-drop" style="left:${(m[0]/w*100).toFixed(1)}%">هنا نزل المنشور</span></div>`;
+}
+function insightSlide(c){
+  const tag=c.placeholder?'<span class="demo-tag">بيانات تجريبية</span>':'';
+  const stats=(c.stats||[]).map(st=>{
+    const val=Number(st.value)||0, d=Number(st.delta)||0;
+    return `<div class="ins-stat"><span class="sr">${esc(st.label||'')}: ${esc(fmtFull(val))}، نمو ${d}%</span><small aria-hidden="true">${esc(st.label||'')}</small><b aria-hidden="true" data-n="${val}">0</b><span class="ins-up" aria-hidden="true">${d>=0?'▲ +':'▼ '}${d}%</span></div>`;
+  }).join('');
+  const top=c.top||{};
+  const img=safeUrl(top.image);
+  const thumb=img?`<img src="${esc(img)}" alt="" loading="lazy" decoding="async">`:svg('layers',16);
+  const tv=Number(top.value)||0;
+  return `<article class="ins-slide" data-id="${esc(c.id||'')}" aria-label="${esc(c.name||'حملة')}">${tag}<div class="ins-name">${esc(c.name||'')}</div><div class="ins-period">${esc(c.period||'')}</div><div class="ins-grid">${stats}</div>${chartSvg(c)}<div class="ins-top"><span class="sr">${esc(top.metric||'')} ${esc(fmtFull(tv))}</span><span class="ins-thumb" aria-hidden="true">${thumb}</span><span class="grow" aria-hidden="true"><b data-n="${tv}">0</b><span>${esc(top.metric||'')} · ${esc(top.label||'')}</span></span></div></article>`;
+}
+let insI=0, insPlayed=false;
+function playSlide(i){
+  const slide=$$('.ins-slide')[i]; if(!slide) return;
+  slide.querySelectorAll('[data-n]').forEach(el=>{
+    const to=+el.dataset.n||0;
+    if(reduce){el.textContent=fmtShort(to);return;}
+    const t0=performance.now(), dur=900;
+    const tick=now=>{
+      const p=Math.min(1,(now-t0)/dur), e=1-Math.pow(1-p,3);
+      el.textContent=fmtShort(to*e);
+      if(p<1) requestAnimationFrame(tick); else el.textContent=fmtShort(to);
+    };
+    requestAnimationFrame(tick);
+  });
+  const path=slide.querySelector('.ins-line');
+  if(!path) return;
+  let len=400;
+  try{len=path.getTotalLength()||400;}catch(e){}
+  path.style.strokeDasharray=String(len);
+  path.style.transition='none';
+  path.style.strokeDashoffset=reduce?'0':String(len);
+  if(!reduce){
+    path.getBoundingClientRect();
+    path.style.transition='stroke-dashoffset 1.25s ease';
+    path.style.strokeDashoffset='0';
+  }
+}
+function goIns(i){
+  const camps=SHOW.campaigns||[]; if(!camps.length) return;
+  const prev=insI;
+  insI=((i%camps.length)+camps.length)%camps.length;
+  const track=$('#ins-track');
+  const rtl=document.documentElement.dir!=='ltr';
+  if(track){
+    track.style.transition='transform .45s cubic-bezier(.2,.8,.2,1)';
+    track.style.transform=`translate3d(${(rtl?1:-1)*insI*100}%,0,0)`;
+  }
+  $$('#ins-dots button').forEach((b,k)=>{
+    b.setAttribute('aria-current',k===insI?'true':'false');
+    b.setAttribute('aria-selected',k===insI?'true':'false');
+  });
+  const id=camps[insI].id;
+  $$('#rev-deck .fc-in').forEach(el=>el.classList.toggle('is-on',!!el.dataset.camp&&el.dataset.camp===id));
+  if(insPlayed&&insI!==prev) playSlide(insI);
+}
+function bindIns(){
+  const view=$('#ins-view'); if(!view||view.dataset.bound) return;
+  view.dataset.bound='1';
+  let sx=0,sy=0,dx=0,lock='',pid=-1;
+  view.addEventListener('pointerdown',e=>{
+    if(e.button) return;
+    sx=e.clientX; sy=e.clientY; dx=0; lock=''; pid=e.pointerId;
+    view.classList.add('is-drag');
+  });
+  view.addEventListener('pointermove',e=>{
+    if(e.pointerId!==pid||!view.classList.contains('is-drag')) return;
+    dx=e.clientX-sx; const dy=e.clientY-sy;
+    if(!lock){
+      if(Math.abs(dx)<8&&Math.abs(dy)<8) return;
+      lock=Math.abs(dx)>Math.abs(dy)?'x':'y';
+      if(lock==='y'){view.classList.remove('is-drag');return;}
+      try{view.setPointerCapture(pid);}catch(err){}
+    }
+    if(lock!=='x') return;
+    const track=$('#ins-track'); if(!track) return;
+    const rtl=document.documentElement.dir!=='ltr';
+    track.style.transition='none';
+    track.style.transform=`translate3d(calc(${(rtl?1:-1)*insI*100}% + ${dx}px),0,0)`;
+  });
+  const end=e=>{
+    if(e.pointerId!==pid) return;
+    const horizontal=lock==='x';
+    view.classList.remove('is-drag'); pid=-1;
+    const rtl=document.documentElement.dir!=='ltr';
+    if(!horizontal){goIns(insI);return;}
+    if(rtl){ if(dx>=48) goIns(insI+1); else if(dx<=-48) goIns(insI-1); else goIns(insI); }
+    else { if(dx<=-48) goIns(insI+1); else if(dx>=48) goIns(insI-1); else goIns(insI); }
+    dx=0; lock='';
+  };
+  view.addEventListener('pointerup',end);
+  view.addEventListener('pointercancel',end);
+}
 function renderShowcase(){
-  const ps=S.projects, sec=$('#showcase');
-  if(!ps.length){sec.hidden=true;return;} sec.hidden=false;
-  const f=featured(), i=ps.indexOf(f), nx=ps[(i+1)%ps.length];
-  $('#show-sub').textContent=[f.title,f.category].filter(Boolean).join(' / ');
-  setHTML($('#scr-media'),media(f));
-  $('#scr-cat').textContent=S.site.role||'';
-  $('#scr-title').textContent=S.site.name;
-  setHTML($('#scr-av'),avatar()); setHTML($('#fc-av'),avatar());
-  $('#scr-name').textContent=S.site.name; $('#fc-name').textContent=S.site.name;
-  setHTML($('#scr-wave'),svg('wave',16)); setHTML($('#fc-wave'),svg('wave',20));
-  $('#scr-client').textContent=f.client||''; $('#scr-year').textContent=f.year||'';
-  $('#fc-count').textContent=`${ps.length} ${t('count')}`;
-  setHTML($('#fc-count-ic'),svg('grid',15));
-  setHTML($('#fc-next-thumb'),media(nx));
-  $('#fc-next-title').textContent=nx.title;
-  $('#fc1').onclick=()=>openProject(f.id);
-  $('#fc3').onclick=()=>openProject(nx.id);
+  const sec=$('#showcase'); if(sec) sec.hidden=false;
+  setHTML($('#show-title'),'محتوى <span class="en-hot">Viral</span>');
+  const sub=$('#show-sub'); if(sub) sub.textContent='ما أنشر زيادة عدد.. أبني محتوى ممتع ويبيع ويجيب نتايج';
+  const close=$('#show-close'); if(close) close.textContent='أساعدك بفكرة تنتشر؟';
+  const cta=$('#show-cta'); if(cta){cta.textContent='خلنا نسولف'; cta.setAttribute('href','#contact');}
+  const n=(S.projects||[]).length;
+  const count=$('#fc-count'); if(count) count.textContent=spreadLine(n);
+  setHTML($('#fc-count-ic'),svg('layers',22));
+  const camps=Array.isArray(SHOW.campaigns)?SHOW.campaigns:[];
+  const view=$('#ins-view');
+  if(view) setHTML(view,`<div class="ins-track" id="ins-track">${camps.map(insightSlide).join('')}</div>`);
+  const dots=$('#ins-dots');
+  if(dots){
+    dots.hidden=camps.length<2;
+    setHTML(dots,camps.map((c,i)=>`<button type="button" role="tab" aria-label="${esc(c.name||'حملة '+(i+1))}"></button>`).join(''));
+    dots.onclick=e=>{const b=e.target.closest('button'); if(!b) return; goIns([...dots.children].indexOf(b));};
+  }
+  const deck=$('#rev-deck');
+  if(deck){
+    const list=(SHOW.testimonials||[]).slice(0,4);
+    setHTML(deck,list.map((t,i)=>{
+      const who=[t.name,t.role,t.org].filter(Boolean).join(' · ');
+      const pic=safeUrl(t.image);
+      const av=pic?`<span class="av"><img src="${esc(pic)}" alt="" loading="lazy" decoding="async"></span>`:'';
+      const tag=t.placeholder?'<span class="demo-tag">بيانات تجريبية</span>':'';
+      return `<div class="fc fc-rev r${i+1}${t.back?' back':''}"><div class="fc-in rev" data-camp="${esc(t.campaignId||'')}">${av}<span class="rev-mark" aria-hidden="true">”</span><span class="grow"><span class="n">${esc(t.text||'')}</span><span class="t">${esc(who)}</span>${tag}</span></div></div>`;
+    }).join(''));
+  }
+  bindIns();
+  goIns(Math.min(insI,Math.max(0,camps.length-1)));
+  if(!insPlayed){
+    const kick=()=>{if(insPlayed) return; insPlayed=true; playSlide(insI);};
+    const host=$('#showcase');
+    if(reduce||!host) kick();
+    else if(!host.dataset.ins){
+      host.dataset.ins='1';
+      new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){kick();o.disconnect();}}),{threshold:.35}).observe(host);
+    }
+  }else playSlide(insI);
 }
 
 let workTab='featured';
@@ -1474,15 +1687,15 @@ function renderWork(){
   let html='';
   if(ps.length) html+=`<div class="pgrid">${ps.map(p=>`
       <article class="pcard" data-type="${typeKey(p)}">
-        <div class="pmedia">${media(p)}${typeChip(p)}<button class="pgo" type="button" data-open="${esc(p.id)}"><span class="pgo-ic">${svg('eye',15)}</span>${esc(t('viewWork'))}</button></div>
+        <div class="pmedia">${media(p)}<button class="pgo" type="button" data-open="${esc(p.id)}"><span class="pgo-ic">${svg('eye',15)}</span>${esc(t('viewWork'))}</button></div>
         <div class="pinfo">
-          <h3 id="pt-${esc(p.id)}">${esc(p.title)}</h3>
+          <h3 id="pt-${esc(p.id)}">${typeLine(p)}</h3>
           ${metaPills(p)}
         </div>
         <button class="hit" type="button" data-open="${esc(p.id)}" aria-labelledby="pt-${esc(p.id)}"></button>
       </article>`).join('')}</div>`;
   if(ws.length) html+=`<div class="shots"${ps.length?' style="margin-top:28px"':''}>${ws.map(w=>`
-      <figure class="shot" data-type="${typeKey(w)}">${media(w,'image')}${typeChip(w)}<button class="pgo" type="button" data-shot="${esc(w.id)}"><span class="pgo-ic">${svg('eye',15)}</span>${esc(t('viewWork'))}</button><figcaption><b id="wt-${esc(w.id)}">${esc(w.title)}</b><span>${esc(workKind(w))}</span></figcaption><button class="hit" type="button" data-shot="${esc(w.id)}" aria-labelledby="wt-${esc(w.id)}"></button></figure>`).join('')}</div>`;
+      <figure class="shot" data-type="${typeKey(w)}">${media(w,'image')}<button class="pgo" type="button" data-shot="${esc(w.id)}"><span class="pgo-ic">${svg('eye',15)}</span>${esc(t('viewWork'))}</button><figcaption><b id="wt-${esc(w.id)}">${typeLine(w)}</b></figcaption><button class="hit" type="button" data-shot="${esc(w.id)}" aria-labelledby="wt-${esc(w.id)}"></button></figure>`).join('')}</div>`;
   setHTML(body,html||`<div class="empty">${t('empty')}</div>`);
 }
 
@@ -1678,6 +1891,7 @@ document.addEventListener('visibilitychange',()=>stkGo(!document.hidden));
 function stkTick(now){
   if(!stkLive()){stk.raf=0; return;}
   stk.raf=requestAnimationFrame(stkTick);
+  if(matchMedia('(max-width:900px)').matches && (stk.skip^=1)) return;
   const t=now/1000;
   stk.bits.forEach(el=>{
     if(el===stk.drag||!el._m) return;
@@ -1720,11 +1934,30 @@ function renderStickers(){
   stkRefresh(true);
 }
 
+function serviceTab(s){
+  const t=`${s.title||''} ${s.desc||''}`;
+  if(/محتوى|نصوص/.test(t)) return 'content';
+  if(/حمل|ترويج|خطط|استراتيج/.test(t)) return 'marketing';
+  if(/هوي|اتجاه/.test(t)) return 'identity';
+  return 'featured';
+}
+function revealWorkTab(tab){
+  const btn=document.querySelector(`.tabs [data-tab="${tab}"]`);
+  const sc=btn&&btn.parentElement;
+  if(!btn||!sc) return;
+  const b=btn.getBoundingClientRect(), r=sc.getBoundingClientRect();
+  if(b.left<r.left) sc.scrollLeft-=r.left-b.left+8;
+  else if(b.right>r.right) sc.scrollLeft+=b.right-r.right+8;
+}
 function renderServices(){
   $('#services').hidden=!S.services.length;
-  setHTML($('#bento'),S.services.map((s,i)=>i===0?`
-    <article class="svc big"><div class="svc-ic">${svg(s.icon,30)}</div><h3>${esc(s.title)}</h3><p>${esc(s.desc)}</p></article>`:`
-    <article class="svc"><div class="svc-ic">${svg(s.icon,22)}</div><h3>${esc(s.title)}</h3><p>${esc(s.desc)}</p><span class="deco">${svg(s.icon,120)}</span></article>`).join(''));
+  setHTML($('#bento'),S.services.map((s,i)=>{
+    const tab=serviceTab(s);
+    const body=`<div class="svc-ic">${svg(s.icon,i?22:30)}</div><h3>${esc(s.title)}</h3><p>${esc(s.desc)}</p>`;
+    return i===0
+      ? `<a class="svc big" href="#work" data-svc-tab="${tab}">${body}</a>`
+      : `<a class="svc" href="#work" data-svc-tab="${tab}">${body}<span class="deco">${svg(s.icon,120)}</span></a>`;
+  }).join(''));
 }
 
 function renderFinale(){
@@ -1820,7 +2053,7 @@ function openProject(id){
     const cap=s.label?`<figcaption class="g-cap"><span class="g-num">${n}</span><span class="g-lab"><b>${esc(s.label)}</b>${s.sub?`<span>${esc(s.sub)}</span>`:''}</span></figcaption>`:'';
     return `<figure class="g-item">${cap}${raster(src,s.label||p.title)}</figure>`;
   }).join('');
-  openModal(`<div class="m-head"><h3>${esc(p.title)}</h3><button class="x-btn" type="button" data-close aria-label="إغلاق">${svg('x',18)}</button></div><div class="m-scroll" data-lenis-prevent><div class="pmedia">${media(p)}${typeChip(p)}</div><div class="m-body">
+  openModal(`<div class="m-head"><h3>${esc(p.title)}</h3><button class="x-btn" type="button" data-close aria-label="إغلاق">${svg('x',18)}</button></div><div class="m-scroll" data-lenis-prevent><div class="pmedia">${media(p)}</div><div class="m-body">
    ${metaFacts(p)}
    ${p.description?`<p class="lede">${esc(p.description)}</p>`:''}${renderStudy(p)}${gal?`<div class="gallery">${gal}</div>`:''}</div></div>`);
 }
@@ -1863,7 +2096,9 @@ document.addEventListener('click',e=>{
   const o=e.target.closest('[data-open]'); if(o){openProject(o.dataset.open);return;}
   const sk=e.target.closest('[data-stk]'); if(sk){ if(sk.dataset.moved){ delete sk.dataset.moved; return; } openSticker(sk.dataset.stk); return; }
   const sh=e.target.closest('[data-shot]'); if(sh){openShot(sh.dataset.shot);return;}
-  const tb=e.target.closest('[data-tab]'); if(tb){workTab=tb.dataset.tab;renderWork();return;}
+  const tb=e.target.closest('[data-tab]'); if(tb){workTab=tb.dataset.tab;renderWork();revealWorkTab(workTab);return;}
+  const svc=e.target.closest('[data-svc-tab]');
+  if(svc&&svc.dataset.svcTab){workTab=svc.dataset.svcTab;renderWork();revealWorkTab(workTab);}
   const more=e.target.closest('#bio-more-btn');
   if(more){
     const open=more.getAttribute('aria-expanded')!=='true';
@@ -1884,7 +2119,7 @@ document.addEventListener('click',e=>{
     }
     return;
   }
-  const a=e.target.closest('a[href^="#"]'); if(a&&lenis){const tg=document.querySelector(a.getAttribute('href')); if(tg){e.preventDefault();lenis.scrollTo(tg,{duration:1.6});}}
+  const a=e.target.closest('a[href^="#"]'); if(a&&lenis){const tg=document.querySelector(a.getAttribute('href')); if(tg){e.preventDefault();}}
 });
 
 /* ---------------- motion ---------------- */
@@ -1936,9 +2171,9 @@ function memojiLoop(){
 }
 function motion(){
   const G=window.gsap, ST=window.ScrollTrigger;
-  if(window.Lenis&&!reduce){
+  if(window.Lenis&&!reduce&&!matchMedia('(hover:none) and (pointer:coarse)').matches){
     lenis=new window.Lenis({
-      lerp:.085,
+      lerp:.12,
       smoothWheel:true,
       prevent:node=>!!(node&&node.closest&&node.closest('[data-lenis-prevent],.m-scroll,.modal,.dash'))
     });
@@ -1946,10 +2181,11 @@ function motion(){
     let lid=0, live=false;
     const settling=()=>{
       if(!lenis||lenis.isStopped) return false;
+      if(lenis.isScrolling==='native') return false;
       if(lenis.isScrolling) return true;
       const a=lenis.animatedScroll, t=lenis.targetScroll;
-      if(typeof a==='number'&&typeof t==='number'&&Math.abs(t-a)>0.4) return true;
-      return Math.abs(lenis.velocity||0)>0.04;
+      if(typeof a==='number'&&typeof t==='number'&&Math.abs(t-a)>0.8) return true;
+      return Math.abs(lenis.velocity||0)>0.08;
     };
     const step=tm=>{
       lenis.raf(tm);
@@ -1964,7 +2200,6 @@ function motion(){
     lenis.on('virtual-scroll',kickLenis);
     addEventListener('wheel',kickLenis,{passive:true});
     addEventListener('touchmove',kickLenis,{passive:true});
-    addEventListener('scroll',kickLenis,{passive:true});
     addEventListener('click',e=>{
       const a=e.target.closest('a[href^="#"]'); if(!a||lenis.isStopped) return;
       const id=(a.getAttribute('href')||'').slice(1); if(!id||id.includes('/')) return;
@@ -1977,7 +2212,8 @@ function motion(){
   }
   memojiLoop();
   pauseOffscreen('.hero-stage,.scene,.tools,.stk-sec');
-  const onChase=()=>chaseMore();
+  let chaseRaf=0;
+  const onChase=()=>{if(chaseRaf) return; chaseRaf=requestAnimationFrame(()=>{chaseRaf=0; chaseMore();});};
   if(lenis) lenis.on('scroll',onChase);
   addEventListener('scroll',onChase,{passive:true});
   addEventListener('resize',onChase,{passive:true});
@@ -1992,10 +2228,11 @@ function motion(){
       .from('.ring',{opacity:0,duration:1.1},.35);
     G.fromTo(['.chip-a','.chip-b','#chip-name'],{rotateY:0},{rotateY:-90,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1.2}});
     G.fromTo('#phone',{rotateX:30,rotateY:-38,rotateZ:-16,y:90},{rotateX:10,rotateY:-14,rotateZ:-6,y:-30,ease:'none',scrollTrigger:{trigger:'#showcase',start:'top bottom',end:'bottom top',scrub:1.2}});
-    [['.fc-1',-140],['.fc-2',-60],['.fc-3',-200]].forEach(([s,y])=>G.fromTo(s,{y:y*-.5},{y,ease:'none',scrollTrigger:{trigger:'#showcase',start:'top bottom',end:'bottom top',scrub:1.4}}));
-    G.from('#showcase .fc-in',{opacity:0,scale:.8,stagger:.15,duration:1.2,ease:'expo.out',scrollTrigger:{trigger:'#scene',start:'top 75%'}});
+    [['.fc-2',-28],['.fc-rev.r1',-36],['.fc-rev.r2',-22],['.fc-rev.r3',-30],['.fc-rev.r4',-18]].forEach(([s,y])=>G.fromTo(s,{y:y*-.5},{y,ease:'none',scrollTrigger:{trigger:'#showcase',start:'top bottom',end:'bottom top',scrub:1.4}}));
+    G.from('#showcase .fc-in',{opacity:0,scale:.8,stagger:.12,duration:1.1,ease:'expo.out',scrollTrigger:{trigger:'#showcase',start:'top 75%'}});
     /* الصور المتأخرة تغيّر طول الصفحة، فلازم نعيد قياس نقاط التمرير */
     addEventListener('load',()=>ST.refresh(),{once:true});
+    if(!lenis) addEventListener('scroll',()=>ST.update(),{passive:true});
   }
   const fin=$('#contact');
   if(reduce){fin.classList.add('write');}
