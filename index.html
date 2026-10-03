@@ -425,10 +425,9 @@ h2{font-size:clamp(34px,4.6vw,60px);line-height:1.08;font-weight:700}
 .stk-head .lead{margin:0;max-width:46ch}
 .stk-kicker{display:inline-flex;align-items:center;gap:8px;color:var(--lilac);font-size:13px;font-weight:700;letter-spacing:.04em}
 .stk-kicker i{width:7px;height:7px;border-radius:50%;background:var(--lilac);box-shadow:0 0 0 4px rgba(185,166,255,.16)}
-.stk-head h2{position:relative;font-size:clamp(40px,6.2vw,76px);font-weight:800;line-height:1.12;letter-spacing:-.03em;padding-bottom:.28em;color:transparent;-webkit-text-fill-color:transparent;-webkit-background-clip:text;background-clip:text;background-image:linear-gradient(270deg,#FFFFFF 0%,#F4F0FF 28%,#D8CAFF 58%,#FFC2D6 100%);filter:drop-shadow(0 10px 28px rgba(109,74,255,.28));transform:rotate(-1.1deg);transform-origin:right center}
+.stk-head h2{position:relative;font-size:clamp(40px,6.2vw,76px);font-weight:800;line-height:1.12;letter-spacing:-.03em;color:transparent;-webkit-text-fill-color:transparent;-webkit-background-clip:text;background-clip:text;background-image:linear-gradient(270deg,#FFFFFF 0%,#F4F0FF 28%,#D8CAFF 58%,#FFC2D6 100%);filter:drop-shadow(0 10px 28px rgba(109,74,255,.28));transform:rotate(-1.1deg);transform-origin:right center}
 [dir=ltr] .stk-head h2{background-image:linear-gradient(90deg,#FFFFFF 0%,#F4F0FF 28%,#D8CAFF 58%,#FFC2D6 100%);transform-origin:left center}
-.stk-head h2::after{content:"";position:absolute;inset-inline-start:0;bottom:.08em;width:4.6em;height:9px;border-radius:99px;background:linear-gradient(90deg,var(--lilac),#C07BFF 55%,var(--rose));transform:rotate(-2.4deg);box-shadow:0 8px 22px -8px rgba(109,74,255,.8);opacity:.95}
-.stk-space{position:relative;border-radius:28px;border:1px solid var(--line);background:rgba(18,16,28,.72);overflow:hidden;min-height:min(760px,78vh);height:min(760px,78vh);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 30px 80px -40px rgba(109,74,255,.4)}
+.stk-space{position:relative;border-radius:28px;border:1px solid var(--line);background:rgba(18,16,28,.72);overflow:hidden;min-height:720px;height:720px;box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 30px 80px -40px rgba(109,74,255,.4)}
 .stk-chrome{position:absolute;inset:14px 14px auto;z-index:6;display:flex;align-items:center;gap:10px;pointer-events:none}
 .stk-chrome b{font-size:13px;font-weight:750;letter-spacing:.02em}
 .stk-chrome small{margin-inline-start:auto;color:var(--muted);font-size:12px;font-weight:550}
@@ -454,7 +453,7 @@ h2{font-size:clamp(34px,4.6vw,60px);line-height:1.08;font-weight:700}
 .anim-off .stk-face{animation-play-state:paused}
 @keyframes stk-breathe{0%,100%{transform:rotate(var(--r,0deg)) scale(1)}50%{transform:rotate(var(--r,0deg)) scale(1.045)}}
 @media (max-width:900px){
-  .stk-space{border-radius:20px;min-height:min(620px,74vh);height:min(620px,74vh)}
+  .stk-space{border-radius:20px;min-height:560px}
   .stk-grid{background-size:36px 36px,36px 36px,auto,auto}
   .stk-chrome{inset:10px 10px auto}
   .stk-chrome small{display:none}
@@ -1293,7 +1292,10 @@ function renderWork(){
   setHTML(body,html||`<div class="empty">${t('empty')}</div>`);
 }
 
-const STK_FALLBACK=Array.from({length:41},(_,i)=>`stickers/sticker1-${String(i+1).padStart(2,'0')}.png`);
+const STK_FALLBACK=[
+  ...Array.from({length:41},(_,i)=>`stickers/sticker1-${String(i+1).padStart(2,'0')}.png`),
+  ...Array.from({length:37},(_,i)=>`stickers/sticker2-${String(i+1).padStart(2,'0')}.png`)
+];
 const STK_IMG=/\.(png|jpe?g|webp|gif|svg)$/i;
 let STK=STK_FALLBACK.slice();
 const stk={z:2,raf:0,ro:null,drag:null,bits:[],on:true,poll:0,load:0};
@@ -1358,8 +1360,8 @@ function stkMotion(el,hx,hy,size){
     sx:stkRand(.28,.48),
     sy:stkRand(.22,.4),
     sr:stkRand(.18,.32),
-    ax:stkRand(18,32),
-    ay:stkRand(14,26),
+    ax:stkRand(8,14),
+    ay:stkRand(6,12),
     rr:stkRand(3.5,6.5)
   };
   el.style.setProperty('--s',size+'px');
@@ -1367,20 +1369,34 @@ function stkMotion(el,hx,hy,size){
   el.style.left=hx+'px';
   el.style.top=hy+'px';
 }
-function stkLayout(grid){
-  const w=grid.clientWidth, h=grid.clientHeight, n=STK.length;
+function stkFit(){
+  const space=$('.stk-space');
   const mobile=matchMedia('(max-width:900px)').matches;
-  const cols=mobile?5:7;
+  const n=Math.max(1,STK.length);
+  const cols=mobile?5:8;
   const rows=Math.ceil(n/cols);
-  const padX=mobile?18:28, padY=mobile?44:52;
-  const cw=(w-padX*2)/cols, ch=(h-padY-16)/rows;
-  const sizeMin=mobile?74:88, sizeMax=mobile?90:108;
+  const sizeMax=mobile?86:98;
+  const gap=mobile?22:28;
+  const padTop=mobile?52:60;
+  const padBot=26;
+  const h=padTop+padBot+rows*(sizeMax+gap);
+  if(space) space.style.height=h+'px';
+  return {mobile,cols,rows,sizeMax,padTop,padBot,gap};
+}
+function stkLayout(grid){
+  const fit=stkFit();
+  const w=grid.clientWidth, h=grid.clientHeight, n=STK.length;
+  const {mobile,cols,padTop,padBot}=fit;
+  const padX=mobile?16:22;
+  const rows=Math.max(1,Math.ceil(n/cols));
+  const cw=(w-padX*2)/cols, ch=(h-padTop-padBot)/rows;
+  const sizeMin=mobile?72:84, sizeMax=mobile?86:98;
   STK.forEach((src,i)=>{
     const el=stk.bits[i]; if(!el) return;
     const col=i%cols, row=Math.floor(i/cols);
-    const size=stkRand(sizeMin,sizeMax);
-    const hx=padX+col*cw+(cw-size)/2+stkRand(-10,10);
-    const hy=padY+row*ch+(ch-size)/2+stkRand(-8,8);
+    const size=Math.min(sizeMax, Math.max(sizeMin, Math.min(cw,ch)-12));
+    const hx=padX+col*cw+(cw-size)/2+stkRand(-6,6);
+    const hy=padTop+row*ch+(ch-size)/2+stkRand(-5,5);
     el.querySelector('.stk-face').style.animationDelay=(-stkRand(0,9)).toFixed(2)+'s';
     stkMotion(el,hx,hy,size);
   });
