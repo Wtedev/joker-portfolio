@@ -1443,7 +1443,7 @@ function playStoryType(){
       }
       if(gen===typeGen) refreshST();
     }
-    if(gen===typeGen){ rest.classList.remove('typing'); refreshST(); }
+    if(gen===typeGen){ rest.classList.remove('typing'); syncAboutWa(); refreshST(); }
   })();
 }
 function pinSlot(el, slot, on, navB){
@@ -1519,7 +1519,8 @@ function syncAboutWa(){
   const wa=$('#about-wa'), link=waLink();
   if(!wa) return;
   const open=$('#bio-more-btn')?.getAttribute('aria-expanded')==='true';
-  wa.hidden=!(link&&open);
+  const typing=$('#bio-more')?.classList.contains('typing');
+  wa.hidden=!(link&&open&&!typing);
   if(link){ wa.href=link; setHTML(wa,svg('chat',18)+esc(t('ping'))); }
 }
 function spreadLine(n){
@@ -2118,20 +2119,16 @@ document.addEventListener('click',e=>{
   const more=e.target.closest('#bio-more-btn');
   if(more){
     const open=more.getAttribute('aria-expanded')!=='true';
-    const wasStuck=more.classList.contains('stuck');
     setBioOpen(open);
     if(open){
-      const mobile=matchMedia('(max-width:900px)').matches;
-      if(mobile||wasStuck){
-        const el=$(mobile?'#bio-more':'#about');
-        const jump=()=>{
-          if(!el) return;
-          const pad=-(($('.nav-in')?.getBoundingClientRect().bottom||72)+12);
-          if(lenis) lenis.scrollTo(el,{offset:pad,duration:1.15});
-          else el.scrollIntoView({behavior:'smooth',block:'start'});
-        };
-        requestAnimationFrame(()=>requestAnimationFrame(jump));
-      }
+      const el=$('#bio-more')||$('#about');
+      const jump=()=>{
+        if(!el) return;
+        const pad=-(($('.nav-in')?.getBoundingClientRect().bottom||72)+12);
+        if(lenis){ lenis.scrollTo(el,{offset:pad,duration:1.15}); kickLenis(); }
+        else el.scrollIntoView({behavior:'smooth',block:'start'});
+      };
+      requestAnimationFrame(()=>requestAnimationFrame(jump));
     }
     return;
   }
