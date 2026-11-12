@@ -455,12 +455,19 @@ h2{font-size:clamp(34px,4.6vw,60px);line-height:1.08;font-weight:700}
 .pcard:first-child{grid-column:1/-1}
 .pmedia{position:relative;aspect-ratio:16/10;border-radius:28px;overflow:hidden}
 .pcard:first-child .pmedia{aspect-ratio:21/9}
-.pmedia img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
+.pmedia img{width:100%;height:100%;object-fit:cover;transform:scale(1.02);transform-origin:center;transition:transform 1.35s cubic-bezier(.2,.8,.2,1);will-change:transform}
 .pmedia picture,.screen-media picture,.shot picture,.gallery picture,.thumb picture{display:block;width:100%;height:100%}
 .pmedia::after{content:"";position:absolute;inset:auto 0 0;height:46%;background:linear-gradient(to top,rgba(8,7,12,.62),transparent);pointer-events:none;opacity:.9;transition:opacity .45s}
 .pmedia:has(.ph)::after{display:none}
-.pcard:hover .pmedia img{transform:scale(1.04)}
+.pcard:hover .pmedia img{transform:scale(1.12) translate3d(-2.4%,1.6%,0)}
+.pcard:nth-child(2n):hover .pmedia img{transform:scale(1.12) translate3d(2.4%,-1.4%,0)}
+.pcard:nth-child(3n):hover .pmedia img{transform:scale(1.12) translate3d(-1.2%,-2.2%,0)}
 .pcard:hover .pmedia::after{opacity:1}
+.gallery .g-item picture{overflow:hidden;border-radius:22px}
+.gallery.posts-3 .g-item picture{border-radius:18px}
+.gallery .g-item img{transition:transform 1.2s cubic-bezier(.2,.8,.2,1);transform:scale(1.01);will-change:transform}
+.gallery .g-item:hover img{transform:scale(1.08) translate3d(-1.5%,1%,0)}
+.gallery .g-item:nth-child(2n):hover img{transform:scale(1.08) translate3d(1.5%,-1%,0)}
 .pinfo{display:flex;flex-direction:column;align-items:flex-start;gap:0;padding:16px 10px 12px}
 .pinfo h3{font-size:22px;font-weight:700;line-height:1.4}
 .pinfo h3 .pk{color:var(--lilac)}
@@ -770,6 +777,7 @@ footer{padding:40px 0 calc(30px + env(safe-area-inset-bottom,0px));color:var(--f
   .dash-body{padding:16px}
 }
 @media (prefers-reduced-motion:reduce){
+  .pcard:hover .pmedia img,.gallery .g-item:hover img{transform:none}
   *,*::before,*::after{animation:none!important;transition:none!important}
   .cta-script text{fill-opacity:1;stroke-dashoffset:0}
   .cta-bold .cb{clip-path:none;transform:none}
